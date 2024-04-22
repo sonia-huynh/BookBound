@@ -1,17 +1,9 @@
 import db from './connection.ts'
-import { Fruit, FruitData } from '../../models/fruit.ts'
+import { Books } from '../../models/books.ts'
 
 export async function getBookByTitle(title: string) {
   const book = await db('books').select().where({ title }).first()
   return book
-}
-
-export async function addReview(title: string, review: string) {
-  const bookReview = await db('books')
-    .where({ title })
-    .select('review')
-    .update({ review: review })
-  return bookReview
 }
 
 export async function updateReview(title: string, update: string) {
@@ -28,4 +20,9 @@ export async function deleteReview(title: string) {
     .select('review')
     .update({ review: '' })
   return bookReview
+}
+
+export async function addBook(book: Books) {
+  const books = await db('books').insert({ book })
+  return books
 }

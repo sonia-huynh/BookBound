@@ -1,11 +1,12 @@
-import { Router } from 'express'
 import checkJwt, { JwtRequest } from '../auth0.ts'
 import { StatusCodes } from 'http-status-codes'
+import express from 'express'
+import request from 'superagent'
 // import 'dotenv/config'
 
 import * as db from '../db/books.ts'
 // const apiKey = process.env.YOUR_API_KEY_NAME
-const router = Router()
+const router = express.Router()
 
 router.get('/:title', async (req, res) => {
   try {
@@ -19,38 +20,46 @@ router.get('/:title', async (req, res) => {
   }
 })
 
-router.post('/:title', async (req, res) => {
-  try {
-    const title = req.params.title
-    const review = req.body.review
-    await db.addReview(title, review)
-
-    res.status(200).json({ message: 'Review added' })
-  } catch (error) {
-    console.log(error)
-    res.status(500).json({ message: 'Something went wrong' })
-  }
-})
-
+// this can add and update the book review since review already exists:
 router.patch('/:title', async (req, res) => {
   try {
     const title = req.params.title
     const update = req.body
     await db.updateReview(title, update)
 
-    res.status(200).json({ message: 'Review updated' })
+    return res.status(200).json({ message: 'Review updated' })
   } catch (error) {
     console.log(error)
     res.status(500).json({ message: 'Something went wrong' })
   }
 })
 
+// delete a book review
 router.delete('/:title', async (req, res) => {
   try {
     const title = req.params.title
     await db.deleteReview(title)
 
-    res.status(200).json({ message: 'Review deleted' })
+    return res.status(200).json({ message: 'Review deleted' })
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ message: 'Something went wrong' })
+  }
+})
+
+//getting book based off search bar
+router.get('/', async (req, res) => {
+  try {
+    // const search = req.body.search
+    const bookResponse = await request.get(
+      `https://www.googleapis.com/books/v1/volumes?q=the hunger games`,
+    )
+
+    // res.status(200).json({ message: 'Book Found' })
+    const items = bookResponse.body.items
+    const volumeInfo = items[0].volumeInfo
+    const title = volumeInfo.title
+    console.log(title)
   } catch (error) {
     console.log(error)
     res.status(500).json({ message: 'Something went wrong' })
