@@ -7,6 +7,14 @@ export interface Books {
   rating: number
 }
 
+export interface BookDetails {
+  title: string
+  author: string
+  description: string
+  rating: number
+  image: string
+}
+
 export interface Books {
   kind: string
   totalItems: number

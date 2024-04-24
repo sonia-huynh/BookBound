@@ -50,15 +50,15 @@ router.delete('/:title', async (req, res) => {
 //getting book based off search bar
 router.get('/', async (req, res) => {
   try {
-    // const search = req.body.search
-    // const bookResponse = await request.get(
-    //   `https://www.googleapis.com/books/v1/volumes?q=${search}&langRestrict=en`,
-    // )
+    const search = req.body.search
+    const bookResponse = await request.get(
+      `https://www.googleapis.com/books/v1/volumes?q=${search}&langRestrict=en`,
+    )
 
     // example link - hardcoded stuff:
-    const bookResponse = await request.get(
-      `https://www.googleapis.com/books/v1/volumes?q=six of crows&langRestrict=en`,
-    )
+    // const bookResponse = await request.get(
+    //   `https://www.googleapis.com/books/v1/volumes?q=six of crows&langRestrict=en`,
+    // )
 
     const items = bookResponse.body.items
     const bookDetailsArray = [] // Array to store book details
