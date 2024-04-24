@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  background-color: #fff5e8;
+}
+
+.input {
+  width: 150%;
+  font-size: 18px;
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 30px;
+}
