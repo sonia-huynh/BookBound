@@ -6,6 +6,6 @@ import Search from './components/Search.tsx'
 export default createRoutesFromElements(
   <Route path="/" element={<App />}>
     <Route index element={<Home />} />
-    <Route path="external/:search" element={<Search />} />
+    <Route path="search/:search" element={<Search />} />
   </Route>,
 )
