@@ -2,12 +2,13 @@ import { useState } from 'react'
 import { useGetSearchBook } from '../hooks/useBooks'
 
 export default function Search() {
-  const [search, setSearch] = useState('')
+  const [input, setInput] = useState('')
+  const search = input
   const { data, isLoading, isError, error } = useGetSearchBook(search)
 
   function handleChange(e) {
     e.preventDefault()
-    setSearch(e.target.value)
+    setInput(e.target.value)
   }
 
   function handleSubmit(e) {
@@ -34,7 +35,7 @@ export default function Search() {
           id="search-form"
           className="input"
           placeholder="🔎 Search"
-          value={search}
+          value={input}
           onChange={handleChange}
         />
       </form>

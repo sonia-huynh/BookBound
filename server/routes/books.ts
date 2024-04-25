@@ -47,43 +47,6 @@ router.delete('/:title', async (req, res) => {
   }
 })
 
-//getting book based off search bar
-router.get('/', async (req, res) => {
-  try {
-    const search = req.body.search
-    const bookResponse = await request.get(
-      `https://www.googleapis.com/books/v1/volumes?q=${search}&langRestrict=en`,
-    )
-
-    // example link - hardcoded stuff:
-    // const bookResponse = await request.get(
-    //   `https://www.googleapis.com/books/v1/volumes?q=six of crows&langRestrict=en`,
-    // )
-
-    const items = bookResponse.body.items
-    const bookDetailsArray = [] // Array to store book details
-
-    for (let i = 0; i < items.length; i++) {
-      const bookItem = items[i]
-      const volumeInfo = bookItem.volumeInfo
-      const title = volumeInfo.title
-      const author = volumeInfo.authors
-      const description = volumeInfo.description
-      const rating = volumeInfo.averageRating
-      const image = volumeInfo.imageLinks.thumbnail
-      const bookDetails = { title, author, description, rating, image } // Object containing book details
-      bookDetailsArray.push(bookDetails) // Push book details to array
-      console.log(bookDetails)
-    }
-    res.json(bookDetailsArray)
-
-    res.status(200).json({ message: 'Book Found' })
-  } catch (error) {
-    console.log(error)
-    res.status(500).json({ message: 'Something went wrong' })
-  }
-})
-
 // router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
 //   if (!req.auth?.sub) {
 //     res.sendStatus(StatusCodes.UNAUTHORIZED)

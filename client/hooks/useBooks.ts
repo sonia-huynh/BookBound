@@ -6,10 +6,10 @@ import {
 } from '@tanstack/react-query'
 import { getSearchBook } from '../apis/books.ts'
 
-export function useGetSearchBook() {
+export function useGetSearchBook(search: string) {
   return useQuery({
-    queryKey: ['searchBook'],
-    queryFn: (search) => {
+    queryKey: ['searchBook', search],
+    queryFn: () => {
       getSearchBook(search)
     },
   })
