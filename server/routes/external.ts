@@ -32,7 +32,7 @@ export const searchHandler = router.get('/:search', async (req, res) => {
       const image = volumeInfo.imageLinks.thumbnail
       const bookDetails = { title, author, description, rating, image } // Object containing book details
       bookDetailsArray.push(bookDetails) // Push book details to array
-      console.log('testing')
+
       console.log(bookDetails)
     }
     res.json(bookDetailsArray)

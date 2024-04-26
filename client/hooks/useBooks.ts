@@ -10,8 +10,8 @@ export function useGetSearchBook(search: string) {
   return useQuery({
     queryKey: ['searchBook'],
     queryFn: async () => {
-      const data = await getSearchBook(search) // Await the API call
-      return data // Return the result
+      const data = await getSearchBook(search)
+      return data
     },
   })
 }

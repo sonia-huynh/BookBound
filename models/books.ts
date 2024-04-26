@@ -9,9 +9,9 @@ export interface Books {
 
 export interface BookDetails {
   title: string
-  author: string
-  description: string
-  rating: number
+  author: string[]
+  description?: string
+  rating?: number
   image: string
 }
 

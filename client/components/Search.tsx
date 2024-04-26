@@ -3,8 +3,7 @@ import { useGetSearchBook } from '../hooks/useBooks'
 
 export default function Search() {
   const [input, setInput] = useState('')
-  const search = input
-  const { data, isLoading, isError, error } = useGetSearchBook(search)
+  const { data = [], isLoading, isError, error } = useGetSearchBook(input)
 
   function handleChange(e) {
     e.preventDefault()
@@ -13,11 +12,10 @@ export default function Search() {
 
   function handleSubmit(e) {
     e.preventDefault()
-
     console.log('submitted')
+    console.log(data[0].title)
   }
 
-  console.log(data)
   if (isLoading) {
     return <p>Loading...</p>
   }
