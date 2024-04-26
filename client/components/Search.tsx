@@ -1,42 +1,37 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { useGetSearchBook } from '../hooks/useBooks'
 
 export default function Search() {
-  const [input, setInput] = useState('')
-  const { data = [], isLoading, isError, error } = useGetSearchBook(input)
+  const [searchParams, setSearchParams] = useSearchParams()
+  const [input, setInput] = useState(searchParams.get('q') || '')
 
-  function handleChange(e) {
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault()
     setInput(e.target.value)
   }
 
-  function handleSubmit(e) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     console.log('submitted')
-    console.log(data[0].title)
-  }
-
-  if (isLoading) {
-    return <p>Loading...</p>
-  }
-
-  if (isError) {
-    return <p>Error: {error.message}</p>
+    setSearchParams((prev) => {
+      prev.set('q', input)
+      return prev
+    })
   }
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="search"
-          name="search-form"
-          id="search-form"
-          className="input"
-          placeholder="🔎 Search"
-          value={input}
-          onChange={handleChange}
-        />
-      </form>
-    </>
+    <form onSubmit={handleSubmit}>
+      <input
+        type="search"
+        name="search-form"
+        id="search-form"
+        className="input"
+        placeholder="🔎 Search"
+        value={input}
+        onChange={handleChange}
+      />
+      <button>Search!</button>
+    </form>
   )
 }

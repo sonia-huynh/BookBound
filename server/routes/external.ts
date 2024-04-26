@@ -5,14 +5,18 @@ import request from 'superagent'
 
 const router = express.Router()
 
+export default router
+
 //getting book based off search bar
-export const searchHandler = router.get('/:search', async (req, res) => {
+router.get('/search', async (req, res) => {
   try {
-    const search = req.params.search
-    console.log(search)
-    const bookResponse = await request.get(
-      `https://www.googleapis.com/books/v1/volumes?q=${search}&langRestrict=en`,
-    )
+    const search = req.query.q
+    const bookResponse = await request
+      .get(`https://www.googleapis.com/books/v1/volumes`)
+      .query({
+        q: search,
+        langRestrict: 'en',
+      })
 
     // example link - hardcoded stuff:
     // const bookResponse = await request.get(
@@ -29,12 +33,11 @@ export const searchHandler = router.get('/:search', async (req, res) => {
       const author = volumeInfo.authors
       const description = volumeInfo.description
       const rating = volumeInfo.averageRating
-      const image = volumeInfo.imageLinks.thumbnail
+      const image = volumeInfo.imageLinks?.thumbnail
       const bookDetails = { title, author, description, rating, image } // Object containing book details
       bookDetailsArray.push(bookDetails) // Push book details to array
-
-      console.log(bookDetails)
     }
+
     res.json(bookDetailsArray)
   } catch (error) {
     console.log(error)

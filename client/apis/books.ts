@@ -2,11 +2,15 @@ import request from 'superagent'
 import { BookDetails } from '../../models/books'
 
 // const databaseUrl = '/books/'
-const externalApiUrl = '/external/'
+const externalApiUrl = '/api/external/search'
 
 export async function getSearchBook(search: string): Promise<BookDetails[]> {
+  if (search.length < 3) {
+    return []
+  }
+
   try {
-    const res = await request.get(externalApiUrl + `${search}`)
+    const res = await request.get(externalApiUrl).query({ q: search })
     console.log(res.body as BookDetails[])
     return res.body as BookDetails[]
   } catch (error) {
