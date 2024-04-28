@@ -1,21 +1,31 @@
-import { useState } from 'react'
-import { Outlet, useOutlet, useOutletContext } from 'react-router-dom'
+import { Outlet, Route, Routes } from 'react-router-dom'
 import NavBar from './NavBar'
+import Home from './Pages/Home'
+import MyBooks from './Pages/MyBooks'
+import MyReviews from './Pages/MyReviews'
+import App from './App'
+import SearchResults from './Pages/SearchResults'
 
-export function useSearchTerm() {
-  return useOutletContext() as [string, (term: string) => void]
-}
+// export function useSearchTerm() {
+// return useOutletContext() as [string, (term: string) => void]
+// }
 
 export default function Layout() {
-  const searchTermState = useState('')
+  // const searchTermState = useState('')
   return (
     <div className="app">
       <header>
         <NavBar />
+        <Routes>
+          <Route path="/" element={<App />}>
+            <Route path="home" element={<Home />} />
+            <Route path="search" element={<SearchResults />} />
+            <Route path="my-books" element={<MyBooks />} />
+            <Route path="my-reviews" element={<MyReviews />} />
+          </Route>
+        </Routes>
       </header>
-      <main>
-        <Outlet context={searchTermState} />
-      </main>
+      <main></main>
       <footer></footer>
     </div>
   )
