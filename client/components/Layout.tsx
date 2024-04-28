@@ -1,15 +1,22 @@
-import { Outlet } from 'react-router-dom'
+import { useState } from 'react'
+import { Outlet, useOutlet, useOutletContext } from 'react-router-dom'
+import NavBar from './NavBar'
+
+export function useSearchTerm() {
+  return useOutletContext() as [string, (term: string) => void]
+}
 
 export default function Layout() {
+  const searchTermState = useState('')
   return (
-    <>
+    <div className="app">
       <header>
-        <h1>BookBound</h1>
+        <NavBar />
       </header>
       <main>
-        <Outlet />
+        <Outlet context={searchTermState} />
       </main>
       <footer></footer>
-    </>
+    </div>
   )
 }
