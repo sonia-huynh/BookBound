@@ -13,3 +13,15 @@ body {
   border: 2px solid #a55f0e;
   border-radius: 30px;
 }
+
+.container {
+  /* display: flex;
+  background-color: white;
+  border: pink;
+  border-style: dotted; */
+  width: 800px;
+  /* margin-left: 500px; */
+}
+
+.detail {
+}
