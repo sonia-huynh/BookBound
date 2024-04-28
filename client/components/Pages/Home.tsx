@@ -32,7 +32,7 @@ function SearchResults() {
   return (
     <ol>
       {data.map((details) => (
-        <li key={details.title}>
+        <li key={details.image}>
           <h3>{details.title}</h3>
           <h4>by {details.author}</h4>
           <img src={details.image} alt={`cover of book ${details.title}`} />
