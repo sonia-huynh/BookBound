@@ -31,7 +31,7 @@ export default function Search() {
         value={input}
         onChange={handleChange}
       />
-      <button>Search!</button>
+      {/* <button>Search!</button> */}
     </form>
   )
 }
