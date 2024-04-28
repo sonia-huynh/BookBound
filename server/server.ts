@@ -2,14 +2,14 @@ import express from 'express'
 import * as Path from 'node:path'
 
 import bookRoutes from './routes/books'
-import { searchHandler } from './routes/external'
+import searchRoutes from './routes/external'
 
 const server = express()
 
 server.use(express.json())
 
 server.use('/books', bookRoutes)
-server.use('/external', searchHandler)
+server.use('/api/external', searchRoutes)
 
 if (process.env.NODE_ENV === 'production') {
   server.use(express.static(Path.resolve('public')))
