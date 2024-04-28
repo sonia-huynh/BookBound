@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { useGetSearchBook } from '../hooks/useBooks'
 
 export default function Search() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -31,7 +30,6 @@ export default function Search() {
         value={input}
         onChange={handleChange}
       />
-      <button>Search!</button>
     </form>
   )
 }

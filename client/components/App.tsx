@@ -9,13 +9,13 @@ function App() {
     <>
       <div className="app">
         <NavBar />
-        <Routes>
+        {/* <Routes>
           <Route path="/" element={<Home />}>
             <Route path="search/:search" element={<Search />} />
             <Route path="my-books" element={<MyBooks />} />
             <Route path="my-reviews" element={<MyReviews />} />
           </Route>
-        </Routes>
+        </Routes> */}
       </div>
     </>
   )
