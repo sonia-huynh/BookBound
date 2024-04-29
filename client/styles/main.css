@@ -15,13 +15,70 @@ body {
 }
 
 .container {
-  /* display: flex;
-  background-color: white;
-  border: pink;
-  border-style: dotted; */
   width: 800px;
-  /* margin-left: 500px; */
 }
 
-.detail {
+.split {
+  display: grid;
+}
+
+/* .img {
+  border: red;
+  border-style: dashed;
+} */
+
+.details {
+  /* border: pink; */
+  border-style: dotted;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
+.book-cover {
+  width: auto;
+  height: 200px;
+  /* border: pink;
+  border-style: dotted; */
+}
+
+.book-details {
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
+
+h1 {
+  font-size: x-large;
+}
+
+.title {
+  position: absolute;
+  /* border: rgb(90, 0, 15);
+  border-style: dotted; */
+  margin-top: -165px;
+}
+.author {
+  font-size: large;
+  /* border: rgb(0, 167, 125);
+  border-style: dotted; */
+  position: absolute;
+  margin-top: -100px;
+}
+
+.description {
+  position: relative;
+  /* border: rgb(70, 68, 165); */
+  border-style: dotted;
+  margin-top: 60px;
+}
+
+.searchButt {
+  background-color: rgb(250, 230, 193);
+  border-radius: 30px;
+  font-size: small;
+  padding: 10px;
+  border: 2px;
+  border-style: solid;
+  border-color: #e7b67d;
 }
