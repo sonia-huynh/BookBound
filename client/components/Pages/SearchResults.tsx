@@ -1,7 +1,7 @@
-import { stringify } from 'postcss'
 import { useAddBookToShelf } from '../../hooks/addBooks'
 import { useGetSearchBook } from '../../hooks/useBooks'
 import { useSearchParams } from 'react-router-dom'
+import { useState } from 'react'
 
 export default function SearchResults() {
   const [searchParams] = useSearchParams()
@@ -9,6 +9,7 @@ export default function SearchResults() {
     searchParams.get('q') || '',
   )
   const addBookToShelf = useAddBookToShelf()
+  const [addBook, setAddBook] = useState({})
 
   function shorten(description: string) {
     const maxDescriptionLength = 1
@@ -40,7 +41,7 @@ export default function SearchResults() {
           <div className="container">
             {data.map((details) => (
               <div
-                key={details.image}
+                key={details.bookId}
                 className="book-details mb-4 flex rounded-lg border border-gray-200 bg-white p-6"
               >
                 <div className="img mr-4">
@@ -64,14 +65,18 @@ export default function SearchResults() {
                         const bookDetails = {
                           title: details.title,
                           author: details.author[0],
+                          image: details.image,
+                          bookId: details.bookId,
                         }
-                        console.log('clicking')
                         addBookToShelf.mutate(bookDetails)
-                        console.log('should be added?')
+                        setAddBook(!addBook)
                       }}
                     >
                       Add to Shelf
                     </button>
+                    {!addBook && (
+                      <button className="searchButt">Added to Shelf</button>
+                    )}
                   </div>
                 </div>
               </div>

@@ -22,6 +22,8 @@ export async function getSearchBook(search: string): Promise<BookDetails[]> {
 export async function addBookToShelf(details: {
   title: string
   author: string
+  image: string
+  bookId: number
 }) {
   try {
     await request.post(databaseUrl).send(details)

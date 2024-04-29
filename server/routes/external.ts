@@ -28,13 +28,14 @@ router.get('/search', async (req, res) => {
 
     for (let i = 0; i < items.length; i++) {
       const bookItem = items[i]
+      const bookId = bookItem.id
       const volumeInfo = bookItem.volumeInfo
       const title = volumeInfo.title
       const author = volumeInfo.authors
       const description = volumeInfo.description
       const rating = volumeInfo.averageRating
       const image = volumeInfo.imageLinks?.thumbnail
-      const bookDetails = { title, author, description, rating, image } // Object containing book details
+      const bookDetails = { title, author, bookId, description, rating, image } // Object containing book details
       bookDetailsArray.push(bookDetails) // Push book details to array
     }
 
