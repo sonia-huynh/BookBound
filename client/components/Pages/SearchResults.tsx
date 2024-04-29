@@ -2,6 +2,7 @@ import { useAddBookToShelf } from '../../hooks/addBooks'
 import { useGetSearchBook } from '../../hooks/useBooks'
 import { useSearchParams } from 'react-router-dom'
 import { useState } from 'react'
+import { BookDetails } from '../../../models/books'
 
 export default function SearchResults() {
   const [searchParams] = useSearchParams()
@@ -9,7 +10,7 @@ export default function SearchResults() {
     searchParams.get('q') || '',
   )
   const addBookToShelf = useAddBookToShelf()
-  const [addBook, setAddBook] = useState({})
+  const [addBook, setAddBook] = useState<{ [key: string]: boolean }>({})
 
   function shorten(description: string) {
     const maxDescriptionLength = 1
@@ -28,6 +29,14 @@ export default function SearchResults() {
 
   if (isError) {
     return <p>Oops! {String(error)}</p>
+  }
+
+  function handleAddBook(details: BookDetails) {
+    const bookKey = `${details.bookId}`
+    setAddBook((prevAddedBooks) => ({
+      ...prevAddedBooks,
+      [bookKey]: true,
+    }))
   }
 
   return (
@@ -59,22 +68,23 @@ export default function SearchResults() {
                   </p>
                   <div className="space-x-2">
                     <button className="searchButt">View More</button>
-                    <button
-                      className="searchButt"
-                      onClick={() => {
-                        const bookDetails = {
-                          title: details.title,
-                          author: details.author[0],
-                          image: details.image,
-                          bookId: details.bookId,
-                        }
-                        addBookToShelf.mutate(bookDetails)
-                        setAddBook(!addBook)
-                      }}
-                    >
-                      Add to Shelf
-                    </button>
-                    {!addBook && (
+                    {!addBook[`${details.bookId}`] ? (
+                      <button
+                        className="searchButt"
+                        onClick={() => {
+                          const bookDetails = {
+                            title: details.title,
+                            author: details.author[0],
+                            image: details.image,
+                            bookId: details.bookId,
+                          }
+                          addBookToShelf.mutate(bookDetails)
+                          handleAddBook(details)
+                        }}
+                      >
+                        Add to Shelf
+                      </button>
+                    ) : (
                       <button className="searchButt">Added to Shelf</button>
                     )}
                   </div>
