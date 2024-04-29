@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
-import { useGetSearchBook } from '../hooks/useBooks'
+import { useSearchParams, useNavigate } from 'react-router-dom'
 
 export default function Search() {
   const [searchParams, setSearchParams] = useSearchParams()
   const [input, setInput] = useState(searchParams.get('q') || '')
+  const navigate = useNavigate()
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault()
@@ -18,20 +18,23 @@ export default function Search() {
       prev.set('q', input)
       return prev
     })
+    navigate(`/search?q=${input}`)
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="search"
-        name="search-form"
-        id="search-form"
-        className="input"
-        placeholder="🔎 Search"
-        value={input}
-        onChange={handleChange}
-      />
-      <button>Search!</button>
-    </form>
+    <div className="absolute">
+      <form onSubmit={handleSubmit}>
+        <input
+          type="search"
+          name="search-form"
+          id="search-form"
+          className="input"
+          placeholder="🔎 Search"
+          value={input}
+          onChange={handleChange}
+          style={{ width: '350px' }}
+        />
+      </form>
+    </div>
   )
 }
