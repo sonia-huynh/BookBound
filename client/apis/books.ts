@@ -1,5 +1,5 @@
 import request from 'superagent'
-import { BookDetails } from '../../models/books'
+import { BookDetails, Books } from '../../models/books'
 
 const databaseUrl = '/api/books/'
 const externalApiUrl = '/api/external/search'
@@ -30,5 +30,15 @@ export async function addBookToShelf(details: {
   } catch (error) {
     console.error('Error posting book')
     throw new Error('Failed to add book to shelf')
+  }
+}
+
+export async function getBooks() {
+  try {
+    const res = await request.get(databaseUrl)
+    return res.body as Books[]
+  } catch (error) {
+    console.error('Could not get book from database')
+    throw new Error('Failed to get book from database')
   }
 }

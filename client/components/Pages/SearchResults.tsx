@@ -32,6 +32,14 @@ export default function SearchResults() {
   }
 
   function handleAddBook(details: BookDetails) {
+    const bookDetails = {
+      title: details.title,
+      author: details.author[0],
+      image: details.image,
+      bookId: details.bookId,
+    }
+    addBookToShelf.mutate(bookDetails)
+
     const bookKey = `${details.bookId}`
     setAddBook((prevAddedBooks) => ({
       ...prevAddedBooks,
@@ -61,24 +69,15 @@ export default function SearchResults() {
                   />
                 </div>
                 <div className="details">
-                  <h1 className=" mb-2">{details.title}</h1>
-                  <p className="  mb-2">by {details.author}</p>
-                  <p className=" mb-4">
-                    {shorten(String(details.description))}
-                  </p>
+                  <h1 className="mb-2">{details.title}</h1>
+                  <p className=" mb-2">by {details.author}</p>
+                  <p className="mb-4">{shorten(String(details.description))}</p>
                   <div className="space-x-2">
                     <button className="searchButt">View More</button>
                     {!addBook[`${details.bookId}`] ? (
                       <button
                         className="searchButt"
                         onClick={() => {
-                          const bookDetails = {
-                            title: details.title,
-                            author: details.author[0],
-                            image: details.image,
-                            bookId: details.bookId,
-                          }
-                          addBookToShelf.mutate(bookDetails)
                           handleAddBook(details)
                         }}
                       >

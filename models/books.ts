@@ -5,6 +5,7 @@ export interface Books {
   author: string
   review: string
   rating: number
+  image: string
 }
 
 export interface BookDetails {

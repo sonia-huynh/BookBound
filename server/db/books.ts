@@ -1,5 +1,9 @@
 import db from './connection.ts'
-import { Books } from '../../models/books.ts'
+
+export async function getBooks() {
+  const books = await db('books').select()
+  return books
+}
 
 export async function getBookByTitle(title: string) {
   const book = await db('books').select().where({ title }).first()

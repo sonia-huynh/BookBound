@@ -20,6 +20,16 @@ router.post('/', async (req, res) => {
   }
 })
 
+router.get('/', async (req, res) => {
+  try {
+    const books = await db.getBooks()
+    res.json(books)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ message: 'Something went wrong' })
+  }
+})
+
 router.get('/:title', async (req, res) => {
   try {
     const title = req.params.title
