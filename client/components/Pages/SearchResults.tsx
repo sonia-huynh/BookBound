@@ -1,3 +1,5 @@
+import { stringify } from 'postcss'
+import { useAddBookToShelf } from '../../hooks/addBooks'
 import { useGetSearchBook } from '../../hooks/useBooks'
 import { useSearchParams } from 'react-router-dom'
 
@@ -6,6 +8,7 @@ export default function SearchResults() {
   const { data, isPending, isError, error } = useGetSearchBook(
     searchParams.get('q') || '',
   )
+  const addBookToShelf = useAddBookToShelf()
 
   function shorten(description: string) {
     const maxDescriptionLength = 1
@@ -48,14 +51,27 @@ export default function SearchResults() {
                   />
                 </div>
                 <div className="details">
-                  <h1 className="title mb-2">{details.title}</h1>
-                  <p className=" author mb-2">by {details.author}</p>
-                  <p className="description mb-4">
+                  <h1 className=" mb-2">{details.title}</h1>
+                  <p className="  mb-2">by {details.author}</p>
+                  <p className=" mb-4">
                     {shorten(String(details.description))}
                   </p>
                   <div className="space-x-2">
                     <button className="searchButt">View More</button>
-                    <button className="searchButt">Add to Shelf</button>
+                    <button
+                      className="searchButt"
+                      onClick={() => {
+                        const bookDetails = {
+                          title: details.title,
+                          author: details.author[0],
+                        }
+                        console.log('clicking')
+                        addBookToShelf.mutate(bookDetails)
+                        console.log('should be added?')
+                      }}
+                    >
+                      Add to Shelf
+                    </button>
                   </div>
                 </div>
               </div>

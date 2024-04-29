@@ -22,7 +22,10 @@ export async function deleteReview(title: string) {
   return bookReview
 }
 
-export async function addBook(book: Books) {
-  const books = await db('books').insert({ book })
+export async function addBook(details: { title: string; author: string }) {
+  const books = await db('books').insert({
+    title: details.title,
+    author: details.author,
+  })
   return books
 }

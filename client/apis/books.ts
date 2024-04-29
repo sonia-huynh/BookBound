@@ -1,7 +1,7 @@
 import request from 'superagent'
 import { BookDetails } from '../../models/books'
 
-// const databaseUrl = '/books/'
+const databaseUrl = '/api/books/'
 const externalApiUrl = '/api/external/search'
 
 export async function getSearchBook(search: string): Promise<BookDetails[]> {
@@ -16,5 +16,17 @@ export async function getSearchBook(search: string): Promise<BookDetails[]> {
   } catch (error) {
     console.error('Error fetching search results')
     throw new Error('Failed to fetch search results')
+  }
+}
+
+export async function addBookToShelf(details: {
+  title: string
+  author: string
+}) {
+  try {
+    await request.post(databaseUrl).send(details)
+  } catch (error) {
+    console.error('Error posting book')
+    throw new Error('Failed to add book to shelf')
   }
 }
