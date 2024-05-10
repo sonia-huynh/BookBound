@@ -1,7 +1,7 @@
 import { useAddBookToShelf } from '../../hooks/addBooks'
 import { useGetSearchBook } from '../../hooks/useBooks'
 import { useSearchParams } from 'react-router-dom'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { BookDetails } from '../../../models/books'
 
 export default function SearchResults() {
@@ -9,8 +9,22 @@ export default function SearchResults() {
   const { data, isPending, isError, error } = useGetSearchBook(
     searchParams.get('q') || '',
   )
+
+  //fetch book data from local storage:
+  const getInitialState = () => {
+    const books = localStorage.getItem('savedBooks')
+    return books ? JSON.parse(books) : {}
+  }
+
   const addBookToShelf = useAddBookToShelf()
-  const [addBook, setAddBook] = useState<{ [key: string]: boolean }>({})
+  const [addBook, setAddBook] = useState<{ [key: string]: boolean }>(
+    getInitialState,
+  )
+
+  //set list of saved books in local storage
+  useEffect(() => {
+    localStorage.setItem('savedBooks', JSON.stringify(addBook))
+  }, [addBook])
 
   function shorten(description: string) {
     const maxDescriptionLength = 1

@@ -14,9 +14,9 @@ export default function MyBooks() {
   return (
     <>
       <div>
-        <h1 className="text-3xl font-bold underline">My Books</h1>
-        <p>This will house the bookshelves</p>
-        <div className="flex space-x-8">
+        <h1 className="ml-10 mt-10 text-3xl font-bold underline">My Books</h1>
+        <br></br>
+        <div className="ml-10 flex space-x-8">
           {data.map((book) => (
             <div key={book.id}>
               <img
