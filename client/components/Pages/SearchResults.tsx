@@ -1,10 +1,12 @@
 import { useAddBookToShelf } from '../../hooks/addBooks'
 import { useGetSearchBook } from '../../hooks/useBooks'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { BookDetails } from '../../../models/books'
+import Book from './Book'
 
 export default function SearchResults() {
+  const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const { data, isPending, isError, error } = useGetSearchBook(
     searchParams.get('q') || '',
@@ -87,7 +89,12 @@ export default function SearchResults() {
                   <p className=" mb-2">by {details.author}</p>
                   <p className="mb-4">{shorten(String(details.description))}</p>
                   <div className="space-x-2">
-                    <button className="searchButt">View More</button>
+                    <button
+                      className="searchButt"
+                      onClick={() => navigate(`/my-books/${details.title}`)}
+                    >
+                      View More
+                    </button>
                     {!addBook[`${details.bookId}`] ? (
                       <button
                         className="searchButt"
