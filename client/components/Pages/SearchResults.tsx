@@ -1,11 +1,30 @@
+import { useAddBookToShelf } from '../../hooks/addBooks'
 import { useGetSearchBook } from '../../hooks/useBooks'
 import { useSearchParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { BookDetails } from '../../../models/books'
 
 export default function SearchResults() {
   const [searchParams] = useSearchParams()
   const { data, isPending, isError, error } = useGetSearchBook(
     searchParams.get('q') || '',
   )
+
+  //fetch book data from local storage:
+  const getInitialState = () => {
+    const books = localStorage.getItem('savedBooks')
+    return books ? JSON.parse(books) : {}
+  }
+
+  const addBookToShelf = useAddBookToShelf()
+  const [addBook, setAddBook] = useState<{ [key: string]: boolean }>(
+    getInitialState,
+  )
+
+  //set list of saved books in local storage
+  useEffect(() => {
+    localStorage.setItem('savedBooks', JSON.stringify(addBook))
+  }, [addBook])
 
   function shorten(description: string) {
     const maxDescriptionLength = 1
@@ -26,6 +45,22 @@ export default function SearchResults() {
     return <p>Oops! {String(error)}</p>
   }
 
+  function handleAddBook(details: BookDetails) {
+    const bookDetails = {
+      title: details.title,
+      author: details.author[0],
+      image: details.image,
+      bookId: details.bookId,
+    }
+    addBookToShelf.mutate(bookDetails)
+
+    const bookKey = `${details.bookId}`
+    setAddBook((prevAddedBooks) => ({
+      ...prevAddedBooks,
+      [bookKey]: true,
+    }))
+  }
+
   return (
     <>
       <div className="flex justify-center">
@@ -37,7 +72,7 @@ export default function SearchResults() {
           <div className="container">
             {data.map((details) => (
               <div
-                key={details.image}
+                key={details.bookId}
                 className="book-details mb-4 flex rounded-lg border border-gray-200 bg-white p-6"
               >
                 <div className="img mr-4">
@@ -48,14 +83,23 @@ export default function SearchResults() {
                   />
                 </div>
                 <div className="details">
-                  <h1 className="title mb-2">{details.title}</h1>
-                  <p className=" author mb-2">by {details.author}</p>
-                  <p className="description mb-4">
-                    {shorten(String(details.description))}
-                  </p>
+                  <h1 className="mb-2">{details.title}</h1>
+                  <p className=" mb-2">by {details.author}</p>
+                  <p className="mb-4">{shorten(String(details.description))}</p>
                   <div className="space-x-2">
                     <button className="searchButt">View More</button>
-                    <button className="searchButt">Add to Shelf</button>
+                    {!addBook[`${details.bookId}`] ? (
+                      <button
+                        className="searchButt"
+                        onClick={() => {
+                          handleAddBook(details)
+                        }}
+                      >
+                        Add to Shelf
+                      </button>
+                    ) : (
+                      <button className="searchButt">Added to Shelf</button>
+                    )}
                   </div>
                 </div>
               </div>

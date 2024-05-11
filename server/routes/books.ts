@@ -8,6 +8,28 @@ import * as db from '../db/books.ts'
 // const apiKey = process.env.YOUR_API_KEY_NAME
 const router = express.Router()
 
+router.post('/', async (req, res) => {
+  try {
+    // const title = req.query.q
+    // const author = req.body
+    const details = req.body
+    await db.addBook(details)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ message: 'Something went wrong' })
+  }
+})
+
+router.get('/', async (req, res) => {
+  try {
+    const books = await db.getBooks()
+    res.json(books)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ message: 'Something went wrong' })
+  }
+})
+
 router.get('/:title', async (req, res) => {
   try {
     const title = req.params.title

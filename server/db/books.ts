@@ -1,5 +1,9 @@
 import db from './connection.ts'
-import { Books } from '../../models/books.ts'
+
+export async function getBooks() {
+  const books = await db('books').select()
+  return books
+}
 
 export async function getBookByTitle(title: string) {
   const book = await db('books').select().where({ title }).first()
@@ -22,7 +26,17 @@ export async function deleteReview(title: string) {
   return bookReview
 }
 
-export async function addBook(book: Books) {
-  const books = await db('books').insert({ book })
+export async function addBook(details: {
+  title: string
+  author: string
+  image: string
+  bookId: number
+}) {
+  const books = await db('books').insert({
+    title: details.title,
+    author: details.author,
+    image: details.image,
+    book_id: details.bookId,
+  })
   return books
 }

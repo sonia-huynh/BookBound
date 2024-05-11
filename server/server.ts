@@ -8,7 +8,7 @@ const server = express()
 
 server.use(express.json())
 
-server.use('/books', bookRoutes)
+server.use('/api/books', bookRoutes)
 server.use('/api/external', searchRoutes)
 
 if (process.env.NODE_ENV === 'production') {

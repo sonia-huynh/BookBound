@@ -19,6 +19,7 @@ export default function Search() {
       return prev
     })
     navigate(`/search?q=${input}`)
+    setInput('')
   }
 
   return (
