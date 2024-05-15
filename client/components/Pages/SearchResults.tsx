@@ -68,7 +68,7 @@ export default function SearchResults() {
   }
 
   function viewMore(details: BookDetails) {
-    navigate(`/my-books/search?q=${details.bookId}/${details.title}`)
+    navigate(`/my-books/search?q=${details.bookId}`)
     console.log(details.bookId)
   }
 
@@ -86,7 +86,7 @@ export default function SearchResults() {
                 key={details.bookId}
                 className="book-details mb-4 flex rounded-lg border border-gray-200 bg-white p-6"
               >
-                <div className="img mr-4">
+                <div className="mr-4">
                   <img
                     src={details.image}
                     alt={`cover of book ${details.title}`}

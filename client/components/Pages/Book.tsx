@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router-dom'
 import { useGetSearchBook } from '../../hooks/useBooks'
-import '../../styles/main.css'
+import '../../styles/books.css'
 
 export default function Book() {
   const [searchParams] = useSearchParams()
@@ -23,30 +23,37 @@ export default function Book() {
   }
 
   return (
-    <>
-      {searchData && (
-        <div className="flex">
-          {searchData.map((book) => (
-            <div
-              key={book.bookId}
-              className="book-details mb-4 mt-8 flex rounded-lg border border-gray-200 bg-white p-6"
-            >
+    <div className="box">
+      <div className="card">
+        {searchData && (
+          <div>
+            <div className="detail">
               <div className="mr-4">
                 <img
-                  src={book.image}
-                  alt={`cover of book ${book.title}`}
+                  src={searchData[0].image}
+                  alt={`cover of book ${searchData[0].title}`}
                   className="book-single"
                 />
               </div>
-              <div className="details">
-                <h1 className="mb-2">{book.title}</h1>
-                <p className=" mb-2">by {book.author}</p>
-                <p className="mb-4">{book.description}</p>
+              <div className="ml-4">
+                <h1 className="mb-2">{searchData[0].title}</h1>
+                <p className=" mb-2">by {searchData[0].author}</p>
+                <p className="mb-4">{searchData[0].description}</p>
               </div>
             </div>
-          ))}
+          </div>
+        )}
+        <br />
+        <br />
+        <div>
+          <textarea
+            name="review"
+            id="review"
+            className="review"
+            placeholder="Write your review here"
+          />
         </div>
-      )}
-    </>
+      </div>
+    </div>
   )
 }

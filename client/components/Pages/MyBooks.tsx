@@ -1,7 +1,9 @@
 import '../../styles/myBooks.css'
 import { useGetBooks } from '../../hooks/useBooks'
+import { useNavigate } from 'react-router-dom'
 
 export default function MyBooks() {
+  const navigate = useNavigate()
   const { data, isPending, isError, error } = useGetBooks()
 
   if (isPending) {
@@ -25,11 +27,17 @@ export default function MyBooks() {
                   console.log(book['book_id'])
                 }}
               >
-                <img
-                  src={book.image}
-                  alt={`cover of book ${book.title}`}
-                  className="book-cover m-2"
-                />
+                <button
+                  onClick={() => {
+                    navigate(`/my-books/search?q=${book.book_id}`)
+                  }}
+                >
+                  <img
+                    src={book.image}
+                    alt={`cover of book ${book.title}`}
+                    className="book-cover m-2"
+                  />
+                </button>
               </button>
             </div>
           ))}
