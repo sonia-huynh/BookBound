@@ -20,11 +20,17 @@ export default function MyBooks() {
         <div className="bookshelfContainer">
           {data.map((book) => (
             <div key={book.id}>
-              <img
-                src={book.image}
-                alt={`cover of book ${book.title}`}
-                className="book-cover m-2"
-              />
+              <button
+                onClick={() => {
+                  console.log(book['book_id'])
+                }}
+              >
+                <img
+                  src={book.image}
+                  alt={`cover of book ${book.title}`}
+                  className="book-cover m-2"
+                />
+              </button>
             </div>
           ))}
         </div>

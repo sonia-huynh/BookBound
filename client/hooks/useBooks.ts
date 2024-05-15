@@ -7,6 +7,9 @@ export function useGetSearchBook(search: string) {
     queryKey: ['searchBook', search],
     queryFn: async () => {
       const data = await getSearchBook(search)
+      if (!data) {
+        throw new Error('Failed to fetch book data')
+      }
       return data
     },
   })

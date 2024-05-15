@@ -3,14 +3,18 @@ import { useGetSearchBook } from '../../hooks/useBooks'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { BookDetails } from '../../../models/books'
-import Book from './Book'
 
 export default function SearchResults() {
   const navigate = useNavigate()
+  console.log(window.location)
+
   const [searchParams] = useSearchParams()
-  const { data, isPending, isError, error } = useGetSearchBook(
-    searchParams.get('q') || '',
-  )
+  const {
+    data: searchData,
+    isPending,
+    isError,
+    error,
+  } = useGetSearchBook(searchParams.get('q') || '')
 
   //fetch book data from local storage:
   const getInitialState = () => {
@@ -56,11 +60,16 @@ export default function SearchResults() {
     }
     addBookToShelf.mutate(bookDetails)
 
-    const bookKey = `${details.bookId}`
+    const bookKey = `${details.title}, ${details.bookId}`
     setAddBook((prevAddedBooks) => ({
       ...prevAddedBooks,
       [bookKey]: true,
     }))
+  }
+
+  function viewMore(details: BookDetails) {
+    navigate(`/my-books/search?q=${details.bookId}/${details.title}`)
+    console.log(details.bookId)
   }
 
   return (
@@ -70,9 +79,9 @@ export default function SearchResults() {
       </div>
       <br />
       <div className="flex justify-center">
-        {data && (
+        {searchData && (
           <div className="container">
-            {data.map((details) => (
+            {searchData.map((details) => (
               <div
                 key={details.bookId}
                 className="book-details mb-4 flex rounded-lg border border-gray-200 bg-white p-6"
@@ -91,7 +100,9 @@ export default function SearchResults() {
                   <div className="space-x-2">
                     <button
                       className="searchButt"
-                      onClick={() => navigate(`/my-books/${details.title}`)}
+                      onClick={() => {
+                        viewMore(details)
+                      }}
                     >
                       View More
                     </button>

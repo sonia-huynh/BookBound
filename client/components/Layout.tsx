@@ -1,4 +1,4 @@
-import { Outlet, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import NavBar from './NavBar'
 import Home from './Pages/Home'
 import MyBooks from './Pages/MyBooks'
@@ -12,7 +12,6 @@ import Book from './Pages/Book'
 // }
 
 export default function Layout() {
-  // const searchTermState = useState('')
   return (
     <div className="app">
       <header>

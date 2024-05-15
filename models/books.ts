@@ -3,9 +3,10 @@ export interface Books {
   username: string
   title: string
   author: string
+  image: string
   review: string
   rating: number
-  image: string
+  book_id: number
 }
 
 export interface BookDetails {
@@ -17,11 +18,11 @@ export interface BookDetails {
   bookId: number
 }
 
-export interface Books {
-  kind: string
-  totalItems: number
-  items: Item[]
-}
+// export interface Books {
+//   kind: string
+//   totalItems: number
+//   items: Item[]
+// }
 
 export interface Item {
   kind: string
