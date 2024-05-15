@@ -1,5 +1,6 @@
 import { useSearchParams } from 'react-router-dom'
 import { useGetSearchBook } from '../../hooks/useBooks'
+import '../../styles/main.css'
 
 export default function Book() {
   const [searchParams] = useSearchParams()
@@ -23,16 +24,18 @@ export default function Book() {
 
   return (
     <>
-      <h1>Chosen book</h1>
       {searchData && (
-        <div className="container">
+        <div className="flex">
           {searchData.map((book) => (
-            <div key={book.bookId}>
-              <div>
+            <div
+              key={book.bookId}
+              className="book-details mb-4 mt-8 flex rounded-lg border border-gray-200 bg-white p-6"
+            >
+              <div className="mr-4">
                 <img
                   src={book.image}
                   alt={`cover of book ${book.title}`}
-                  className="book-cover mt-4"
+                  className="book-single"
                 />
               </div>
               <div className="details">

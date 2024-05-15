@@ -90,7 +90,7 @@ export default function SearchResults() {
                   <img
                     src={details.image}
                     alt={`cover of book ${details.title}`}
-                    className="book-cover mt-4"
+                    className="book-cover"
                   />
                 </div>
                 <div className="details">

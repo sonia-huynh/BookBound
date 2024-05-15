@@ -34,7 +34,7 @@ router.get('/search', async (req, res) => {
       const author = volumeInfo.authors
       const description = volumeInfo.description
       const rating = volumeInfo.averageRating
-      const image = volumeInfo.imageLinks?.thumbnail
+      const image = volumeInfo.imageLinks?.thumbnail + '&fife=w300'
       const bookDetails = { title, author, bookId, description, rating, image } // Object containing book details
       bookDetailsArray.push(bookDetails) // Push book details to array
     }
