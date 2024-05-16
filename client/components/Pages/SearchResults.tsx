@@ -65,6 +65,7 @@ export default function SearchResults() {
       ...prevAddedBooks,
       [bookKey]: true,
     }))
+    console.log(addBook)
   }
 
   function viewMore(details: BookDetails) {
@@ -106,7 +107,7 @@ export default function SearchResults() {
                     >
                       View More
                     </button>
-                    {!addBook[`${details.bookId}`] ? (
+                    {!addBook[`${details.title}, ${details.bookId}`] ? (
                       <button
                         className="searchButt"
                         onClick={() => {
