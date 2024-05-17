@@ -38,7 +38,14 @@ body {
 
 .book-cover {
   width: auto;
-  height: 200px;
+  height: 250px;
+  /* border: pink;
+  border-style: dotted; */
+}
+
+.book-single {
+  width: auto;
+  height: 400px;
   /* border: pink;
   border-style: dotted; */
 }

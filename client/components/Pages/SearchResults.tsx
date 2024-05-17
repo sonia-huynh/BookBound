@@ -1,14 +1,20 @@
 import { useAddBookToShelf } from '../../hooks/addBooks'
 import { useGetSearchBook } from '../../hooks/useBooks'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { BookDetails } from '../../../models/books'
 
 export default function SearchResults() {
+  const navigate = useNavigate()
+  console.log(window.location)
+
   const [searchParams] = useSearchParams()
-  const { data, isPending, isError, error } = useGetSearchBook(
-    searchParams.get('q') || '',
-  )
+  const {
+    data: searchData,
+    isPending,
+    isError,
+    error,
+  } = useGetSearchBook(searchParams.get('q') || '')
 
   //fetch book data from local storage:
   const getInitialState = () => {
@@ -54,11 +60,17 @@ export default function SearchResults() {
     }
     addBookToShelf.mutate(bookDetails)
 
-    const bookKey = `${details.bookId}`
+    const bookKey = `${details.title}, ${details.bookId}`
     setAddBook((prevAddedBooks) => ({
       ...prevAddedBooks,
       [bookKey]: true,
     }))
+    console.log(addBook)
+  }
+
+  function viewMore(details: BookDetails) {
+    navigate(`/my-books/search?id=${details.bookId}`)
+    console.log(details.bookId)
   }
 
   return (
@@ -68,18 +80,18 @@ export default function SearchResults() {
       </div>
       <br />
       <div className="flex justify-center">
-        {data && (
+        {searchData && (
           <div className="container">
-            {data.map((details) => (
+            {searchData.map((details) => (
               <div
                 key={details.bookId}
                 className="book-details mb-4 flex rounded-lg border border-gray-200 bg-white p-6"
               >
-                <div className="img mr-4">
+                <div className="mr-4">
                   <img
                     src={details.image}
                     alt={`cover of book ${details.title}`}
-                    className="book-cover mt-4"
+                    className="book-cover"
                   />
                 </div>
                 <div className="details">
@@ -87,8 +99,15 @@ export default function SearchResults() {
                   <p className=" mb-2">by {details.author}</p>
                   <p className="mb-4">{shorten(String(details.description))}</p>
                   <div className="space-x-2">
-                    <button className="searchButt">View More</button>
-                    {!addBook[`${details.bookId}`] ? (
+                    <button
+                      className="searchButt"
+                      onClick={() => {
+                        viewMore(details)
+                      }}
+                    >
+                      View More
+                    </button>
+                    {!addBook[`${details.title}, ${details.bookId}`] ? (
                       <button
                         className="searchButt"
                         onClick={() => {
