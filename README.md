@@ -1,36 +1,33 @@
-# Boilerplate: Fullstack with Sass
+# 📚 BookBound
+BookBound is a personal book review and rating app similar to Goodreads just without the social aspect 🤭. I am currently building this app because I love to read and review books and as a perk I can also consolidate my learning on using external APIs and how to build a fullstack web app from scratch. 
 
-## Setup
+### Features I currently have:
+* User can search up any book they want in the search bar
+* User can add any book they like into their own personal library
+* User can see all the books saved in their personal library
 
-### What's included
 
-This repo includes:
+### Features I want to include:
+* User can write a book review for any book saved in their personal library
+* User can update or delete any book review saved in their personal library
+* User can delete a book saved in their library 
+* User can rate any book
+* User can update a book rating or delete it
+* User can add the dates they have started and finished reading the book
 
-* a single, simple API endpoint (`/api/v1/fruits`)
-* frontend routing via react-router
-* an auth0 setup waiting to be configured
-* an example database module (`server/db/fruits.js`)
-* an API client module (`client/apis/fruits.js`)
-* configuration for Vitest and testing library
-* configuration for server-side debugging in VS Code
-* configuration for preprocessing css with tailwind support
 
-### Installation
+### Languages, Tools & Technologies:
+* React
+* Typescript
+* Tailwind
+* SQLite (with knex.js)
+* Node.js
+* Superagent
+* Express
+* GoogleBooks api
 
-#### **From the Github UI**
+### Accessibility:
+I will be making sure this web application is accessible by running the WAVE extension on each of my pages to make sure it is compatible with screen readers and allows for keyboard only navigation. I will ensure all buttons have concise and specific labelling and that my images have descriptive alt text to describe what they are to a user. 
 
-See the instructions [here](https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template) to use Github's feature to create a new repo from a template.
-
-#### **From the command line**
-
-```
-git clone https://github.com/dev-academy-challenges/boilerplate-fullstack [your-project-name]
-cd [your-project-name]
-npm install # to install dependencies
-npm run dev # to start the dev server
-```
-
-You can find the server running on [http://localhost:3000](http://localhost:3000) and the client running on [http://localhost:5173](http://localhost:5173).
-
----
-[Provide feedback on this repo](https://docs.google.com/forms/d/e/1FAIpQLSfw4FGdWkLwMLlUaNQ8FtP2CTJdGDUv6Xoxrh19zIrJSkvT4Q/viewform?usp=pp_url&entry.1958421517=boilerplate-fullstack)
+### Feedback
+As I am continuously learning while I am creating this app, I am happy to receive any feedback, tips, tricks and advice you may have on this app. 😊
