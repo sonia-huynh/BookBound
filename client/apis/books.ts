@@ -4,6 +4,7 @@ import { BookDetails, Books } from '../../models/books'
 const databaseUrl = '/api/books/'
 const externalApiUrl = '/api/external/search'
 
+// External API calls
 export async function getSearchBook(search: string): Promise<BookDetails[]> {
   if (search.length < 3) {
     return []
@@ -19,6 +20,21 @@ export async function getSearchBook(search: string): Promise<BookDetails[]> {
   }
 }
 
+export async function getSearchBookById(id: string): Promise<BookDetails[]> {
+  // if (id.length < 3) {
+  //   return []
+  // }
+
+  try {
+    const res = await request.get(`/api/external/search/${id}`)
+    return res.body as BookDetails[]
+  } catch (error) {
+    console.error('Error fetching specific book results')
+    throw new Error('Failed to fetch specific book')
+  }
+}
+
+// Database API calls
 export async function addBookToShelf(details: {
   title: string
   author: string
