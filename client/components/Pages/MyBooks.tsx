@@ -29,7 +29,7 @@ export default function MyBooks() {
               >
                 <button
                   onClick={() => {
-                    navigate(`/my-books/search?q=${book.book_id}`)
+                    navigate(`/my-books/search?id=${book.book_id}`)
                   }}
                 >
                   <img
