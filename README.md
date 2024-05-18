@@ -7,7 +7,7 @@ BookBound is a personal book review and rating app similar to Goodreads just wit
 * User can see all the books saved in their personal library
 
 
-### Features I want to include:
+### Features I am working on to include:
 * User can write a book review for any book saved in their personal library
 * User can update or delete any book review saved in their personal library
 * User can delete a book saved in their library 
