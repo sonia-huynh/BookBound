@@ -3,14 +3,20 @@ import { useGetSearchBookById } from '../../hooks/useBooks'
 import '../../styles/book.css'
 import { useUpdateReview } from '../../hooks/updateReview'
 import { useState } from 'react'
+import { useGetReviewById } from '../../hooks/useGetReview'
 
 export default function Book() {
   const [searchParams] = useSearchParams()
   const [input, setInput] = useState('')
   const updateReview = useUpdateReview()
-  const { data, isPending, isError, error } = useGetSearchBookById(
-    searchParams.get('id') || '',
-  )
+  const { data: reviewData } = useGetReviewById(searchParams.get('id') || '')
+  console.log(reviewData)
+  const {
+    data: searchBookData,
+    isPending,
+    isError,
+    error,
+  } = useGetSearchBookById(searchParams.get('id') || '')
   // console.log(searchParams.get('id'))
   // console.log(window.location)
   if (isPending) {
@@ -42,16 +48,17 @@ export default function Book() {
     } else {
       console.log('title parameter is null and review')
     }
+    setInput('')
   }
 
   return (
     <>
       <div className="box">
         <div className="card">
-          {data && (
+          {searchBookData && (
             <div>
               <div>
-                {data.map((book) => (
+                {searchBookData.map((book) => (
                   <div key={book.bookId} className="detail">
                     <div>
                       <img
@@ -74,24 +81,40 @@ export default function Book() {
           )}
           <br />
           <br />
-          <div>
-            <textarea
-              name="review"
-              id="review"
-              className="review"
-              placeholder="Write your review here"
-              value={input}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="flex justify-end">
-            <button
-              onClick={() => handleSave(input)}
-              className="rounded border border-orange-900 bg-orange-900 px-4 py-2 font-bold text-white hover:bg-orange-700"
-            >
-              Save Review
-            </button>
-          </div>
+          {reviewData ? (
+            <div>
+              <h1>Your Book Review:</h1>
+              <div className="bookReview">
+                <p>{reviewData}</p>
+              </div>
+              <div className="flex justify-end">
+                <button className="rounded border border-orange-900 bg-orange-900 px-4 py-2 font-bold text-white hover:bg-orange-700">
+                  Update Review
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div>
+              <div>
+                <textarea
+                  name="review"
+                  id="review"
+                  className="review"
+                  placeholder="Write your review here"
+                  value={input}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="flex justify-end">
+                <button
+                  onClick={() => handleSave(input)}
+                  className="rounded border border-orange-900 bg-orange-900 px-4 py-2 font-bold text-white hover:bg-orange-700"
+                >
+                  Save Review
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </>
