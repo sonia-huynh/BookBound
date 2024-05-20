@@ -7,7 +7,7 @@ export async function seed(knex) {
     {
       id: 1,
       username: 'Sonia',
-      book_id: NaN,
+      book_id: '',
       title: 'Fourth Wing',
       author: 'Rebecca Yarros',
       image:
@@ -18,7 +18,7 @@ export async function seed(knex) {
     {
       id: 2,
       username: 'Sonia',
-      book_id: NaN,
+      book_id: 'abcd1234',
       title: 'Tomorrow, and Tomorrow, and Tomorrow',
       author: 'Gabrielle Zevin',
       image:
@@ -30,7 +30,7 @@ export async function seed(knex) {
     {
       id: 3,
       username: 'Sonia',
-      book_id: NaN,
+      book_id: '',
       title: 'Legend',
       image: '',
       author: 'Marie Lu',
