@@ -1,13 +1,18 @@
 import { useSearchParams } from 'react-router-dom'
 import { useGetSearchBookById } from '../../hooks/useBooks'
-import '../../styles/books.css'
+import '../../styles/book.css'
+import { useUpdateReview } from '../../hooks/updateReview'
+import { useState } from 'react'
 
 export default function Book() {
   const [searchParams] = useSearchParams()
+  const [input, setInput] = useState('')
+  const updateReview = useUpdateReview()
   const { data, isPending, isError, error } = useGetSearchBookById(
     searchParams.get('id') || '',
   )
-  console.log(searchParams.get('id'))
+  // console.log(searchParams.get('id'))
+  // console.log(window.location)
   if (isPending) {
     return <p>Retreiving book data...</p>
   }
@@ -20,6 +25,23 @@ export default function Book() {
 
   const strippedHTML = (text: string) => {
     return text.replace(/<[^>]+>/g, '')
+  }
+
+  function handleChange(e) {
+    setInput(e.target.value)
+    // console.log(input)
+  }
+
+  function handleSave(text: string) {
+    const bookId = searchParams.get('id')
+    const bookReview = text
+
+    if (bookId !== null) {
+      updateReview.mutate({ bookId: bookId, review: bookReview })
+      // console.log({ bookId: bookId }, { review: text })
+    } else {
+      console.log('title parameter is null and review')
+    }
   }
 
   return (
@@ -58,7 +80,17 @@ export default function Book() {
               id="review"
               className="review"
               placeholder="Write your review here"
+              value={input}
+              onChange={handleChange}
             />
+          </div>
+          <div className="flex justify-end">
+            <button
+              onClick={() => handleSave(input)}
+              className="rounded border border-orange-900 bg-orange-900 px-4 py-2 font-bold text-white hover:bg-orange-700"
+            >
+              Save Review
+            </button>
           </div>
         </div>
       </div>
