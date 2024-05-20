@@ -28,18 +28,6 @@ router.get('/', async (req, res) => {
   }
 })
 
-router.get('/:title', async (req, res) => {
-  try {
-    const title = req.params.title
-    const book = await db.getBookByTitle(title)
-
-    res.json(book)
-  } catch (error) {
-    console.log(error)
-    res.status(500).json({ message: 'Something went wrong' })
-  }
-})
-
 // this can add and update the book review since review already exists:
 router.patch('/:id', async (req, res) => {
   try {
@@ -53,7 +41,31 @@ router.patch('/:id', async (req, res) => {
     }
   } catch (error) {
     console.log(error)
-    res.status(500).json({ message: 'Something went wrong' })
+    res.status(500).json({
+      message: 'Something went wrong in trying to update your book review',
+    })
+  }
+})
+
+// this can get the book review by id
+router.get('/:id', async (req, res) => {
+  try {
+    const bookId = String(req.query.id)
+    const bookReview = await db.getReviewById(bookId)
+
+    if (bookReview) {
+      res.json({
+        message: 'Retrieved your book review successfully',
+        review: bookReview.review,
+      })
+    } else {
+      res.status(404).json({ message: 'Book review not found' })
+    }
+  } catch (error) {
+    console.log(error)
+    res
+      .status(500)
+      .json({ message: 'Something went wrong in locating your book review' })
   }
 })
 
@@ -66,7 +78,9 @@ router.delete('/:title', async (req, res) => {
     return res.status(200).json({ message: 'Review deleted' })
   } catch (error) {
     console.log(error)
-    res.status(500).json({ message: 'Something went wrong' })
+    res.status(500).json({
+      message: 'Something went wrong in trying to delete your book review',
+    })
   }
 })
 
