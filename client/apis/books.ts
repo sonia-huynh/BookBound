@@ -21,9 +21,9 @@ export async function getSearchBook(search: string): Promise<BookDetails[]> {
 }
 
 export async function getSearchBookById(id: string): Promise<BookDetails[]> {
-  // if (id.length < 3) {
-  //   return []
-  // }
+  if (id.length < 3) {
+    return []
+  }
 
   try {
     const res = await request.get(`/api/external/search/${id}`)
@@ -72,5 +72,15 @@ export async function updateReview(bookId: string, review: string) {
   } catch (error) {
     console.error('Error updating review')
     throw new Error('Failed to add review to book')
+  }
+}
+
+export async function getReviewById(bookId: string) {
+  try {
+    const result = await request.get(databaseUrl + '/:id').query({ id: bookId })
+    return result.body.review
+  } catch (error) {
+    console.error('Error fetching your book review')
+    throw new Error('Failed to fetch your book review')
   }
 }
