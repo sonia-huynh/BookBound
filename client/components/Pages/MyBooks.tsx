@@ -24,22 +24,16 @@ export default function MyBooks() {
             <div key={book.id}>
               <button
                 onClick={() => {
-                  console.log(book['book_id'])
+                  navigate(
+                    `/my-books/search?id=${book.book_id}&title=${book.title}`,
+                  )
                 }}
               >
-                <button
-                  onClick={() => {
-                    navigate(
-                      `/my-books/search?id=${book.book_id}&title=${book.title}`,
-                    )
-                  }}
-                >
-                  <img
-                    src={book.image}
-                    alt={`cover of book ${book.title}`}
-                    className="book-cover m-2"
-                  />
-                </button>
+                <img
+                  src={book.image}
+                  alt={`cover of book ${book.title}`}
+                  className="book-cover m-2"
+                />
               </button>
             </div>
           ))}

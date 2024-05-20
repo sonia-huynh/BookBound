@@ -2,14 +2,17 @@ import { useSearchParams } from 'react-router-dom'
 import { useGetSearchBookById } from '../../hooks/useBooks'
 import '../../styles/book.css'
 import { useUpdateReview } from '../../hooks/updateReview'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useGetReviewById } from '../../hooks/useGetReview'
 
 export default function Book() {
   const [searchParams] = useSearchParams()
   const [input, setInput] = useState('')
+  const [changeReview, setChangeReview] = useState(false)
   const updateReview = useUpdateReview()
-  const { data: reviewData } = useGetReviewById(searchParams.get('id') || '')
+  const { data: reviewData, refetch: refetchReview } = useGetReviewById(
+    searchParams.get('id') || '',
+  )
   console.log(reviewData)
   const {
     data: searchBookData,
@@ -17,8 +20,14 @@ export default function Book() {
     isError,
     error,
   } = useGetSearchBookById(searchParams.get('id') || '')
-  // console.log(searchParams.get('id'))
   // console.log(window.location)
+
+  useEffect(() => {
+    if (updateReview) {
+      refetchReview()
+    }
+  }, [refetchReview, updateReview])
+
   if (isPending) {
     return <p>Retreiving book data...</p>
   }
@@ -33,7 +42,7 @@ export default function Book() {
     return text.replace(/<[^>]+>/g, '')
   }
 
-  function handleChange(e) {
+  function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
     setInput(e.target.value)
     // console.log(input)
   }
@@ -49,6 +58,12 @@ export default function Book() {
       console.log('title parameter is null and review')
     }
     setInput('')
+    setChangeReview(false)
+  }
+
+  function handleUpdate() {
+    refetchReview()
+    setChangeReview(true)
   }
 
   return (
@@ -81,20 +96,11 @@ export default function Book() {
           )}
           <br />
           <br />
-          {reviewData ? (
+          {!reviewData ? (
             <div>
-              <h1>Your Book Review:</h1>
               <div className="bookReview">
                 <p>{reviewData}</p>
               </div>
-              <div className="flex justify-end">
-                <button className="rounded border border-orange-900 bg-orange-900 px-4 py-2 font-bold text-white hover:bg-orange-700">
-                  Update Review
-                </button>
-              </div>
-            </div>
-          ) : (
-            <div>
               <div>
                 <textarea
                   name="review"
@@ -111,6 +117,47 @@ export default function Book() {
                   className="rounded border border-orange-900 bg-orange-900 px-4 py-2 font-bold text-white hover:bg-orange-700"
                 >
                   Save Review
+                </button>
+              </div>
+            </div>
+          ) : reviewData && changeReview === true ? (
+            <div>
+              <h1>Your Old Review:</h1>
+              <div className="review">
+                <p>{reviewData}</p>
+              </div>
+              <h1>Update Your Review:</h1>
+              <div>
+                <textarea
+                  name="review"
+                  id="review"
+                  className="review"
+                  placeholder="Write your review here"
+                  value={input}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="flex justify-end">
+                <button
+                  onClick={() => handleSave(input)}
+                  className="rounded border border-orange-900 bg-orange-900 px-4 py-2 font-bold text-white hover:bg-orange-700"
+                >
+                  Save Review
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div>
+              <h1>Your Book Review:</h1>
+              <div className="bookReview">
+                <p>{reviewData}</p>
+              </div>
+              <div className="flex justify-end">
+                <button
+                  onClick={handleUpdate}
+                  className="rounded border border-orange-900 bg-orange-900 px-4 py-2 font-bold text-white hover:bg-orange-700"
+                >
+                  Update Review
                 </button>
               </div>
             </div>
