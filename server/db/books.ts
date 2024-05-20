@@ -6,10 +6,10 @@ export async function getBooks() {
   return books
 }
 
-// get individual book by book title
-export async function getBookByTitle(title: string) {
-  const book = await db('books').select().where({ title }).first()
-  return book
+// get book review by id
+export async function getReviewById(bookId: string) {
+  const bookReview = await db('books').where({ book_id: bookId }).first()
+  return bookReview
 }
 
 // update book review
