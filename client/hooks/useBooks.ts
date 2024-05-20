@@ -20,7 +20,7 @@ export function useGetSearchBookById(id: string) {
     queryKey: ['searchBookId', id],
     queryFn: async () => {
       const data = await getSearchBookById(id)
-      console.log(data)
+      // console.log(data)
       if (!data) {
         throw new Error('Failed to fetch specific book data')
       }

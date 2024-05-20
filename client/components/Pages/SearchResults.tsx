@@ -6,7 +6,7 @@ import { BookDetails } from '../../../models/books'
 
 export default function SearchResults() {
   const navigate = useNavigate()
-  console.log(window.location)
+  // console.log(window.location)
 
   const [searchParams] = useSearchParams()
   const {
@@ -57,6 +57,7 @@ export default function SearchResults() {
       author: details.author[0],
       image: details.image,
       bookId: details.bookId,
+      review: '',
     }
     addBookToShelf.mutate(bookDetails)
 
@@ -69,7 +70,7 @@ export default function SearchResults() {
   }
 
   function viewMore(details: BookDetails) {
-    navigate(`/my-books/search?id=${details.bookId}`)
+    navigate(`/my-books/search?id=${details.bookId}&title=${details.title}`)
     console.log(details.bookId)
   }
 
