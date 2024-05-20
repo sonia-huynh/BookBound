@@ -24,3 +24,11 @@
   border-radius: 10px;
   padding: 10px;
 }
+
+.bookReview {
+  width: 100%;
+  border: 1px solid #a55f0e;
+  padding: 5px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
