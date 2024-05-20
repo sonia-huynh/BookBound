@@ -10,9 +10,17 @@ export default function Book() {
   const [input, setInput] = useState('')
   const [changeReview, setChangeReview] = useState(false)
   const updateReview = useUpdateReview()
-  const { data: reviewData, refetch: refetchReview } = useGetReviewById(
+  const [reviewData, setReviewData] = useState(null)
+  const { data: reviewQueryData, refetch: refetchReview } = useGetReviewById(
     searchParams.get('id') || '',
   )
+
+  useEffect(() => {
+    if (reviewQueryData !== undefined) {
+      setReviewData(reviewQueryData)
+    }
+  }, [reviewQueryData])
+
   console.log(reviewData)
   const {
     data: searchBookData,

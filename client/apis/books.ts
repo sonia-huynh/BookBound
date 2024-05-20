@@ -78,7 +78,7 @@ export async function updateReview(bookId: string, review: string) {
 export async function getReviewById(bookId: string) {
   try {
     const result = await request.get(databaseUrl + '/:id').query({ id: bookId })
-    return result.body.review
+    return result.body.review ? result.body.review : null
   } catch (error) {
     console.error('Error fetching your book review')
     throw new Error('Failed to fetch your book review')
