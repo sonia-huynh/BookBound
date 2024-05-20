@@ -1,7 +1,7 @@
 import request from 'superagent'
 import { BookDetails, Books } from '../../models/books'
 
-const databaseUrl = '/api/books/'
+const databaseUrl = '/api/books'
 const externalApiUrl = '/api/external/search'
 
 // External API calls
@@ -34,12 +34,15 @@ export async function getSearchBookById(id: string): Promise<BookDetails[]> {
   }
 }
 
-// Database API calls
+// DATABASE API CALLS
+
+// Calls for My Books
 export async function addBookToShelf(details: {
   title: string
   author: string
   image: string
   bookId: number
+  review: string
 }) {
   try {
     await request.post(databaseUrl).send(details)
@@ -56,5 +59,18 @@ export async function getBooks() {
   } catch (error) {
     console.error('Could not get book from database')
     throw new Error('Failed to get book from database')
+  }
+}
+
+// Calls for Reviews
+export async function updateReview(bookId: string, review: string) {
+  try {
+    await request
+      .patch(databaseUrl + '/:id')
+      .query({ id: bookId })
+      .send({ review: review })
+  } catch (error) {
+    console.error('Error updating review')
+    throw new Error('Failed to add review to book')
   }
 }
