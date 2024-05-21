@@ -25,3 +25,12 @@
   padding: 10px;
   margin-bottom: 5%;
 }
+
+.bookReview {
+  width: 100%;
+  font-size: 18px;
+  border: 1.5px solid #ac8457;
+  background-color: #fdf4ea;
+  padding: 10px;
+  margin-bottom: 5%;
+}

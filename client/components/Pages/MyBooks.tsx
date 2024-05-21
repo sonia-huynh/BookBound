@@ -11,7 +11,7 @@ export default function MyBooks() {
   }
 
   if (isError) {
-    return <p>Oops! Coudl not get book...{String(error)}</p>
+    return <p>Oops! could not get book...{String(error)}</p>
   }
 
   return (

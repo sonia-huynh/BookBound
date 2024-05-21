@@ -1,6 +1,3 @@
-import { useSearchParams } from 'react-router-dom'
-import { useGetSearchBook } from '../../hooks/useBooks'
-
 export default function Home() {
   return (
     <>
