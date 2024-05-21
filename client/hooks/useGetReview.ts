@@ -6,7 +6,6 @@ export function useGetReviewById(bookId: string) {
     queryKey: ['bookReviewId', bookId],
     queryFn: async () => {
       const data = await getReviewById(bookId)
-
       console.log(data)
       if (!data) {
         throw new Error('Failed to fetch book review')

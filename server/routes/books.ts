@@ -5,7 +5,6 @@ import express from 'express'
 // import 'dotenv/config'
 
 import * as db from '../db/books.ts'
-import { BookDetails } from '../../models/books.ts'
 // const apiKey = process.env.YOUR_API_KEY_NAME
 const router = express.Router()
 
@@ -51,11 +50,10 @@ router.post('/:id', async (req, res) => {
   }
 })
 
-// this can update the book review since review already exists:
+// update book review
 router.patch('/:id', async (req, res) => {
   try {
-    const bookId = String(req.query.id)
-    // const bookId = String(req.params.id)
+    const bookId = String(req.params.id)
     const bookReview = req.body.review
     const result = await db.updateReview(bookId, bookReview)
     if (result) {
@@ -71,33 +69,13 @@ router.patch('/:id', async (req, res) => {
   }
 })
 
-// delete book review by id
-router.patch('/:id', async (req, res) => {
-  try {
-    // const bookId = String(req.query.id)
-    const bookId = String(req.params.id)
-    const result = await db.deleteReview(bookId)
-    if (result) {
-      res.json({ message: 'Review deleted successfully' })
-    } else {
-      res.status(404).json({ message: 'Book not found' })
-    }
-  } catch (error) {
-    console.log(error)
-    res.status(500).json({
-      message: 'Something went wrong in trying to update your book review',
-    })
-  }
-})
-
 // this can get the book review by id
 router.get('/:id', async (req, res) => {
   try {
-    const bookId = String(req.query.id)
+    const bookId = String(req.params.id)
     const bookReview = await db.getReviewById(bookId)
-
     if (bookReview) {
-      res.json(bookReview)
+      res.json(bookReview.review)
     } else {
       res.status(404).json({ message: 'Book review not found' })
     }

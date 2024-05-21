@@ -22,6 +22,7 @@ export async function getReviewById(bookId: string) {
     .join('books', 'reviews.book_id', 'books.book_id')
     .select()
     .where('reviews.book_id', bookId)
+    .first()
   return bookReview
 }
 

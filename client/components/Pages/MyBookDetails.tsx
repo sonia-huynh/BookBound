@@ -76,18 +76,23 @@ export default function MyBookDetails() {
         title: title,
         review: bookReview,
       })
-      console.log({ bookId: bookId }, { title: title }, { review: text })
+      // console.log({ bookId: bookId }, { title: title }, { review: text })
     } else {
       console.log('title parameter is null and review')
     }
     setNewReview((newReview) => !newReview)
     setInput('')
-    setChangeReview(false)
   }
 
-  function handleUpdate() {
+  function handleUpdate(text: string) {
+    const bookId = String(searchParams.get('id'))
+
+    updateReview.mutate({
+      bookId: bookId,
+      review: text,
+    })
     setNewReview((newReview) => !newReview)
-    setChangeReview(true)
+    setChangeReview(false)
   }
   // console.log(reviewData)
   return (
@@ -169,10 +174,10 @@ export default function MyBookDetails() {
                   </div>
                   <div className="flex justify-end">
                     <button
-                      onClick={() => handleSave(input)}
+                      onClick={() => handleUpdate(input)}
                       className="searchButt"
                     >
-                      Save Review
+                      Save Updated Review
                     </button>
                   </div>
                 </div>
@@ -183,7 +188,10 @@ export default function MyBookDetails() {
                     <p>{reviewData}</p>
                   </div>
                   <div className="flex justify-end">
-                    <button onClick={handleUpdate} className="searchButt">
+                    <button
+                      onClick={() => handleUpdate(input)}
+                      className="searchButt"
+                    >
                       Update Review
                     </button>
                   </div>
