@@ -75,12 +75,13 @@ export async function getReviewById(bookId: string) {
 }
 
 //Add a review
-export async function addReview(bookId: string, review: string) {
+export async function addReview(bookId: string, title: string, review: string) {
   try {
-    await request
-      .patch(databaseUrl + '/:id')
-      .query({ id: bookId })
+    const response = await request
+      .post(databaseUrl + `/${bookId}`)
+      .query({ title: title })
       .send({ review: review })
+    return response.body
   } catch (error) {
     console.error('Error updating review')
     throw new Error('Failed to add review to book')
@@ -98,3 +99,12 @@ export async function updateReview(bookId: string, review: string) {
     throw new Error('Failed to add review to book')
   }
 }
+
+// export async function deleteReview(bookId: string) {
+//   try {
+//     await request.delete(databaseUrl + '/:id')
+//   } catch (error) {
+//     console.error('Error deleting review')
+//     throw new Error('Failed to delete book review')
+//   }
+// }

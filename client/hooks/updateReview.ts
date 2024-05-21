@@ -9,7 +9,7 @@ export function useUpdateReview() {
       updateReview(update.bookId, update.review),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['bookReview'],
+        queryKey: ['updateBookReview'],
       })
     },
   })

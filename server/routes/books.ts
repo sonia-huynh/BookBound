@@ -32,9 +32,9 @@ router.get('/', async (req, res) => {
 })
 
 // add book review
-router.post('/:id/:title', async (req, res) => {
+router.post('/:id', async (req, res) => {
   try {
-    const bookId = String(req.query.id)
+    const bookId = String(req.params.id)
     const title = String(req.query.title)
     const bookReview = req.body.review
     const result = await db.addReview(bookId, title, bookReview)

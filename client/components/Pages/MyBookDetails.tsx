@@ -4,6 +4,7 @@ import '../../styles/book.css'
 import { useUpdateReview } from '../../hooks/updateReview'
 import { useEffect, useState } from 'react'
 import { useGetReviewById } from '../../hooks/useGetReview'
+import { useAddReview } from '../../hooks/addReview'
 
 export default function MyBookDetails() {
   const [searchParams] = useSearchParams()
@@ -13,6 +14,7 @@ export default function MyBookDetails() {
 
   // Custom hooks:
   const updateReview = useUpdateReview()
+  const addReview = useAddReview()
 
   const { data: myBooksData } = useGetBooks()
 
@@ -64,12 +66,17 @@ export default function MyBookDetails() {
   }
 
   function handleSave(text: string) {
-    const bookId = searchParams.get('id')
+    const bookId = String(searchParams.get('id'))
+    const title = String(searchParams.get('title'))
     const bookReview = text
 
     if (bookId !== null) {
-      updateReview.mutate({ bookId: bookId, review: bookReview })
-      // console.log({ bookId: bookId }, { review: text })
+      addReview.mutate({
+        bookId: bookId,
+        title: title,
+        review: bookReview,
+      })
+      console.log({ bookId: bookId }, { title: title }, { review: text })
     } else {
       console.log('title parameter is null and review')
     }
