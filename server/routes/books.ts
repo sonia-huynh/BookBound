@@ -31,6 +31,26 @@ router.get('/', async (req, res) => {
   }
 })
 
+// add book review
+router.post('/:id/:title', async (req, res) => {
+  try {
+    const bookId = String(req.query.id)
+    const title = String(req.query.title)
+    const bookReview = req.body.review
+    const result = await db.addReview(bookId, title, bookReview)
+    if (result) {
+      res.json({ message: 'Review added successfully', review: bookReview })
+    } else {
+      res.status(404).json({ message: 'Book not found' })
+    }
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({
+      message: 'Something went wrong in trying to add your book review',
+    })
+  }
+})
+
 // this can add and update the book review since review already exists:
 router.patch('/:id', async (req, res) => {
   try {

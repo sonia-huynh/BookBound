@@ -27,5 +27,19 @@ export async function seed(knex) {
       image: '',
       author: 'Marie Lu',
     },
+    {
+      username: 'Sonia',
+      book_id: 'newbook',
+      title: 'newbook',
+      image: '',
+      author: 'newbook',
+    },
+    {
+      username: 'Sonia',
+      book_id: 'test',
+      title: 'test',
+      image: '',
+      author: 'test',
+    },
   ])
 }

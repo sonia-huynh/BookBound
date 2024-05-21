@@ -6,6 +6,17 @@ export async function getBooks() {
   return books
 }
 
+// add review
+export async function addReview(bookId: string, title: string, review: string) {
+  const bookReview = await db('reviews').insert({
+    book_id: bookId,
+    title: title,
+    review: review,
+  })
+  return bookReview
+}
+
+// get review by id
 export async function getReviewById(bookId: string) {
   const bookReview = await db('reviews')
     .join('books', 'reviews.book_id', 'books.book_id')
