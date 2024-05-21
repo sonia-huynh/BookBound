@@ -6,7 +6,7 @@ export async function getBooks() {
   return books
 }
 
-// add review
+// add review by id
 export async function addReview(bookId: string, title: string, review: string) {
   const bookReview = await db('reviews').insert({
     book_id: bookId,
@@ -27,10 +27,15 @@ export async function getReviewById(bookId: string) {
 
 // update book review
 export async function updateReview(bookId: string, update: string) {
-  const review = await db('books')
-    .join('books', 'reviews.book_id', 'books.book_id')
+  const review = await db('reviews')
     .where({ book_id: bookId })
     .update({ review: update })
+  return review
+}
+
+// delete book review
+export async function deleteReview(bookId: string) {
+  const review = await db('reviews').where({ book_id: bookId }).delete()
   return review
 }
 
