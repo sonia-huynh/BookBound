@@ -90,8 +90,8 @@ router.get('/:id', async (req, res) => {
 // delete a book review
 router.delete('/:id', async (req, res) => {
   try {
-    const bookId = String(req.query.id)
-    await db.deleteBookById(bookId)
+    const bookId = String(req.params.id)
+    await db.deleteReview(bookId)
 
     return res.status(200).json({ message: 'Book review removed' })
   } catch (error) {

@@ -17,7 +17,7 @@ export function useAddReview() {
       ),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['addBookReview'],
+        queryKey: ['reviews'],
       })
     },
   })

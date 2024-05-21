@@ -3,7 +3,7 @@ import { getReviewById } from '../apis/books'
 
 export function useGetReviewById(bookId: string) {
   return useQuery({
-    queryKey: ['bookReviewId', bookId],
+    queryKey: ['reviews', bookId],
     queryFn: async () => {
       const data = await getReviewById(bookId)
       console.log(data)

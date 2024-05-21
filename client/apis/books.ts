@@ -76,8 +76,6 @@ export async function getReviewById(bookId: string) {
   }
 }
 
-getReviewById('ZftjEAAAQBAJ')
-
 //Add a review
 export async function addReview(bookId: string, title: string, review: string) {
   try {
@@ -102,11 +100,11 @@ export async function updateReview(bookId: string, review: string) {
   }
 }
 
-// export async function deleteReview(bookId: string) {
-//   try {
-//     await request.delete(databaseUrl + '/:id')
-//   } catch (error) {
-//     console.error('Error deleting review')
-//     throw new Error('Failed to delete book review')
-//   }
-// }
+export async function deleteReview(bookId: string) {
+  try {
+    await request.delete(databaseUrl + `/${bookId}`)
+  } catch (error) {
+    console.error('Error deleting review')
+    throw new Error('Failed to delete book review')
+  }
+}

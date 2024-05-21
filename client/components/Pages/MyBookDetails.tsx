@@ -5,6 +5,7 @@ import { useUpdateReview } from '../../hooks/updateReview'
 import { useEffect, useState } from 'react'
 import { useGetReviewById } from '../../hooks/useGetReview'
 import { useAddReview } from '../../hooks/addReview'
+import { useDeleteReview } from '../../hooks/deleteReview'
 
 export default function MyBookDetails() {
   const [searchParams] = useSearchParams()
@@ -15,6 +16,7 @@ export default function MyBookDetails() {
   // Custom hooks:
   const updateReview = useUpdateReview()
   const addReview = useAddReview()
+  const deleteReview = useDeleteReview()
 
   const { data: myBooksData } = useGetBooks()
 
@@ -94,7 +96,14 @@ export default function MyBookDetails() {
     setNewReview((newReview) => !newReview)
     setChangeReview(false)
   }
-  // console.log(reviewData)
+
+  function handleDelete() {
+    const bookId = String(searchParams.get('id'))
+    deleteReview.mutate(bookId)
+    setChangeReview(false)
+    setNewReview((newReview) => !newReview)
+  }
+
   return (
     <>
       <div className="box">
@@ -193,6 +202,9 @@ export default function MyBookDetails() {
                       className="searchButt"
                     >
                       Update Review
+                    </button>
+                    <button onClick={handleDelete} className="searchButt mx-2">
+                      Delete Review
                     </button>
                   </div>
                 </div>
