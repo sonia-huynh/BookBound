@@ -9,7 +9,7 @@ export function useAddBookToShelf() {
       title: string
       author: string
       image: string
-      bookId: number
+      bookId: string
       review: string
     }) => addBookToShelf(details),
     onSuccess: () => {
