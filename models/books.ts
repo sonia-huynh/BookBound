@@ -4,9 +4,7 @@ export interface Books {
   title: string
   author: string
   image: string
-  review: string
-  rating: number
-  book_id: number
+  book_id: string
 }
 
 export interface BookDetails {
@@ -15,7 +13,7 @@ export interface BookDetails {
   description?: string
   rating?: number
   image: string
-  bookId: number
+  bookId: string
 }
 
 // export interface Books {

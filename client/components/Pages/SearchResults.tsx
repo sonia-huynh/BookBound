@@ -70,7 +70,7 @@ export default function SearchResults() {
   }
 
   function viewMore(details: BookDetails) {
-    navigate(`/my-books/search?id=${details.bookId}&title=${details.title}`)
+    navigate(`/search/search?id=${details.bookId}&title=${details.title}`)
     console.log(details.bookId)
   }
 

@@ -8,6 +8,7 @@ import * as db from '../db/books.ts'
 // const apiKey = process.env.YOUR_API_KEY_NAME
 const router = express.Router()
 
+// Add book to your library
 router.post('/', async (req, res) => {
   try {
     const details = req.body
@@ -18,6 +19,7 @@ router.post('/', async (req, res) => {
   }
 })
 
+// Get book from library
 router.get('/', async (req, res) => {
   try {
     const books = await db.getBooks()
@@ -28,22 +30,30 @@ router.get('/', async (req, res) => {
   }
 })
 
-router.get('/:title', async (req, res) => {
+// add book review
+router.post('/:id', async (req, res) => {
   try {
-    const title = req.params.title
-    const book = await db.getBookByTitle(title)
-
-    res.json(book)
+    const bookId = String(req.params.id)
+    const title = String(req.query.title)
+    const bookReview = req.body.review
+    const result = await db.addReview(bookId, title, bookReview)
+    if (result) {
+      res.json({ message: 'Review added successfully', review: bookReview })
+    } else {
+      res.status(404).json({ message: 'Book not found' })
+    }
   } catch (error) {
     console.log(error)
-    res.status(500).json({ message: 'Something went wrong' })
+    res.status(500).json({
+      message: 'Something went wrong in trying to add your book review',
+    })
   }
 })
 
-// this can add and update the book review since review already exists:
+// update book review
 router.patch('/:id', async (req, res) => {
   try {
-    const bookId = String(req.query.id)
+    const bookId = String(req.params.id)
     const bookReview = req.body.review
     const result = await db.updateReview(bookId, bookReview)
     if (result) {
@@ -53,20 +63,43 @@ router.patch('/:id', async (req, res) => {
     }
   } catch (error) {
     console.log(error)
-    res.status(500).json({ message: 'Something went wrong' })
+    res.status(500).json({
+      message: 'Something went wrong in trying to update your book review',
+    })
+  }
+})
+
+// this can get the book review by id
+router.get('/:id', async (req, res) => {
+  try {
+    const bookId = String(req.params.id)
+    const bookReview = await db.getReviewById(bookId)
+    if (bookReview) {
+      res.json(bookReview.review)
+    } else {
+      res.status(404).json({ message: 'Book review not found' })
+    }
+  } catch (error) {
+    console.log(error)
+    res
+      .status(500)
+      .json({ message: 'Something went wrong in locating your book review' })
   }
 })
 
 // delete a book review
-router.delete('/:title', async (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
-    const title = req.params.title
-    await db.deleteReview(title)
+    const bookId = String(req.params.id)
+    await db.deleteReview(bookId)
 
-    return res.status(200).json({ message: 'Review deleted' })
+    return res.status(200).json({ message: 'Book review removed' })
   } catch (error) {
     console.log(error)
-    res.status(500).json({ message: 'Something went wrong' })
+    res.status(500).json({
+      message:
+        'Something went wrong in trying to remove your book from your library',
+    })
   }
 })
 

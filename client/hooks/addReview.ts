@@ -1,17 +1,20 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { addBookToShelf } from '../apis/books.ts'
+import { addReview } from '../apis/books.ts'
 
 // Add a searched book to myBooks
-export function useAddBookToShelf() {
+export function useAddReview() {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: (details: {
-      title: string
-      author: string
-      image: string
+    mutationFn: (reviewDetails: {
       bookId: string
+      title: string
       review: string
-    }) => addBookToShelf(details),
+    }) =>
+      addReview(
+        reviewDetails.bookId,
+        reviewDetails.title,
+        reviewDetails.review,
+      ),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['reviews'],

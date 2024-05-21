@@ -21,9 +21,9 @@ export async function getSearchBook(search: string): Promise<BookDetails[]> {
 }
 
 export async function getSearchBookById(id: string): Promise<BookDetails[]> {
-  // if (id.length < 3) {
-  //   return []
-  // }
+  if (id.length < 3) {
+    return []
+  }
 
   try {
     const res = await request.get(`/api/external/search/${id}`)
@@ -41,7 +41,7 @@ export async function addBookToShelf(details: {
   title: string
   author: string
   image: string
-  bookId: number
+  bookId: string
   review: string
 }) {
   try {
@@ -63,14 +63,48 @@ export async function getBooks() {
 }
 
 // Calls for Reviews
-export async function updateReview(bookId: string, review: string) {
+// Get review by Id
+export async function getReviewById(bookId: string) {
   try {
-    await request
-      .patch(databaseUrl + '/:id')
+    const result = await request
+      .get(databaseUrl + `/${bookId}`)
       .query({ id: bookId })
+    return result.body
+  } catch (error) {
+    console.error('Error fetching your book review')
+    throw new Error('Failed to fetch your book review')
+  }
+}
+
+//Add a review
+export async function addReview(bookId: string, title: string, review: string) {
+  try {
+    const response = await request
+      .post(databaseUrl + `/${bookId}`)
+      .query({ title: title })
       .send({ review: review })
+    return response.body
   } catch (error) {
     console.error('Error updating review')
     throw new Error('Failed to add review to book')
+  }
+}
+
+//update review
+export async function updateReview(bookId: string, review: string) {
+  try {
+    await request.patch(databaseUrl + `/${bookId}`).send({ review: review })
+  } catch (error) {
+    console.error('Error updating review')
+    throw new Error('Failed to add review to book')
+  }
+}
+
+export async function deleteReview(bookId: string) {
+  try {
+    await request.delete(databaseUrl + `/${bookId}`)
+  } catch (error) {
+    console.error('Error deleting review')
+    throw new Error('Failed to delete book review')
   }
 }
