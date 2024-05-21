@@ -5,9 +5,11 @@ import express from 'express'
 // import 'dotenv/config'
 
 import * as db from '../db/books.ts'
+import { BookDetails } from '../../models/books.ts'
 // const apiKey = process.env.YOUR_API_KEY_NAME
 const router = express.Router()
 
+// Add book to your library
 router.post('/', async (req, res) => {
   try {
     const details = req.body
@@ -18,6 +20,7 @@ router.post('/', async (req, res) => {
   }
 })
 
+// Get book from library
 router.get('/', async (req, res) => {
   try {
     const books = await db.getBooks()
@@ -54,10 +57,7 @@ router.get('/:id', async (req, res) => {
     const bookReview = await db.getReviewById(bookId)
 
     if (bookReview) {
-      res.json({
-        message: 'Retrieved your book review successfully',
-        review: bookReview.review,
-      })
+      res.json(bookReview)
     } else {
       res.status(404).json({ message: 'Book review not found' })
     }
@@ -70,16 +70,18 @@ router.get('/:id', async (req, res) => {
 })
 
 // delete a book review
-router.delete('/:title', async (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
-    const title = req.params.title
-    await db.deleteReview(title)
+    const bookId = req.params.id
+    // const bookId = req.query.id
+    await db.deleteBookById(bookId)
 
-    return res.status(200).json({ message: 'Review deleted' })
+    return res.status(200).json({ message: 'Book Removed' })
   } catch (error) {
     console.log(error)
     res.status(500).json({
-      message: 'Something went wrong in trying to delete your book review',
+      message:
+        'Something went wrong in trying to remove your book from your library',
     })
   }
 })

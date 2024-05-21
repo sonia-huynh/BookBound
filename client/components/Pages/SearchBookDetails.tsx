@@ -104,14 +104,16 @@ export default function SearchBookDetails() {
                           Add this book to your shelf to write a review!
                         </strong>
                       </div>
-                      <button
-                        className="searchButt"
-                        onClick={() => {
-                          handleAddBook(book)
-                        }}
-                      >
-                        Add book to shelf
-                      </button>
+                      <div className="flex justify-center">
+                        <button
+                          className="searchButt  mt-8"
+                          onClick={() => {
+                            handleAddBook(book)
+                          }}
+                        >
+                          Add book to shelf
+                        </button>
+                      </div>
                     </>
                   ) : (
                     <div>

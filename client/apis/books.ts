@@ -63,7 +63,19 @@ export async function getBooks() {
 }
 
 // Calls for Reviews
-export async function updateReview(bookId: string, review: string) {
+// Get review by Id
+export async function getReviewById(bookId: string) {
+  try {
+    const result = await request.get(databaseUrl + '/:id').query({ id: bookId })
+    return result.body.review
+  } catch (error) {
+    console.error('Error fetching your book review')
+    throw new Error('Failed to fetch your book review')
+  }
+}
+
+//Add a review
+export async function addReview(bookId: string, review: string) {
   try {
     await request
       .patch(databaseUrl + '/:id')
@@ -75,12 +87,14 @@ export async function updateReview(bookId: string, review: string) {
   }
 }
 
-export async function getReviewById(bookId: string) {
+export async function updateReview(bookId: string, review: string) {
   try {
-    const result = await request.get(databaseUrl + '/:id').query({ id: bookId })
-    return result.body.review
+    await request
+      .patch(databaseUrl + '/:id')
+      .query({ id: bookId })
+      .send({ review: review })
   } catch (error) {
-    console.error('Error fetching your book review')
-    throw new Error('Failed to fetch your book review')
+    console.error('Error updating review')
+    throw new Error('Failed to add review to book')
   }
 }

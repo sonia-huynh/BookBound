@@ -4,8 +4,6 @@ export interface Books {
   title: string
   author: string
   image: string
-  review: string
-  rating: number
   book_id: string
 }
 

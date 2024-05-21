@@ -6,26 +6,26 @@ export async function getBooks() {
   return books
 }
 
-// get book review by id
 export async function getReviewById(bookId: string) {
-  const bookReview = await db('books').where({ book_id: bookId }).first()
+  const bookReview = await db('reviews')
+    .join('books', 'reviews.book_id', 'books.book_id')
+    .select()
+    .where('reviews.book_id', bookId)
   return bookReview
 }
 
 // update book review
 export async function updateReview(bookId: string, update: string) {
   const review = await db('books')
+    .join('books', 'reviews.book_id', 'books.book_id')
     .where({ book_id: bookId })
     .update({ review: update })
   return review
 }
 
-// delete book review
-export async function deleteReview(title: string) {
-  const bookReview = await db('books')
-    .where({ title })
-    .select('review')
-    .update({ review: '' })
+// delete book
+export async function deleteBookById(bookId: string) {
+  const bookReview = await db('books').where({ book_id: bookId }).delete()
   return bookReview
 }
 
@@ -35,14 +35,12 @@ export async function addBook(details: {
   author: string
   image: string
   bookId: number
-  review: string
 }) {
   const books = await db('books').insert({
     title: details.title,
     author: details.author,
     image: details.image,
     book_id: details.bookId,
-    review: details.review,
   })
   return books
 }
