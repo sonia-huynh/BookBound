@@ -4,7 +4,9 @@ export interface Books {
   title: string
   author: string
   image: string
+  description?: string
   book_id: string
+  review: boolean
 }
 
 export interface BookDetails {

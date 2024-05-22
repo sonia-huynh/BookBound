@@ -57,7 +57,7 @@ export default function SearchResults() {
       author: details.author[0],
       image: details.image,
       bookId: details.bookId,
-      review: '',
+      description: String(details.description),
     }
     addBookToShelf.mutate(bookDetails)
 

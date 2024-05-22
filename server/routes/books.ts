@@ -12,6 +12,7 @@ const router = express.Router()
 router.post('/', async (req, res) => {
   try {
     const details = req.body
+    console.log(details)
     await db.addBook(details)
   } catch (error) {
     console.log(error)
@@ -31,14 +32,17 @@ router.get('/', async (req, res) => {
 })
 
 // add book review
-router.post('/:id', async (req, res) => {
+router.post('/:id/', async (req, res) => {
   try {
     const bookId = String(req.params.id)
     const title = String(req.query.title)
     const bookReview = req.body.review
-    const result = await db.addReview(bookId, title, bookReview)
-    if (result) {
-      res.json({ message: 'Review added successfully', review: bookReview })
+    const insertReview = await db.addReview(bookId, title, bookReview)
+
+    if (insertReview) {
+      res
+        .status(201)
+        .json({ message: 'Review added successfully', review: bookReview })
     } else {
       res.status(404).json({ message: 'Book not found' })
     }

@@ -42,7 +42,7 @@ export async function addBookToShelf(details: {
   author: string
   image: string
   bookId: string
-  review: string
+  description: string
 }) {
   try {
     await request.post(databaseUrl).send(details)
@@ -83,9 +83,9 @@ export async function addReview(bookId: string, title: string, review: string) {
       .post(databaseUrl + `/${bookId}`)
       .query({ title: title })
       .send({ review: review })
-    return response.body
+    return response.body.review
   } catch (error) {
-    console.error('Error updating review')
+    console.error('Error adding review')
     throw new Error('Failed to add review to book')
   }
 }

@@ -10,7 +10,7 @@ export function useAddBookToShelf() {
       author: string
       image: string
       bookId: string
-      review: string
+      description: string
     }) => addBookToShelf(details),
     onSuccess: () => {
       queryClient.invalidateQueries({
