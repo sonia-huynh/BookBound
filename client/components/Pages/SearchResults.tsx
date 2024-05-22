@@ -1,5 +1,5 @@
-import { useAddBookToShelf } from '../../hooks/addBooks'
-import { useGetSearchBook } from '../../hooks/useBooks'
+import { useAddBookToShelf } from '../../hooks/useMyBooks'
+import { useGetSearchBook } from '../../hooks/useSearchBooks'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { BookDetails } from '../../../models/books'

@@ -1,7 +1,7 @@
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { useGetSearchBookById } from '../../hooks/useBooks'
+import { useGetSearchBookById } from '../../hooks/useSearchBooks'
 import '../../styles/book.css'
-import { useAddBookToShelf } from '../../hooks/addBooks'
+import { useAddBookToShelf } from '../../hooks/useMyBooks'
 import { useEffect, useState } from 'react'
 import { BookDetails } from '../../../models/books'
 

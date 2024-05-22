@@ -1,11 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import {
-  getBookById,
-  getBooks,
-  getSearchBook,
-  getSearchBookById,
-} from '../apis/books.ts'
-import { Books } from '../../models/books.ts'
+import { getSearchBook, getSearchBookById } from '../apis/books.ts'
 
 export function useGetSearchBook(search: string) {
   return useQuery({
@@ -30,26 +24,6 @@ export function useGetSearchBookById(id: string) {
         throw new Error('Failed to fetch specific book data')
       }
       return data
-    },
-  })
-}
-
-export function useGetBooks() {
-  return useQuery({
-    queryKey: ['book'],
-    queryFn: async () => {
-      const books = await getBooks()
-      return books as Books[]
-    },
-  })
-}
-
-export function useGetBookById(bookId: string) {
-  return useQuery({
-    queryKey: ['bookId'],
-    queryFn: async () => {
-      const books = await getBookById(bookId)
-      return books as Books
     },
   })
 }

@@ -1,5 +1,5 @@
 import '../../styles/myBooks.css'
-import { useGetBooks } from '../../hooks/useBooks'
+import { useGetBooks } from '../../hooks/useMyBooks'
 import { useNavigate } from 'react-router-dom'
 
 export default function MyBooks() {

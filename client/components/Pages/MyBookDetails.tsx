@@ -1,9 +1,8 @@
 import { useSearchParams } from 'react-router-dom'
-import { useGetBookById } from '../../hooks/useBooks'
+import { useGetBookById } from '../../hooks/useMyBooks'
 import '../../styles/book.css'
 import { useUpdateReview } from '../../hooks/useGetReview'
 import { useEffect, useState } from 'react'
-import { useGetReviewById } from '../../hooks/useGetReview'
 import { useAddReview } from '../../hooks/useGetReview'
 import { useDeleteReview } from '../../hooks/useGetReview'
 import FetchReviews from './FetchReviews'
@@ -12,7 +11,6 @@ export default function MyBookDetails() {
   const [searchParams] = useSearchParams()
   const [input, setInput] = useState('')
   const [changeReview, setChangeReview] = useState(false)
-  const [review, setReview] = useState('')
   const [reviewExist, setReviewExist] = useState(false)
   const [oldReview, setOldReview] = useState('')
 
@@ -70,9 +68,7 @@ export default function MyBookDetails() {
     }
     setReviewExist(true)
     setChangeReview(false)
-    setReview(text)
     setInput('')
-    console.log(review)
   }
 
   function handleUpdate(text: string) {
@@ -82,8 +78,6 @@ export default function MyBookDetails() {
       review: text,
     })
     setChangeReview(false)
-    setReview(text)
-    console.log(review)
   }
 
   function handleDelete() {
@@ -147,7 +141,10 @@ export default function MyBookDetails() {
                     Review exists and you want to change:
                   </h1>
                   <div className="bookReview">
-                    <FetchReviews review={review} setOldReview={setOldReview} />
+                    <FetchReviews
+                      reviewExist={reviewExist}
+                      setOldReview={setOldReview}
+                    />
                   </div>
                   <h1>Update Your Review:</h1>
                   <div>
@@ -175,7 +172,10 @@ export default function MyBookDetails() {
                 <div>
                   <h1 className=" mt-4">Your Book Review:</h1>
                   <div className="bookReview mt-2">
-                    <FetchReviews review={review} setOldReview={setOldReview} />
+                    <FetchReviews
+                      reviewExist={reviewExist}
+                      setOldReview={setOldReview}
+                    />
                   </div>
 
                   <div className="flex justify-end">
