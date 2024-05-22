@@ -6,6 +6,9 @@ export async function up(knex) {
     table.string('title')
     table.string('author')
     table.string('image')
+    table.string('description')
+    table.boolean('review').defaultTo(false)
+    table.boolean('rating').defaultTo(false)
   })
 }
 

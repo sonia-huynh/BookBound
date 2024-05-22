@@ -11,6 +11,7 @@ export async function seed(knex) {
       author: 'Rebecca Yarros',
       image:
         'http://books.google.com/books/content?id=E-OLEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
+      review: true,
     },
     {
       username: 'Sonia',
@@ -19,6 +20,7 @@ export async function seed(knex) {
       author: 'Gabrielle Zevin',
       image:
         'http://books.google.com/books/content?id=pLpHEAAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api',
+      review: true,
     },
     {
       username: 'Sonia',
@@ -26,6 +28,7 @@ export async function seed(knex) {
       title: 'Legend',
       image: '',
       author: 'Marie Lu',
+      review: true,
     },
     {
       username: 'Sonia',
@@ -33,6 +36,7 @@ export async function seed(knex) {
       title: 'newbook',
       image: '',
       author: 'newbook',
+      review: false,
     },
     {
       username: 'Sonia',
@@ -40,6 +44,7 @@ export async function seed(knex) {
       title: 'test',
       image: '',
       author: 'test',
+      review: false,
     },
   ])
 }
