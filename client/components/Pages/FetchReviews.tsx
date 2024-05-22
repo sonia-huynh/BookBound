@@ -5,11 +5,11 @@ import { useGetReviewById } from '../../hooks/useGetReview'
 import { useEffect } from 'react'
 
 interface Props {
-  // setReview: React.Dispatch<React.SetStateAction<string>>
+  setOldReview: React.Dispatch<React.SetStateAction<string>>
   review: string
 }
 
-export default function FetchReviews(review: Props) {
+export default function FetchReviews({ review, setOldReview }: Props) {
   const [searchParams] = useSearchParams()
 
   const {
@@ -22,7 +22,8 @@ export default function FetchReviews(review: Props) {
 
   useEffect(() => {
     refetch()
-  }, [refetch, review])
+    setOldReview(reviewData)
+  }, [refetch, review, reviewData, setOldReview])
 
   if (isPending) {
     return <p>Retreiving book data...</p>

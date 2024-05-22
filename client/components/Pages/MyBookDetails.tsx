@@ -14,6 +14,7 @@ export default function MyBookDetails() {
   const [changeReview, setChangeReview] = useState(false)
   const [review, setReview] = useState('')
   const [reviewExist, setReviewExist] = useState(false)
+  const [oldReview, setOldReview] = useState('')
 
   // Custom hooks:
   const updateReview = useUpdateReview()
@@ -146,7 +147,7 @@ export default function MyBookDetails() {
                     Review exists and you want to change:
                   </h1>
                   <div className="bookReview">
-                    <FetchReviews review={review} />
+                    <FetchReviews review={review} setOldReview={setOldReview} />
                   </div>
                   <h1>Update Your Review:</h1>
                   <div>
@@ -155,6 +156,7 @@ export default function MyBookDetails() {
                       id="review"
                       className="review"
                       placeholder="Write your review here"
+                      defaultValue={oldReview}
                       onChange={handleChange}
                     />
                   </div>
@@ -171,9 +173,9 @@ export default function MyBookDetails() {
                 </div>
               ) : (
                 <div>
-                  <h1>Review exists:</h1>
+                  <h1 className=" mt-4">Your Book Review:</h1>
                   <div className="bookReview mt-2">
-                    <FetchReviews review={review} />
+                    <FetchReviews review={review} setOldReview={setOldReview} />
                   </div>
 
                   <div className="flex justify-end">
