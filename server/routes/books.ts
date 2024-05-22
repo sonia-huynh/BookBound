@@ -32,9 +32,9 @@ router.get('/', async (req, res) => {
 })
 
 // Get book by id from library
-router.get('/:bookid', async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
-    const bookId = req.params.bookid
+    const bookId = req.params.id
     const books = await db.getBookById(bookId)
     res.json(books)
   } catch (error) {
@@ -44,7 +44,7 @@ router.get('/:bookid', async (req, res) => {
 })
 
 // add book review
-router.post('/:id/', async (req, res) => {
+router.post('/review/:id/', async (req, res) => {
   try {
     const bookId = String(req.params.id)
     const title = String(req.query.title)
@@ -66,8 +66,26 @@ router.post('/:id/', async (req, res) => {
   }
 })
 
+// this can get the book review by id
+router.get('/review/:id', async (req, res) => {
+  try {
+    const bookId = String(req.params.id)
+    const bookReview = await db.getReviewById(bookId)
+    if (bookReview) {
+      return res.json(bookReview.review)
+    } else {
+      res.status(404).json({ message: 'Book review not found' })
+    }
+  } catch (error) {
+    console.log(error)
+    res
+      .status(500)
+      .json({ message: 'Something went wrong in locating your book review' })
+  }
+})
+
 // update book review
-router.patch('/:id', async (req, res) => {
+router.patch('/review/:id', async (req, res) => {
   try {
     const bookId = String(req.params.id)
     const bookReview = req.body.review
@@ -85,26 +103,8 @@ router.patch('/:id', async (req, res) => {
   }
 })
 
-// this can get the book review by id
-router.get('/:id', async (req, res) => {
-  try {
-    const bookId = String(req.params.id)
-    const bookReview = await db.getReviewById(bookId)
-    if (bookReview) {
-      res.json(bookReview.review)
-    } else {
-      res.status(404).json({ message: 'Book review not found' })
-    }
-  } catch (error) {
-    console.log(error)
-    res
-      .status(500)
-      .json({ message: 'Something went wrong in locating your book review' })
-  }
-})
-
 // delete a book review
-router.delete('/:id', async (req, res) => {
+router.delete('/review/:id', async (req, res) => {
   try {
     const bookId = String(req.params.id)
     await db.deleteReview(bookId)

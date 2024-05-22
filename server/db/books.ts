@@ -54,7 +54,6 @@ export async function addReview(bookId: string, title: string, review: string) {
 // get review by id
 export async function getReviewById(bookId: string) {
   const bookReview = await db('reviews')
-    .join('books', 'reviews.book_id', 'books.book_id')
     .select()
     .where('reviews.book_id', bookId)
     .first()
