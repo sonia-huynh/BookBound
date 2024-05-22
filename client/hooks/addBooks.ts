@@ -14,7 +14,7 @@ export function useAddBookToShelf() {
     }) => addBookToShelf(details),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['reviews'],
+        queryKey: ['addBook'],
       })
     },
   })

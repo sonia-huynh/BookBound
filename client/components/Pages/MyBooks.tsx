@@ -19,25 +19,27 @@ export default function MyBooks() {
       <div>
         <h1 className="ml-10 mt-10 text-3xl font-bold underline">My Books</h1>
         <br></br>
-        <div className="bookshelfContainer">
-          {data.map((book) => (
-            <div key={book.id}>
-              <button
-                onClick={() => {
-                  navigate(
-                    `/my-books/search?id=${book.book_id}&title=${book.title}`,
-                  )
-                }}
-              >
-                <img
-                  src={book.image}
-                  alt={`cover of book ${book.title}`}
-                  className="book-cover m-2"
-                />
-              </button>
-            </div>
-          ))}
-        </div>
+        {data && (
+          <div className="bookshelfContainer">
+            {data.map((book) => (
+              <div key={book.id}>
+                <button
+                  onClick={() => {
+                    navigate(
+                      `/my-books/search?id=${book.book_id}&title=${book.title}`,
+                    )
+                  }}
+                >
+                  <img
+                    src={book.image}
+                    alt={`cover of book ${book.title}`}
+                    className="book-cover m-2"
+                  />
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </>
   )

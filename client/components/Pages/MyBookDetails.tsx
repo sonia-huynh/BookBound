@@ -1,137 +1,126 @@
 import { useSearchParams } from 'react-router-dom'
-import {
-  useGetBookById,
-  useGetBooks,
-  useGetSearchBookById,
-} from '../../hooks/useBooks'
+import { useGetBookById } from '../../hooks/useBooks'
 import '../../styles/book.css'
-import { useUpdateReview } from '../../hooks/updateReview'
+import { useUpdateReview } from '../../hooks/useGetReview'
 import { useEffect, useState } from 'react'
 import { useGetReviewById } from '../../hooks/useGetReview'
-import { useAddReview } from '../../hooks/addReview'
-import { useDeleteReview } from '../../hooks/deleteReview'
+import { useAddReview } from '../../hooks/useGetReview'
+import { useDeleteReview } from '../../hooks/useGetReview'
+import FetchReviews from './FetchReviews'
 
 export default function MyBookDetails() {
   const [searchParams] = useSearchParams()
   const [input, setInput] = useState('')
   const [changeReview, setChangeReview] = useState(false)
-  const [newReview, setNewReview] = useState(false)
+  const [review, setReview] = useState('')
+  const [reviewExist, setReviewExist] = useState(false)
 
   // Custom hooks:
   const updateReview = useUpdateReview()
   const addReview = useAddReview()
   const deleteReview = useDeleteReview()
 
-  const { data: myBooksData } = useGetBookById(searchParams.get('id') || '')
+  const {
+    data: myBooksData,
+    isPending,
+    isError,
+    error,
+    refetch,
+  } = useGetBookById(searchParams.get('id') || '')
 
-  // const { data: reviewData, refetch: refetchReview } = useGetReviewById(
-  //   searchParams.get('id') || '',
-  // )
+  useEffect(() => {
+    refetch()
+  }, [refetch, reviewExist, changeReview, input])
 
-  // Check if book exists in libary
+  if (isPending) {
+    return <p>Retreiving book data...</p>
+  }
 
-  // useEffects:
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     refetchReview()
-  //   }, 0)
-  // }, [refetchReview, newReview])
-
-  // if (isPending) {
-  //   return <p>Retreiving book data...</p>
-  // }
-
-  // if (isError) {
-  //   return (
-  //     <p>Sorry, the book details could not be retrieved! {String(error)}</p>
-  //   )
-  // }
+  if (isError) {
+    return (
+      <p>Sorry, the book details could not be retrieved! {String(error)}</p>
+    )
+  }
 
   // get rid of HTML tags in description
-  // const strippedHTML = (text: string) => {
-  //   return text.replace(/<[^>]+>/g, '')
-  // }
+  const strippedHTML = (text: string) => {
+    return text.replace(/<[^>]+>/g, '')
+  }
 
-  // function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
-  //   setInput(e.target.value)
-  //   // console.log(input)
-  // }
+  function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
+    setInput(e.target.value)
+    // console.log(input)
+  }
 
-  // function handleSave(text: string) {
-  //   const bookId = String(searchParams.get('id'))
-  //   const title = String(searchParams.get('title'))
-  //   const bookReview = text
+  function handleAdd(text: string) {
+    const bookId = String(searchParams.get('id'))
+    const title = String(searchParams.get('title'))
+    const bookReview = text
 
-  //   if (bookId !== null) {
-  //     addReview.mutate({
-  //       bookId: bookId,
-  //       title: title,
-  //       review: bookReview,
-  //     })
-  //     // console.log({ bookId: bookId }, { title: title }, { review: text })
-  //   } else {
-  //     console.log('title parameter is null and review')
-  //   }
-  //   setNewReview((newReview) => !newReview)
-  //   setInput('')
-  // }
+    if (bookId !== null) {
+      addReview.mutate({
+        bookId: bookId,
+        title: title,
+        review: bookReview,
+      })
+      // console.log({ bookId: bookId }, { title: title }, { review: text })
+    } else {
+      console.log('title parameter is null and review')
+    }
+    setReviewExist(true)
+    setChangeReview(false)
+    setReview(text)
+    setInput('')
+    console.log(review)
+  }
 
-  // function handleUpdate(text: string) {
-  //   setChangeReview(true)
-  //   const bookId = String(searchParams.get('id'))
+  function handleUpdate(text: string) {
+    const bookId = String(searchParams.get('id'))
+    updateReview.mutate({
+      bookId: bookId,
+      review: text,
+    })
+    setChangeReview(false)
+    setReview(text)
+    console.log(review)
+  }
 
-  //   updateReview.mutate({
-  //     bookId: bookId,
-  //     review: text,
-  //   })
-  //   setNewReview((newReview) => !newReview)
-  //   setChangeReview(!changeReview)
-  // }
+  function handleDelete() {
+    const bookId = String(searchParams.get('id'))
 
-  // function handleDelete() {
-  //   const bookId = String(searchParams.get('id'))
-  //   deleteReview.mutate(bookId)
-  //   setChangeReview(!changeReview)
-  //   setNewReview(!newReview)
-  // }
+    setChangeReview(false)
+    setReviewExist(false)
+    setInput('')
+    deleteReview.mutate(bookId)
+  }
 
   return (
     <>
       <div className="box">
         <div className="card">
-          <div>
-            <div>
-              {myBooksData && (
-                <div className="detail">
-                  <div>
-                    <img
-                      src={myBooksData.image}
-                      alt={`cover of book for ${myBooksData.title}`}
-                      className="book-single"
-                    />
-                  </div>
-                  <div className="ml-4">
-                    <h1 className=" mb-2">{myBooksData.title}</h1>
-                    <p className=" mb-2">by {myBooksData.author}</p>
-                    <p className="mb-4">{myBooksData.description}</p>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* <br />
-          <br />
-          {!checkId?.includes(id) ? (
-            <div className="flex justify-center">
-              <strong>Add this book to your library to write a review!</strong>
-            </div>
-          ) : (
+          {myBooksData && (
             <>
-              {!reviewData ? (
+              <div className="detail">
                 <div>
-                  <div className="bookReview">
-                    <p>{reviewData}</p>
+                  <img
+                    src={myBooksData.image}
+                    alt={`cover of book for ${myBooksData.title}`}
+                    className="book-single"
+                  />
+                </div>
+                <div className="ml-4">
+                  <h1 className=" mb-2">{myBooksData.title}</h1>
+                  <p className=" mb-2">by {myBooksData.author}</p>
+                  <p className="mb-4">
+                    {strippedHTML(String(myBooksData.description))}
+                  </p>
+                </div>
+              </div>
+              {!myBooksData.review ? (
+                <div>
+                  <h1 className=" mt-4">Your Book Review:</h1>
+                  <div className="bookReview mt-4">
+                    <p>Write a review!</p>
                   </div>
                   <div>
                     <textarea
@@ -139,24 +128,25 @@ export default function MyBookDetails() {
                       id="review"
                       className="review"
                       placeholder="Write your review here"
-                      value={input}
                       onChange={handleChange}
                     />
                   </div>
                   <div className="flex justify-end">
                     <button
-                      onClick={() => handleSave(input)}
+                      onClick={() => handleAdd(input)}
                       className="searchButt"
                     >
                       Save Review
                     </button>
                   </div>
                 </div>
-              ) : reviewData && changeReview === true ? (
+              ) : myBooksData.review && changeReview === true ? (
                 <div>
-                  <h1>Your Old Review:</h1>
+                  <h1 className="mt-8">
+                    Review exists and you want to change:
+                  </h1>
                   <div className="bookReview">
-                    <p>{reviewData}</p>
+                    <FetchReviews review={review} />
                   </div>
                   <h1>Update Your Review:</h1>
                   <div>
@@ -165,7 +155,6 @@ export default function MyBookDetails() {
                       id="review"
                       className="review"
                       placeholder="Write your review here"
-                      defaultValue={reviewData}
                       onChange={handleChange}
                     />
                   </div>
@@ -182,13 +171,14 @@ export default function MyBookDetails() {
                 </div>
               ) : (
                 <div>
-                  <h1>Your Book Review:</h1>
-                  <div className="bookReview mt-4">
-                    <p>{reviewData}</p>
+                  <h1>Review exists:</h1>
+                  <div className="bookReview mt-2">
+                    <FetchReviews review={review} />
                   </div>
+
                   <div className="flex justify-end">
                     <button
-                      onClick={() => handleUpdate(input)}
+                      onClick={() => setChangeReview(true)}
                       className="searchButt"
                     >
                       Update Review
@@ -200,7 +190,7 @@ export default function MyBookDetails() {
                 </div>
               )}
             </>
-          )} */}
+          )}
         </div>
       </div>
     </>
