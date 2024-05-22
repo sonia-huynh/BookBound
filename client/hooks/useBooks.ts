@@ -1,5 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
-import { getBooks, getSearchBook, getSearchBookById } from '../apis/books.ts'
+import {
+  getBookById,
+  getBooks,
+  getSearchBook,
+  getSearchBookById,
+} from '../apis/books.ts'
 import { Books } from '../../models/books.ts'
 
 export function useGetSearchBook(search: string) {
@@ -35,6 +40,16 @@ export function useGetBooks() {
     queryFn: async () => {
       const books = await getBooks()
       return books as Books[]
+    },
+  })
+}
+
+export function useGetBookById(bookId: string) {
+  return useQuery({
+    queryKey: ['book'],
+    queryFn: async () => {
+      const books = await getBookById(bookId)
+      return books as Books
     },
   })
 }

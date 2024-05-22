@@ -4,7 +4,7 @@ import { BookDetails, Books } from '../../models/books'
 const databaseUrl = '/api/books'
 const externalApiUrl = '/api/external/search'
 
-// External API calls
+// EXTERNAL API CALLS
 export async function getSearchBook(search: string): Promise<BookDetails[]> {
   if (search.length < 3) {
     return []
@@ -56,6 +56,16 @@ export async function getBooks() {
   try {
     const res = await request.get(databaseUrl)
     return res.body as Books[]
+  } catch (error) {
+    console.error('Could not get books from database')
+    throw new Error('Failed to get books from database')
+  }
+}
+
+export async function getBookById(bookId: string) {
+  try {
+    const res = await request.get(databaseUrl + `/${bookId}`)
+    return res.body as Books
   } catch (error) {
     console.error('Could not get book from database')
     throw new Error('Failed to get book from database')

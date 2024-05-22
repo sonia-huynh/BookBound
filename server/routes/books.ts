@@ -20,10 +20,22 @@ router.post('/', async (req, res) => {
   }
 })
 
-// Get book from library
+// Get books from library
 router.get('/', async (req, res) => {
   try {
     const books = await db.getBooks()
+    res.json(books)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ message: 'Something went wrong' })
+  }
+})
+
+// Get book by id from library
+router.get('/:bookid', async (req, res) => {
+  try {
+    const bookId = req.params.bookid
+    const books = await db.getBookById(bookId)
     res.json(books)
   } catch (error) {
     console.log(error)

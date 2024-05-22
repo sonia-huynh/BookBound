@@ -24,6 +24,12 @@ export async function getBooks() {
   return books
 }
 
+// get single book by id
+export async function getBookById(bookId: string) {
+  const book = await db('books').where({ book_id: bookId }).select().first()
+  return book
+}
+
 // add review by id AND update the books table whether review exists using transaction in a single atomic unit
 export async function addReview(bookId: string, title: string, review: string) {
   const trx = await db.transaction()
