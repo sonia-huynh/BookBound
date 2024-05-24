@@ -4,3 +4,10 @@
   flex-wrap: wrap;
   margin: 10px;
 }
+
+.book-cover {
+  width: 150px;
+  height: 225px;
+  /* border: pink;
+  border-style: dotted; */
+}

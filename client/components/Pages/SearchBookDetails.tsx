@@ -77,8 +77,8 @@ export default function SearchBookDetails() {
           <div>
             {searchBookData.map((book) => (
               <>
-                <div key={book.bookId} className="detail">
-                  <div>
+                <div key={book.bookId} className="">
+                  <div className="flex justify-center">
                     <img
                       src={book.image}
                       alt={`cover of book for ${book.title}`}
@@ -86,8 +86,8 @@ export default function SearchBookDetails() {
                     />
                   </div>
                   <div className="ml-4">
-                    <h1 className=" mb-2">{book.title}</h1>
-                    <p className=" mb-2">by {book.author}</p>
+                    <h1 className="mb-2 mt-4 text-center">{book.title}</h1>
+                    <p className="mb-8 mt-2 text-center">by {book.author}</p>
                     <p className="mb-4">
                       {strippedHTML(book.description as string)}
                     </p>

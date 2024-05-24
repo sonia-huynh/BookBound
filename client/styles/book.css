@@ -7,7 +7,7 @@
   width: 1000px;
   border-color: red;
   background-color: white;
-  padding: 30px;
+  padding: 50px;
   margin: 10px;
   justify-content: center;
 }
@@ -33,4 +33,15 @@
   background-color: #fdf4ea;
   padding: 10px;
   margin-bottom: 5%;
+}
+
+.book-single {
+  width: auto;
+  height: 400px;
+  /* border: pink;
+  border-style: dotted; */
+}
+
+.star {
+  cursor: pointer;
 }

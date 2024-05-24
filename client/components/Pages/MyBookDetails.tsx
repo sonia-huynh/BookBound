@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router-dom'
+import { Outlet, useSearchParams } from 'react-router-dom'
 import { useGetBookById } from '../../hooks/useMyBooks'
 import '../../styles/book.css'
 import { useUpdateReview } from '../../hooks/useGetReview'
@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { useAddReview } from '../../hooks/useGetReview'
 import { useDeleteReview } from '../../hooks/useGetReview'
 import FetchReviews from './FetchReviews'
+import { StarRating } from './StarRating'
 
 export default function MyBookDetails() {
   const [searchParams] = useSearchParams()
@@ -45,6 +46,16 @@ export default function MyBookDetails() {
   const strippedHTML = (text: string) => {
     return text.replace(/<[^>]+>/g, '')
   }
+
+  // turn description sentences into an array of them and then map through them
+  const paragraphStrings = (text: string) => {
+    const parArr = [text]
+    const splitPar = parArr[0].split('.')
+    return console.log(splitPar)
+  }
+  paragraphStrings(
+    'The quick brown fox jumps over the lazy dog. Sally sells sea shells by the sea shore. I am so cool. This is crazy... What is this? Name a fruit. I am a durian. ',
+  )
 
   function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
     setInput(e.target.value)
@@ -96,20 +107,24 @@ export default function MyBookDetails() {
           {myBooksData && (
             <>
               <div className="detail">
-                <div>
+                <div className="flex justify-center">
                   <img
                     src={myBooksData.image}
                     alt={`cover of book for ${myBooksData.title}`}
-                    className="book-single"
+                    className="book-single "
                   />
                 </div>
-                <div className="ml-4">
-                  <h1 className=" mb-2">{myBooksData.title}</h1>
+                <div className="ml-6">
+                  <h1 className="mb-2 ">{myBooksData.title}</h1>
                   <p className=" mb-2">by {myBooksData.author}</p>
                   <p className="mb-4">
-                    {strippedHTML(String(myBooksData.description))}
+                    {strippedHTML(myBooksData.description as string)}
                   </p>
                 </div>
+              </div>
+              <div>
+                <h1 className="mt-4">Your Rating:</h1>
+                <StarRating />
               </div>
               {!myBooksData.review ? (
                 <div>

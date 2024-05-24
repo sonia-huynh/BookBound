@@ -36,13 +36,6 @@ body {
   align-content: center;
 }
 
-.book-cover {
-  width: auto;
-  height: 250px;
-  /* border: pink;
-  border-style: dotted; */
-}
-
 .book-single {
   width: auto;
   height: 400px;

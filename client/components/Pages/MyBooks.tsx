@@ -33,7 +33,7 @@ export default function MyBooks() {
                   <img
                     src={book.image}
                     alt={`cover of book ${book.title}`}
-                    className="book-cover m-2"
+                    className="book-cover m-6  mb-20"
                   />
                 </button>
               </div>

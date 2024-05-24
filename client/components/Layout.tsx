@@ -19,7 +19,7 @@ export default function Layout() {
         <NavBar />
         <Routes>
           <Route path="/" element={<App />}>
-            <Route path="home" element={<Home />} />
+            <Route index element={<Home />} />
             <Route path="search" element={<SearchResults />} />
             <Route path="search/:title" element={<SearchBookDetails />} />
             <Route path="my-books" element={<MyBooks />} />
