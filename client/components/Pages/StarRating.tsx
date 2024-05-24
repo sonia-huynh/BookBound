@@ -1,22 +1,61 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import '../../styles/book.css'
 import { FaRegStar, FaStar, FaStarHalfAlt } from 'react-icons/fa'
+import {
+  useAddBookRating,
+  useDeleteBookRating,
+  useGetBookRatingById,
+} from '../../hooks/useRatings'
+import { useSearchParams } from 'react-router-dom'
 
 export function StarRating() {
+  const [searchParams] = useSearchParams()
   const [starRating, setStarRating] = useState(0)
   const [hover, setHover] = useState(0)
 
+  const bookID = String(searchParams.get('id') || '')
+  const title = String(searchParams.get('title'))
+  const addRating = useAddBookRating()
+  const deleteRating = useDeleteBookRating()
+
+  const {
+    data: ratingData,
+    isPending,
+    isError,
+    error,
+  } = useGetBookRatingById(bookID)
+
+  useEffect(() => {
+    if (ratingData) {
+      setStarRating(ratingData.rating)
+    } else if (!ratingData) {
+      setStarRating(0)
+    }
+  }, [ratingData])
+
   function handleClick(i: number) {
     const value = i + 0.5
-    console.log('single')
-
+    addRating.mutate({
+      bookId: bookID,
+      title: title,
+      rating: value,
+    })
     setStarRating(value)
   }
 
   function handleDoubleClick(i: number) {
     const value = i + 1
-    console.log('double')
+    addRating.mutate({
+      bookId: bookID,
+      title: title,
+      rating: value,
+    })
     setStarRating(value)
+  }
+
+  function handleDelete() {
+    setStarRating(0)
+    deleteRating.mutate(bookID)
   }
 
   function handleMouseEnter(i: number) {
@@ -41,28 +80,44 @@ export function StarRating() {
     }
   }
 
+  if (isPending) {
+    return <p>Retreiving book rating data...</p>
+  }
+
+  if (isError) {
+    return (
+      <p>
+        Sorry, the book rating details could not be retrieved! {String(error)}
+      </p>
+    )
+  }
   return (
-    <div className="flex">
-      {[...Array(5)].map((_, i) => (
-        <div key={i}>
-          <label
-            htmlFor={`star-rating-${i}`}
-            onMouseEnter={() => {
-              handleMouseEnter(i)
-            }}
-            onMouseLeave={() => handleMouseLeave()}
-            onDoubleClick={() => handleDoubleClick(i)}
-          >
-            <button
-              value={i}
-              id={`star-rating-${i}`}
-              onClick={() => handleClick(i)}
+    <>
+      <div className="flex">
+        {[...Array(5)].map((_, i) => (
+          <div key={i}>
+            <label
+              htmlFor={`star-rating-${i}`}
+              onMouseEnter={() => {
+                handleMouseEnter(i)
+              }}
+              onMouseLeave={() => handleMouseLeave()}
+              onDoubleClick={() => handleDoubleClick(i)}
             >
-              {starIcon(i)}
-            </button>
-          </label>
-        </div>
-      ))}
-    </div>
+              <button
+                value={i}
+                id={`star-rating-${i}`}
+                onClick={() => handleClick(i)}
+              >
+                {starIcon(i)}
+              </button>
+            </label>
+          </div>
+        ))}
+      </div>
+      <div>
+        <button onClick={handleDelete}>Delete rating</button>
+      </div>
+    </>
   )
 }

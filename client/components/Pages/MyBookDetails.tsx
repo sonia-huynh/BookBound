@@ -1,4 +1,4 @@
-import { Outlet, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import { useGetBookById } from '../../hooks/useMyBooks'
 import '../../styles/book.css'
 import { useUpdateReview } from '../../hooks/useGetReview'
@@ -44,7 +44,9 @@ export default function MyBookDetails() {
 
   // get rid of HTML tags in description
   const strippedHTML = (text: string) => {
-    return text.replace(/<[^>]+>/g, '')
+    if (text === null) {
+      return text
+    } else return text.replace(/<[^>]+>/g, '')
   }
 
   // turn description sentences into an array of them and then map through them
@@ -53,9 +55,9 @@ export default function MyBookDetails() {
     const splitPar = parArr[0].split('.')
     return console.log(splitPar)
   }
-  paragraphStrings(
-    'The quick brown fox jumps over the lazy dog. Sally sells sea shells by the sea shore. I am so cool. This is crazy... What is this? Name a fruit. I am a durian. ',
-  )
+  // paragraphStrings(
+  //   'The quick brown fox jumps over the lazy dog. Sally sells sea shells by the sea shore. I am so cool. This is crazy... What is this? Name a fruit. I am a durian. ',
+  // )
 
   function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
     setInput(e.target.value)
@@ -111,7 +113,7 @@ export default function MyBookDetails() {
                   <img
                     src={myBooksData.image}
                     alt={`cover of book for ${myBooksData.title}`}
-                    className="book-single "
+                    className="book-single"
                   />
                 </div>
                 <div className="ml-6">
