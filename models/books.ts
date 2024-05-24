@@ -7,6 +7,7 @@ export interface Books {
   description?: string
   book_id: string
   review: boolean
+  rating: boolean
 }
 
 export interface BookDetails {

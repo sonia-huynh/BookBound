@@ -4,7 +4,7 @@ import {
   deleteReview,
   getReviewById,
   updateReview,
-} from '../apis/books.ts'
+} from '../apis/reviews.ts'
 
 export function useGetReviewById(bookId: string) {
   return useQuery({
