@@ -14,6 +14,7 @@ export default function MyBookDetails() {
   const [changeReview, setChangeReview] = useState(false)
   const [reviewExist, setReviewExist] = useState(false)
   const [oldReview, setOldReview] = useState('')
+  // const [ratingExist, setRatingExist] = useState<boolean>()
 
   // Custom hooks:
   const updateReview = useUpdateReview()
@@ -31,6 +32,16 @@ export default function MyBookDetails() {
   useEffect(() => {
     refetch()
   }, [refetch, myBooksData, reviewExist, changeReview, input])
+
+  // console.log(Boolean(myBooksData?.rating))
+
+  // useEffect(() => {
+  //   if (Boolean(myBooksData?.rating) === true) {
+  //     setRatingExist(true)
+  //   } else if (Boolean(myBooksData?.rating) === false) {
+  //     setRatingExist(false)
+  //   }
+  // }, [myBooksData])
 
   if (isPending) {
     return <p>Retreiving book data...</p>

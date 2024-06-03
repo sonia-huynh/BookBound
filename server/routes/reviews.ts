@@ -33,11 +33,17 @@ router.post('/:id', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const bookId = String(req.params.id)
-    const bookReview = await db.getReviewById(bookId)
-    if (bookReview) {
-      return res.json(bookReview.review)
-    } else {
-      res.status(404).json({ message: 'Book review not found' })
+    const reviewExist = await db.checkReviewExists(bookId)
+
+    if (reviewExist.review === 1) {
+      const bookReview = await db.getReviewById(bookId)
+      if (bookReview) {
+        return res.json(bookReview.review)
+      } else {
+        res.status(404).json({ message: 'Book review not found' })
+      }
+    } else if (reviewExist.review === 0) {
+      return res.json({ message: 'Book review does not exist' })
     }
   } catch (error) {
     console.log(error)

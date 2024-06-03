@@ -16,7 +16,7 @@ router.get('/:id', async (req, res) => {
         res.status(404).json({ message: 'Book Rating not found' })
       }
     } else if (ratingExist.rating === 0) {
-      return res.json({ message: 'There is no book rating' })
+      return res.json({ message: 'Book rating does not exist' })
     }
   } catch (error) {
     console.log(error)

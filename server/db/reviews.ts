@@ -21,6 +21,15 @@ export async function addReview(bookId: string, title: string, review: string) {
   }
 }
 
+// Check review exists in books column
+export async function checkReviewExists(bookId: string) {
+  const reviewExists = await db('books')
+    .where({ book_id: bookId })
+    .select('books.review')
+    .first()
+  return reviewExists
+}
+
 // get review by id
 export async function getReviewById(bookId: string) {
   const bookReview = await db('reviews')
