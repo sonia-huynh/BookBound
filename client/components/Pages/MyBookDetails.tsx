@@ -14,7 +14,7 @@ export default function MyBookDetails() {
   const [changeReview, setChangeReview] = useState(false)
   const [reviewExist, setReviewExist] = useState(false)
   const [oldReview, setOldReview] = useState('')
-  // const [ratingExist, setRatingExist] = useState<boolean>()
+  const [readMore, setReadMore] = useState(false)
 
   // Custom hooks:
   const updateReview = useUpdateReview()
@@ -33,16 +33,6 @@ export default function MyBookDetails() {
     refetch()
   }, [refetch, myBooksData, reviewExist, changeReview, input])
 
-  // console.log(Boolean(myBooksData?.rating))
-
-  // useEffect(() => {
-  //   if (Boolean(myBooksData?.rating) === true) {
-  //     setRatingExist(true)
-  //   } else if (Boolean(myBooksData?.rating) === false) {
-  //     setRatingExist(false)
-  //   }
-  // }, [myBooksData])
-
   if (isPending) {
     return <p>Retreiving book data...</p>
   }
@@ -54,21 +44,47 @@ export default function MyBookDetails() {
   }
 
   // get rid of HTML tags in description
-  const strippedHTML = (text: string) => {
-    if (text === null) {
-      return text
-    } else return text.replace(/<[^>]+>/g, '')
-  }
+  // const strippedHTML = (text: string) => {
+  //   if (text === null) {
+  //     return text
+  //   } else {
+  //     let cleaned = text.replace(/<[^>]+>/g, '')
+  //     cleaned = cleaned.replace(/[*_\-(){}[\]]+/g, '')
+
+  //     // Step 3: Remove excessive whitespace
+  //     cleaned = cleaned.replace(/\s+/g, ' ').trim()
+
+  //     return cleaned
+  //   }
+  // }
 
   // turn description sentences into an array of them and then map through them
-  const paragraphStrings = (text: string) => {
-    const parArr = [text]
-    const splitPar = parArr[0].split('.')
-    return console.log(splitPar)
+  const cleanAndTruncate = (text: string, readMore: boolean) => {
+    const cleaned = text
+      .replace(/<[^>]+>/g, '')
+      .replace(/[*_\-(){}[\]]+/g, '')
+      .replace(/\s+/g, ' ')
+      .trim()
+
+    const sentences = cleaned.split('.').filter((sentence) => sentence != ' ')
+    console.log(sentences)
+    const numSentences = 6
+    if (sentences.length <= numSentences) {
+      setReadMore(true)
+    }
+
+    if (readMore === false) {
+      if (sentences.length <= numSentences) {
+        setReadMore(!readMore)
+        return cleaned
+      } else {
+        const shortenedText = sentences.slice(0, numSentences).join('. ')
+        return shortenedText + '. '
+      }
+    } else if (readMore === true) {
+      return cleaned + ' '
+    }
   }
-  // paragraphStrings(
-  //   'The quick brown fox jumps over the lazy dog. Sally sells sea shells by the sea shore. I am so cool. This is crazy... What is this? Name a fruit. I am a durian. ',
-  // )
 
   function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
     setInput(e.target.value)
@@ -113,6 +129,10 @@ export default function MyBookDetails() {
     deleteReview.mutate(bookId)
   }
 
+  function handleReadMore() {
+    setReadMore(true)
+  }
+
   return (
     <>
       <div className="box">
@@ -131,7 +151,18 @@ export default function MyBookDetails() {
                   <h1 className="mb-2 ">{myBooksData.title}</h1>
                   <p className=" mb-2">by {myBooksData.author}</p>
                   <p className="mb-4">
-                    {strippedHTML(myBooksData.description as string)}
+                    {cleanAndTruncate(
+                      myBooksData.description as string,
+                      readMore,
+                    )}
+                    {readMore === false && (
+                      <button onClick={handleReadMore}> Read more...</button>
+                    )}
+                    {readMore === true && (
+                      <button onClick={() => setReadMore(false)}>
+                        {' --- See Less'}
+                      </button>
+                    )}
                   </p>
                 </div>
               </div>

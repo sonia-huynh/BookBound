@@ -67,7 +67,17 @@ export default function SearchBookDetails() {
 
   // get rid of HTML tags in description
   const strippedHTML = (text: string) => {
-    return text.replace(/<[^>]+>/g, '')
+    if (text === null) {
+      return text
+    } else {
+      let cleaned = text.replace(/<[^>]+>/g, '')
+      cleaned = cleaned.replace(/[*_(){}[\]]+/g, '')
+
+      // Step 3: Remove excessive whitespace
+      cleaned = cleaned.replace(/\s+/g, ' ').trim()
+
+      return cleaned
+    }
   }
   console.log(addBook)
   return (
