@@ -30,7 +30,7 @@ export default function MyBookDetails() {
 
   useEffect(() => {
     refetch()
-  }, [refetch, reviewExist, changeReview, input])
+  }, [refetch, myBooksData, reviewExist, changeReview, input])
 
   if (isPending) {
     return <p>Retreiving book data...</p>

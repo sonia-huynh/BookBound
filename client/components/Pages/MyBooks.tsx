@@ -16,8 +16,8 @@ export default function MyBooks() {
 
   return (
     <>
-      <div>
-        <h1 className="ml-10 mt-10 text-3xl font-bold underline">My Books</h1>
+      <div className="ml-12">
+        <h1 className="mt-10 text-3xl font-bold underline">My Books</h1>
         <br></br>
         {data && (
           <div className="bookshelfContainer">
@@ -33,7 +33,7 @@ export default function MyBooks() {
                   <img
                     src={book.image}
                     alt={`cover of book ${book.title}`}
-                    className="book-cover m-6  mb-20"
+                    className="book-cover"
                   />
                 </button>
               </div>

@@ -15,6 +15,7 @@ export function useGetBookRatingById(bookId: string) {
       if (!data) {
         throw new Error('Failed to fetch book rating')
       }
+
       return data
     },
   })

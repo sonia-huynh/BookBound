@@ -1,3 +1,5 @@
+import '../../styles/myReviews.css'
+
 export default function MyReviews() {
   return (
     <>

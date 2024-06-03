@@ -3,6 +3,17 @@ import db from './connection.ts'
 
 const router = express.Router()
 
+// Check rating exists in books column
+export async function checkRatingExists(bookId: string){
+  const ratingExists = await db('books')
+  .where({ book_id: bookId })
+    .select('books.rating')
+    .first()
+return ratingExists
+}
+
+
+
 // GET rating by ID
 export async function getRatingById(bookId: string) {
   const book = await db('ratings')

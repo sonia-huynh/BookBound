@@ -18,20 +18,15 @@ export function StarRating() {
   const addRating = useAddBookRating()
   const deleteRating = useDeleteBookRating()
 
-  const {
-    data: ratingData,
-    isPending,
-    isError,
-    error,
-  } = useGetBookRatingById(bookID)
+  const { data, isPending, isError, error } = useGetBookRatingById(bookID)
 
   useEffect(() => {
-    if (ratingData) {
-      setStarRating(ratingData.rating)
-    } else if (!ratingData) {
+    if (data) {
+      setStarRating(data.rating)
+    } else if (!data) {
       setStarRating(0)
     }
-  }, [ratingData])
+  }, [data, starRating])
 
   function handleClick(i: number) {
     const value = i + 0.5
@@ -81,7 +76,7 @@ export function StarRating() {
   }
 
   if (isPending) {
-    return <p>Retreiving book rating data...</p>
+    return <p>Loading your book rating details... {String(error)}</p>
   }
 
   if (isError) {

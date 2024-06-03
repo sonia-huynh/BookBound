@@ -6,12 +6,17 @@ const router = express.Router()
 router.get('/:id', async (req, res) => {
   try {
     const bookId = String(req.params.id)
-    const rating = await db.getRatingById(bookId)
+    const ratingExist = await db.checkRatingExists(bookId)
 
-    if (rating) {
-      return res.status(201).json(rating)
-    } else {
-      res.status(404).json({ message: 'Book Rating not found' })
+    if (ratingExist.rating === 1) {
+      const rating = await db.getRatingById(bookId)
+      if (rating) {
+        return res.status(201).json(rating)
+      } else {
+        res.status(404).json({ message: 'Book Rating not found' })
+      }
+    } else if (ratingExist.rating === 0) {
+      return res.json({ message: 'There is no book rating' })
     }
   } catch (error) {
     console.log(error)
