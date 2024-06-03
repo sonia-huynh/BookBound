@@ -12,3 +12,12 @@
   /* border: pink;
   border-style: dotted; */
 }
+
+.readMore {
+  color: brown;
+  cursor: pointer;
+}
+
+.block {
+  display: none;
+}

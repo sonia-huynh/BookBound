@@ -8,6 +8,11 @@ import { useDeleteReview } from '../../hooks/useGetReview'
 import FetchReviews from './FetchReviews'
 import { StarRating } from './StarRating'
 
+interface CleanedTextResult {
+  cleaned: string
+  shouldShowReadMore: boolean
+}
+
 export default function MyBookDetails() {
   const [searchParams] = useSearchParams()
   const [input, setInput] = useState('')
@@ -34,7 +39,7 @@ export default function MyBookDetails() {
   }, [refetch, myBooksData, reviewExist, changeReview, input])
 
   if (isPending) {
-    return <p>Retreiving book data...</p>
+    return <p>Retrieving book data...</p>
   }
 
   if (isError) {
@@ -43,52 +48,36 @@ export default function MyBookDetails() {
     )
   }
 
-  // get rid of HTML tags in description
-  // const strippedHTML = (text: string) => {
-  //   if (text === null) {
-  //     return text
-  //   } else {
-  //     let cleaned = text.replace(/<[^>]+>/g, '')
-  //     cleaned = cleaned.replace(/[*_\-(){}[\]]+/g, '')
-
-  //     // Step 3: Remove excessive whitespace
-  //     cleaned = cleaned.replace(/\s+/g, ' ').trim()
-
-  //     return cleaned
-  //   }
-  // }
-
-  // turn description sentences into an array of them and then map through them
-  const cleanAndTruncate = (text: string, readMore: boolean) => {
+  const cleanAndTruncate = (
+    text: string,
+    readMore: boolean,
+  ): CleanedTextResult => {
     const cleaned = text
       .replace(/<[^>]+>/g, '')
       .replace(/[*_\-(){}[\]]+/g, '')
       .replace(/\s+/g, ' ')
       .trim()
 
-    const sentences = cleaned.split('.').filter((sentence) => sentence != ' ')
-    console.log(sentences)
+    const sentences = cleaned.split('.').filter((sentence) => sentence !== ' ')
     const numSentences = 6
-    if (sentences.length <= numSentences) {
-      setReadMore(true)
-    }
 
-    if (readMore === false) {
-      if (sentences.length <= numSentences) {
-        setReadMore(!readMore)
-        return cleaned
-      } else {
-        const shortenedText = sentences.slice(0, numSentences).join('. ')
-        return shortenedText + '. '
-      }
-    } else if (readMore === true) {
-      return cleaned + ' '
+    if (sentences.length <= numSentences) {
+      return { cleaned, shouldShowReadMore: false }
+    } else if (readMore) {
+      return { cleaned, shouldShowReadMore: false }
+    } else {
+      const shortenedText = sentences.slice(0, numSentences).join('. ')
+      return { cleaned: shortenedText + '. ', shouldShowReadMore: true }
     }
   }
 
+  const { cleaned: cleanText, shouldShowReadMore } = cleanAndTruncate(
+    String(myBooksData?.description || ''),
+    readMore,
+  )
+
   function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
     setInput(e.target.value)
-    // console.log(input)
   }
 
   function handleAdd(text: string) {
@@ -98,11 +87,10 @@ export default function MyBookDetails() {
 
     if (bookId !== null) {
       addReview.mutate({
-        bookId: bookId,
-        title: title,
+        bookId,
+        title,
         review: bookReview,
       })
-      // console.log({ bookId: bookId }, { title: title }, { review: text })
     } else {
       console.log('title parameter is null and review')
     }
@@ -114,7 +102,7 @@ export default function MyBookDetails() {
   function handleUpdate(text: string) {
     const bookId = String(searchParams.get('id'))
     updateReview.mutate({
-      bookId: bookId,
+      bookId,
       review: text,
     })
     setChangeReview(false)
@@ -127,10 +115,6 @@ export default function MyBookDetails() {
     setReviewExist(false)
     setInput('')
     deleteReview.mutate(bookId)
-  }
-
-  function handleReadMore() {
-    setReadMore(true)
   }
 
   return (
@@ -151,15 +135,21 @@ export default function MyBookDetails() {
                   <h1 className="mb-2 ">{myBooksData.title}</h1>
                   <p className=" mb-2">by {myBooksData.author}</p>
                   <p className="mb-4">
-                    {cleanAndTruncate(
-                      myBooksData.description as string,
-                      readMore,
+                    {cleanText}
+                    {shouldShowReadMore && (
+                      <button
+                        onClick={() => setReadMore(true)}
+                        className="readMore"
+                      >
+                        {' '}
+                        --- Read more
+                      </button>
                     )}
-                    {readMore === false && (
-                      <button onClick={handleReadMore}> Read more...</button>
-                    )}
-                    {readMore === true && (
-                      <button onClick={() => setReadMore(false)}>
+                    {readMore && (
+                      <button
+                        onClick={() => setReadMore(false)}
+                        className="readMore"
+                      >
                         {' --- See Less'}
                       </button>
                     )}
