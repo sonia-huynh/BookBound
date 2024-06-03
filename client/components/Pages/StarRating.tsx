@@ -110,9 +110,11 @@ export function StarRating() {
           </div>
         ))}
       </div>
-      <div>
-        <button onClick={handleDelete}>Delete rating</button>
-      </div>
+      {starRating != null && (
+        <div>
+          <button onClick={handleDelete}>Delete rating</button>
+        </div>
+      )}
     </>
   )
 }
