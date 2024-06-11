@@ -35,9 +35,5 @@ export default function FetchReviews({ setOldReview }: Props) {
     )
   }
 
-  return (
-    <>
-      <p>{reviewData}</p>
-    </>
-  )
+  return <>{reviewData}</>
 }
