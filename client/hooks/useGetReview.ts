@@ -2,10 +2,27 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import {
   addReview,
   deleteReview,
+  getAllBookReviews,
   getReviewById,
   updateReview,
 } from '../apis/reviews.ts'
 
+// Get ALL reviews
+export function useGetAllBookReviews() {
+  return useQuery({
+    queryKey: ['review'],
+    queryFn: async () => {
+      const data = await getAllBookReviews()
+      console.log(data)
+      if (!data) {
+        throw new Error('Failed to fetch all the book reviews')
+      }
+      return data
+    },
+  })
+}
+
+// Get review by ID
 export function useGetReviewById(bookId: string) {
   return useQuery({
     queryKey: ['review', bookId],
@@ -20,6 +37,7 @@ export function useGetReviewById(bookId: string) {
   })
 }
 
+// Add review
 export function useAddReview() {
   const queryClient = useQueryClient()
   return useMutation({
@@ -41,6 +59,7 @@ export function useAddReview() {
   })
 }
 
+// Delete Review
 export function useDeleteReview() {
   const queryClient = useQueryClient()
   return useMutation({
@@ -53,6 +72,7 @@ export function useDeleteReview() {
   })
 }
 
+// Update review
 export function useUpdateReview() {
   const queryClient = useQueryClient()
   return useMutation({

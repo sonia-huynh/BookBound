@@ -1,6 +1,18 @@
 import request from 'superagent'
+import { Reviews } from '../../models/reviews'
 
 const reviewsUrl = '/api/reviews/'
+
+// Get ALL reviews
+export async function getAllBookReviews() {
+  try {
+    const result = await request.get(reviewsUrl)
+    return result.body as Reviews[]
+  } catch (error) {
+    console.error('Error fetching all your book reviews')
+    throw new Error('Failed to fetch all your book reviews')
+  }
+}
 
 // Get review by Id
 export async function getReviewById(bookId: string) {

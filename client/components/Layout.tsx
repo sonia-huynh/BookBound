@@ -5,8 +5,8 @@ import MyBooks from './Pages/MyBooks'
 import MyReviews from './Pages/MyReviews'
 import App from './App'
 import SearchResults from './Pages/SearchResults'
-import MyBookDetails from './Pages/MyBookDetails'
 import SearchBookDetails from './Pages/SearchBookDetails'
+import MyBookDetails from './Pages/MyBookDetails'
 
 // export function useSearchTerm() {
 // return useOutletContext() as [string, (term: string) => void]
