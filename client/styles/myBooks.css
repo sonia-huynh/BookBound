@@ -18,6 +18,16 @@
   cursor: pointer;
 }
 
-.block {
-  display: none;
+.buttonbox {
+  display: flex;
+  flex-direction: column;
+}
+
+.viewButton {
+  border-radius: 20px;
+  border-style: solid;
+  border-color: red;
+  background-color: rgb(212, 157, 54);
+  color: white;
+  padding: 5px;
 }
