@@ -29,7 +29,18 @@ router.post('/:id', async (req, res) => {
   }
 })
 
-// this can get the book review by id
+// Get ALL reviews
+router.get('/', async (req, res) => {
+  try {
+    const reviews = await db.getAllReview()
+    res.json(reviews)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ message: 'Could not fetch your reviews' })
+  }
+})
+
+// Get the book review by id
 router.get('/:id', async (req, res) => {
   try {
     const bookId = String(req.params.id)

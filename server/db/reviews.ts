@@ -30,6 +30,12 @@ export async function checkReviewExists(bookId: string) {
   return reviewExists
 }
 
+// get ALL reviews
+export async function getAllReview() {
+  const allReviews = await db('reviews').select()
+  return allReviews
+}
+
 // get review by id
 export async function getReviewById(bookId: string) {
   const bookReview = await db('reviews')
