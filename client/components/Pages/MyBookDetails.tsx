@@ -101,11 +101,17 @@ export default function MyBookDetails() {
 
   function handleUpdate(text: string) {
     const bookId = String(searchParams.get('id'))
-    updateReview.mutate({
-      bookId,
-      review: text,
-    })
-    setChangeReview(false)
+
+    if (text !== oldReview) {
+      updateReview.mutate({
+        bookId,
+        review: text,
+      })
+      setChangeReview(false)
+    } else {
+      // Do nothing if the text hasn't changed
+      console.log('Review text has not changed.')
+    }
   }
 
   function handleDelete() {
@@ -120,7 +126,7 @@ export default function MyBookDetails() {
   return (
     <>
       <div className="box">
-        <div className="card">
+        <div className="bookCard card">
           {myBooksData && (
             <>
               <div className="detail">

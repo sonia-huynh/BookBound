@@ -1,18 +1,11 @@
 import { useState } from 'react'
 import { useGetAllBookReviews } from '../../hooks/useGetReview'
 import '../../styles/myReviews.css'
-
-interface ReadMore {
-  par: string
-  shouldShowReadMore: boolean
-}
-
-interface ExpandedReviews {
-  [key: string]: boolean
-}
+import '../../styles/main.css'
+import { useNavigate } from 'react-router-dom'
 
 export default function MyReviews() {
-  const [expanded, setExpanded] = useState<ExpandedReviews>({})
+  const navigate = useNavigate()
   const { data: reviews, isPending, isError, error } = useGetAllBookReviews()
 
   if (isPending) {
@@ -25,59 +18,42 @@ export default function MyReviews() {
     )
   }
 
-  function truncation(text: string, expanded: boolean): ReadMore {
-    const lines = 1
-    const sentences = text.split('.').filter((sentence) => sentence !== ' ')
-    if (sentences.length <= 3 || expanded) {
-      return { par: text, shouldShowReadMore: false }
+  function truncation(text: string) {
+    const words = 40
+    const lines = text.split(' ').filter((sentence) => sentence !== ' ')
+    if (lines.length <= 39) {
+      return text
     } else {
-      const shortened = sentences.slice(0, lines).join('. ') + '.'
-      return { par: shortened, shouldShowReadMore: true }
+      const shortened = lines.slice(0, words).join(' ') + '...'
+      return shortened
     }
   }
 
-  function handleReadMore(id: string) {
-    setExpanded((prevState) => ({
-      ...prevState,
-      [id]: !prevState[id],
-    }))
+  function handleReadMore(id: string, title: string) {
+    navigate(`/my-books/search?id=${id}&title=${title}`)
   }
-  console.log('Rendering with updated state:', expanded)
 
   return (
     <>
       <div className="ml-10 mr-10 mt-10 ">
         <h1 className="text-3xl font-bold underline">My Reviews</h1>
         <div className="reviewBox">
-          {reviews.map((bookReview) => {
-            const isExpanded = expanded[bookReview.book_id] || false
-            const { par, shouldShowReadMore } = truncation(
-              bookReview.review,
-              isExpanded,
-            )
-            return (
-              <div key={bookReview.id} className="reviewCard">
+          {reviews.map((bookReview) => (
+            <>
+              <div key={bookReview.id} className="reviewCard card">
                 <h1>{bookReview.title}</h1>
-                <p>{par}</p>
-                {shouldShowReadMore && (
-                  <button
-                    className="readMore"
-                    onClick={() => handleReadMore(bookReview.book_id)}
-                  >
-                    Read More...
-                  </button>
-                )}
-                {!shouldShowReadMore && isExpanded && (
-                  <button
-                    className="readMore"
-                    onClick={() => handleReadMore(bookReview.book_id)}
-                  >
-                    Show Less
-                  </button>
-                )}
+                <p>{truncation(bookReview.review)}</p>
+                <button
+                  className="viewButton"
+                  onClick={() =>
+                    handleReadMore(bookReview.book_id, bookReview.title)
+                  }
+                >
+                  View More
+                </button>
               </div>
-            )
-          })}
+            </>
+          ))}
         </div>
       </div>
     </>
