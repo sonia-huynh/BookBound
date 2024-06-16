@@ -83,7 +83,7 @@ export default function SearchBookDetails() {
   return (
     <>
       <div className="box">
-        <div className="card">
+        <div className="searchBookCard card">
           <div>
             {searchBookData.map((book) => (
               <>
@@ -97,8 +97,8 @@ export default function SearchBookDetails() {
                   </div>
                   <div className="ml-4">
                     <h1 className="mb-2 mt-4 text-center">{book.title}</h1>
-                    <p className="mb-8 mt-2 text-center">by {book.author}</p>
-                    <p className="mb-4">
+                    <p className=" mt-2 text-center">by {book.author}</p>
+                    <p className="p-8">
                       {strippedHTML(book.description as string)}
                     </p>
                   </div>
@@ -108,7 +108,7 @@ export default function SearchBookDetails() {
                     <>
                       <div
                         key={book.title}
-                        className="mt-8 flex justify-center"
+                        className="mt-2 flex justify-center"
                       >
                         <strong>
                           Add this book to your shelf to write a review!

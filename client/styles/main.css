@@ -148,6 +148,9 @@ h1 {
 .box {
   display: flex;
   justify-content: center;
+  height: auto;
+  padding: 10px;
+  margin-bottom: 50px;
 }
 
 .detail {
