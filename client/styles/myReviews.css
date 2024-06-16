@@ -1,12 +1,13 @@
-.reviewBox {
+/* .reviewBox {
   display: flex;
   gap: 40px;
   margin-top: 20px;
 }
 
 .reviewCard {
-  width: 1000px;
-  background-color: white;
+  height: 260px;
   padding: 20px;
-  justify-content: center;
-}
+  position: relative;
+  display: flex;
+  flex-direction: column;
+} */
