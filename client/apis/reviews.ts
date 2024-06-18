@@ -28,11 +28,10 @@ export async function getReviewById(bookId: string) {
 }
 
 //Add a review
-export async function addReview(bookId: string, title: string, review: string) {
+export async function addReview(bookId: string, review: string) {
   try {
     const response = await request
       .post(reviewsUrl + `${bookId}`)
-      .query({ title: title })
       .send({ review: review })
     return response.body.review
   } catch (error) {

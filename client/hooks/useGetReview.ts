@@ -41,16 +41,8 @@ export function useGetReviewById(bookId: string) {
 export function useAddReview() {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: (reviewDetails: {
-      bookId: string
-      title: string
-      review: string
-    }) =>
-      addReview(
-        reviewDetails.bookId,
-        reviewDetails.title,
-        reviewDetails.review,
-      ),
+    mutationFn: (reviewDetails: { bookId: string; review: string }) =>
+      addReview(reviewDetails.bookId, reviewDetails.review),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['review'],

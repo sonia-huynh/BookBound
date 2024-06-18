@@ -87,7 +87,7 @@ export default function SearchBookDetails() {
           <div>
             {searchBookData.map((book) => (
               <>
-                <div key={book.bookId} className="">
+                <div key={book.bookId}>
                   <div className="flex justify-center">
                     <img
                       src={book.image}
