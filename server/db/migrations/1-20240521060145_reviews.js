@@ -6,8 +6,9 @@ export async function up(knex) {
       .references('book_id')
       .inTable('books')
       .onDelete('CASCADE')
-    table.string('title')
+    table.string('username')
     table.text('review')
+    table.timestamp('recent_activity').defaultTo(knex.fn.now())
   })
 }
 

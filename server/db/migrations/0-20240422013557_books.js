@@ -9,6 +9,7 @@ export async function up(knex) {
     table.string('description')
     table.boolean('review').defaultTo(false)
     table.boolean('rating').defaultTo(false)
+    table.timestamp('recent_activity').defaultTo(knex.fn.now())
   })
 }
 
