@@ -32,7 +32,13 @@ export async function checkReviewExists(bookId: string) {
 // get ALL reviews
 export async function getAllReview() {
   const allReviews = await db('reviews')
-    .select('books.title', 'books.author', 'books.image', 'reviews.review')
+    .select(
+      'books.title',
+      'books.author',
+      'books.image',
+      'reviews.review',
+      'reviews.book_id',
+    )
     .join('books', 'reviews.book_id', 'books.book_id')
     .where('books.review', true)
 

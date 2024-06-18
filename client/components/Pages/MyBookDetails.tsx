@@ -82,13 +82,11 @@ export default function MyBookDetails() {
 
   function handleAdd(text: string) {
     const bookId = String(searchParams.get('id'))
-    const title = String(searchParams.get('title'))
     const bookReview = text
 
     if (bookId !== null) {
       addReview.mutate({
         bookId,
-        title,
         review: bookReview,
       })
     } else {
