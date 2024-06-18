@@ -8,6 +8,17 @@ export interface Books {
   book_id: string
   review: boolean
   rating: boolean
+  recent_activity: string
+}
+
+export interface Reviews {
+  review: string
+  recent_activity: string
+}
+
+export interface Ratings {
+  Rating: number
+  recent_activity: string
 }
 
 export interface BookDetails {
