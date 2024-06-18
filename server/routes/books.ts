@@ -4,7 +4,7 @@ import express from 'express'
 // import request from 'superagent'
 // import 'dotenv/config'
 
-import * as db from '../db/books.ts'
+import * as db from '../db/dbFunctions/books'
 // const apiKey = process.env.YOUR_API_KEY_NAME
 const router = express.Router()
 

@@ -1,5 +1,5 @@
 import express from 'express'
-import * as db from '../db/ratings.ts'
+import * as db from '../db/dbFunctions/ratings'
 
 const router = express.Router()
 

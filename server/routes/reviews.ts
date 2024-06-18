@@ -2,7 +2,7 @@ import express from 'express'
 // import request from 'superagent'
 // import 'dotenv/config'
 
-import * as db from '../db/reviews.ts'
+import * as db from '../db/dbFunctions/reviews'
 // const apiKey = process.env.YOUR_API_KEY_NAME
 const router = express.Router()
 
