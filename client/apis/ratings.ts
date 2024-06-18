@@ -16,15 +16,10 @@ export async function getBookRatingById(bookId: string) {
 }
 
 //Add a rating
-export async function addBookRating(
-  bookId: string,
-  title: string,
-  rating: number,
-) {
+export async function addBookRating(bookId: string, rating: number) {
   try {
     const response = await request
       .put(ratingsUrl + `${bookId}`)
-      .query({ title: title })
       .send({ rating: rating })
     return response.body.review
   } catch (error) {

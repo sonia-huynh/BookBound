@@ -28,7 +28,8 @@ export async function seed(knex) {
       username: 'Sonia',
       book_id: '1234',
       title: 'Legend',
-      image: 'https://cdn2.penguin.com.au/covers/original/9780141339603.jpg',
+      image:
+        'http://books.google.com/books/content?id=Wzuy7A522B4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
       author: 'Marie Lu',
       review: true,
       rating: true,
