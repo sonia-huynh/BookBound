@@ -12,6 +12,7 @@ export async function seed(knex) {
       image:
         'http://books.google.com/books/content?id=E-OLEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
       review: true,
+      rating: true,
     },
     {
       username: 'Sonia',
@@ -21,6 +22,7 @@ export async function seed(knex) {
       image:
         'http://books.google.com/books/content?id=pLpHEAAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api',
       review: true,
+      rating: true,
     },
     {
       username: 'Sonia',
@@ -29,6 +31,7 @@ export async function seed(knex) {
       image: 'https://cdn2.penguin.com.au/covers/original/9780141339603.jpg',
       author: 'Marie Lu',
       review: true,
+      rating: true,
     },
     {
       username: 'Sonia',
@@ -37,6 +40,7 @@ export async function seed(knex) {
       image: '',
       author: 'newbook',
       review: false,
+      rating: false,
     },
     {
       username: 'Sonia',
@@ -45,6 +49,7 @@ export async function seed(knex) {
       image: '',
       author: 'test',
       review: false,
+      rating: false,
     },
   ])
 }

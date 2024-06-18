@@ -10,9 +10,8 @@ const router = express.Router()
 router.post('/:id', async (req, res) => {
   try {
     const bookId = String(req.params.id)
-    const title = String(req.query.title)
     const bookReview = req.body.review
-    const insertReview = await db.addReview(bookId, title, bookReview)
+    const insertReview = await db.addReview(bookId, bookReview)
 
     if (insertReview) {
       res

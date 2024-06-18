@@ -1,13 +1,12 @@
 import db from './connection.ts'
 
 // add review by id AND update the books table whether review exists using transaction in a single atomic unit
-export async function addReview(bookId: string, title: string, review: string) {
+export async function addReview(bookId: string, review: string) {
   const trx = await db.transaction()
 
   try {
     const bookReview = await trx('reviews').insert({
       book_id: bookId,
-      title: title,
       review: review,
     })
 
@@ -32,7 +31,11 @@ export async function checkReviewExists(bookId: string) {
 
 // get ALL reviews
 export async function getAllReview() {
-  const allReviews = await db('reviews').select()
+  const allReviews = await db('reviews')
+    .select('books.title', 'books.author', 'books.image', 'reviews.review')
+    .join('books', 'reviews.book_id', 'books.book_id')
+    .where('books.review', true)
+
   return allReviews
 }
 
