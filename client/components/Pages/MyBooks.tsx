@@ -1,12 +1,21 @@
 import '../../styles/myBooks.css'
 import { useGetBooks } from '../../hooks/useMyBooks'
 import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import DeleteBookPopUp from './DeleteBookPopUp'
 
 export default function MyBooks() {
   const navigate = useNavigate()
-  const { data, isPending, isError, error } = useGetBooks()
+
+  const { data, isPending, isError, error, refetch } = useGetBooks()
   const [edit, setEdit] = useState(false)
+  const [deleting, setDeleting] = useState(false)
+  const [bookTitle, setBookTitle] = useState('')
+  const [bookId, setbookId] = useState('')
+
+  useEffect(() => {
+    refetch()
+  }, [refetch])
 
   if (isPending) {
     return <p>Getting book...</p>
@@ -16,7 +25,12 @@ export default function MyBooks() {
     return <p>Oops! could not get book...{String(error)}</p>
   }
 
-  function handleDeleteBook() {}
+  console.log(bookId)
+  function handleDeleteBook(title: string, bookId: string) {
+    setBookTitle(title)
+    setbookId(bookId)
+    setDeleting(true)
+  }
 
   return (
     <>
@@ -65,10 +79,28 @@ export default function MyBooks() {
                     View more
                   </button>
                 ) : (
-                  <button className="deleteButton mt-4">Delete Book</button>
+                  <>
+                    <button
+                      className="deleteButton mt-4"
+                      onClick={() => handleDeleteBook(book.title, book.book_id)}
+                    >
+                      Delete Book
+                    </button>
+                  </>
                 )}
               </div>
             ))}
+            {deleting && (
+              <div className="popup-overlay">
+                <div className="popup">
+                  <DeleteBookPopUp
+                    setDeleting={setDeleting}
+                    bookName={bookTitle}
+                    bookId={bookId}
+                  />
+                </div>
+              </div>
+            )}
           </div>
         )}
       </div>

@@ -33,9 +33,10 @@ export async function getBookById(bookId: string) {
 
 // delete book
 export async function deleteBookById(bookId: string) {
-  const bookReview = await db('books').where({ book_id: bookId }).delete()
-  return bookReview
+  const book = await db('books').where({ book_id: bookId }).delete()
+  return book
 }
+
 export function getRecentActivity() {
   throw new Error('Function not implemented.')
 }

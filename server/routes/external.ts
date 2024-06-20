@@ -39,7 +39,7 @@ router.get('/search', async (req, res) => {
       bookDetailsArray.push(bookDetails) // Push book details to array
     }
 
-    res.json(bookDetailsArray)
+    return res.json(bookDetailsArray)
   } catch (error) {
     console.log(error)
     res.status(500).json({ message: 'Something went wrong in finding books' })
@@ -70,7 +70,7 @@ router.get('/search/:id', async (req, res) => {
     const bookDetails = { bookId, title, author, description, rating, image } // Object containing book details
     bookDetailsArray.push(bookDetails) // Push book details to array
 
-    res.json(bookDetailsArray)
+    return res.json(bookDetailsArray)
   } catch (error) {
     console.log(error)
     res

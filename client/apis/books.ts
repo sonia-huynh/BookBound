@@ -36,7 +36,7 @@ export async function getSearchBookById(id: string): Promise<BookDetails[]> {
 
 // DATABASE API CALLS
 
-// Calls for My Books
+// Calls for Add Books
 export async function addBookToShelf(details: {
   title: string
   author: string
@@ -52,6 +52,7 @@ export async function addBookToShelf(details: {
   }
 }
 
+// Calls for get all Books
 export async function getBooks() {
   try {
     const res = await request.get(booksUrl)
@@ -62,6 +63,7 @@ export async function getBooks() {
   }
 }
 
+// Calls for get Book by Id
 export async function getBookById(bookId: string) {
   try {
     const res = await request.get(booksUrl + `${bookId}`)
@@ -69,5 +71,16 @@ export async function getBookById(bookId: string) {
   } catch (error) {
     console.error('Could not get book from database')
     throw new Error('Failed to get book from database')
+  }
+}
+
+// Calls for delete Book by id
+export async function deleteBookById(bookId: string) {
+  try {
+    const res = await request.delete(booksUrl + `${bookId}`)
+    return res
+  } catch (error) {
+    console.error('Could not delete book from database')
+    throw new Error('Failed to delete book from database')
   }
 }
