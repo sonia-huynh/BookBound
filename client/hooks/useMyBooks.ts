@@ -19,7 +19,6 @@ export function useAddBookToShelf() {
       description: string
     }) => addBookToShelf(details),
     onSuccess: () => {
-      console.log('add book mutation successful, invalidating')
       queryClient.invalidateQueries({
         queryKey: ['books'],
       })
@@ -43,7 +42,6 @@ export function useGetBookById(bookId: string) {
   return useQuery({
     queryKey: ['bookId'],
     queryFn: async () => {
-      console.log('get books by id successful')
       const books = await getBookById(bookId)
       return books as Books
     },

@@ -11,7 +11,7 @@ export default function MyBooks() {
   const [edit, setEdit] = useState(false)
   const [deleting, setDeleting] = useState(false)
   const [bookTitle, setBookTitle] = useState('')
-  const [bookId, setbookId] = useState('')
+  const [bookId, setBookId] = useState('')
 
   useEffect(() => {
     refetch()
@@ -28,7 +28,7 @@ export default function MyBooks() {
   console.log(bookId)
   function handleDeleteBook(title: string, bookId: string) {
     setBookTitle(title)
-    setbookId(bookId)
+    setBookId(bookId)
     setDeleting(true)
   }
 
@@ -97,6 +97,7 @@ export default function MyBooks() {
                     setDeleting={setDeleting}
                     bookName={bookTitle}
                     bookId={bookId}
+                    bookTitle={bookTitle}
                   />
                 </div>
               </div>

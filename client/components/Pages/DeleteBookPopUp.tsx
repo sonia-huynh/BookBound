@@ -4,16 +4,24 @@ interface Props {
   setDeleting: React.Dispatch<React.SetStateAction<boolean>>
   bookName: string
   bookId: string
+  bookTitle: string
 }
 
 export default function DeleteBookPopup({
   setDeleting,
   bookName,
+  bookTitle,
   bookId,
 }: Props) {
   const deleteBook = useDeleteBookById()
 
   function handleDelete() {
+    const savedBooks = JSON.parse(
+      String(localStorage.getItem('savedBooks' || '{}')),
+    )
+    const bookKey = `${bookTitle}, ${bookId}`
+    delete savedBooks[bookKey]
+    localStorage.setItem('savedBooks', JSON.stringify(savedBooks))
     deleteBook.mutate(bookId)
     setDeleting(false)
   }
