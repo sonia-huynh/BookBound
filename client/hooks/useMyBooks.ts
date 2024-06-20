@@ -21,6 +21,7 @@ export function useAddBookToShelf() {
   })
 }
 
+// Get ALL Books
 export function useGetBooks() {
   return useQuery({
     queryKey: ['book'],
@@ -31,6 +32,7 @@ export function useGetBooks() {
   })
 }
 
+// Get Book by Id
 export function useGetBookById(bookId: string) {
   return useQuery({
     queryKey: ['bookId'],
@@ -40,3 +42,5 @@ export function useGetBookById(bookId: string) {
     },
   })
 }
+
+// Delete Book by Id
