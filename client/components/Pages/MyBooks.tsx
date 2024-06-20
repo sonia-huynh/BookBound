@@ -42,14 +42,14 @@ export default function MyBooks() {
           <div className="">
             {!edit ? (
               <button
-                className="mt-10 text-3xl font-bold underline"
+                className="mt-10 text-3xl font-bold underline hover:text-red-700"
                 onClick={() => setEdit(true)}
               >
                 Edit
               </button>
             ) : (
               <button
-                className="mt-10 text-3xl font-bold underline"
+                className="mt-10 text-3xl font-bold underline hover:text-green-700"
                 onClick={() => setEdit(false)}
               >
                 Finished Edit
