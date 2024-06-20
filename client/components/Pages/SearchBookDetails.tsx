@@ -25,7 +25,6 @@ export default function SearchBookDetails() {
   useEffect(() => {
     localStorage.setItem('savedBooks', JSON.stringify(addBook))
   }, [addBook])
-
   const {
     data: searchBookData,
     isPending,
@@ -49,7 +48,6 @@ export default function SearchBookDetails() {
       ...prevAddedBooks,
       [bookKey]: true,
     }))
-    // console.log(addBook)
   }
   function handleClick(details: BookDetails) {
     navigate(`/my-books/search?id=${details.bookId}&title=${details.title}`)

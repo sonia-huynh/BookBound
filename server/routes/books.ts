@@ -25,7 +25,7 @@ router.post('/', async (req, res) => {
 router.get('/', async (req, res) => {
   try {
     const books = await db.getBooks()
-    res.json(books)
+    return res.json(books)
   } catch (error) {
     console.log(error)
     res.status(500).json({ message: 'Something went wrong' })
@@ -37,7 +37,20 @@ router.get('/:id', async (req, res) => {
   try {
     const bookId = req.params.id
     const books = await db.getBookById(bookId)
-    res.json(books)
+    return res.json(books)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ message: 'Something went wrong' })
+  }
+})
+
+// Delete book by id from library
+router.delete('/:id', async (req, res) => {
+  try {
+    const bookId = req.params.id
+    await db.deleteBookById(bookId)
+    console.log('deleting book')
+    return res.status(204).json({ message: 'book has been deleted' })
   } catch (error) {
     console.log(error)
     res.status(500).json({ message: 'Something went wrong' })

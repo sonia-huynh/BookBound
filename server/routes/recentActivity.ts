@@ -9,7 +9,7 @@ export default router
 router.get('/', async (req, res) => {
   try {
     const recentActivity = await db.getRecentActivity()
-    res.json(recentActivity)
+    return res.json(recentActivity)
   } catch (error) {
     console.log(error)
     res
