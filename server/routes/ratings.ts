@@ -1,5 +1,5 @@
 import express from 'express'
-import * as db from '../db/ratings.ts'
+import * as db from '../db/dbFunctions/ratings'
 
 const router = express.Router()
 
@@ -29,7 +29,6 @@ router.get('/:id', async (req, res) => {
 router.put('/:id', async (req, res) => {
   try {
     const bookId = String(req.params.id)
-    const title = String(req.query.title)
     const rating = req.body.rating
 
     const ratingExist = await db.getRatingById(bookId)
@@ -38,7 +37,7 @@ router.put('/:id', async (req, res) => {
       const updateRating = await db.updateRating(bookId, rating)
       return res.status(201).json(updateRating)
     } else {
-      const newRating = await db.addRating(bookId, title, rating)
+      const newRating = await db.addRating(bookId, rating)
       return res.status(201).json(newRating)
     }
   } catch (error) {

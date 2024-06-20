@@ -1,18 +1,13 @@
-import express from 'express'
-import db from './connection.ts'
-
-const router = express.Router()
+import db from '../connection.ts'
 
 // Check rating exists in books column
-export async function checkRatingExists(bookId: string){
+export async function checkRatingExists(bookId: string) {
   const ratingExists = await db('books')
-  .where({ book_id: bookId })
+    .where({ book_id: bookId })
     .select('books.rating')
     .first()
-return ratingExists
+  return ratingExists
 }
-
-
 
 // GET rating by ID
 export async function getRatingById(bookId: string) {
@@ -24,13 +19,12 @@ export async function getRatingById(bookId: string) {
 }
 
 // ADD rating by ID
-export async function addRating(bookId: string, title: string, rating: number) {
+export async function addRating(bookId: string, rating: number) {
   const trx = await db.transaction()
 
   try {
     const bookRating = await trx('ratings').insert({
       book_id: bookId,
-      title: title,
       rating: rating,
     })
 
@@ -69,4 +63,3 @@ export async function deleteRating(bookId: string) {
     throw error
   }
 }
-export default router

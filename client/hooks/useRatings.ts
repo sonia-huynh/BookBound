@@ -25,12 +25,8 @@ export function useGetBookRatingById(bookId: string) {
 export function useAddBookRating() {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: (ratingDeets: {
-      bookId: string
-      title: string
-      rating: number
-    }) =>
-      addBookRating(ratingDeets.bookId, ratingDeets.title, ratingDeets.rating),
+    mutationFn: (ratingDeets: { bookId: string; rating: number }) =>
+      addBookRating(ratingDeets.bookId, ratingDeets.rating),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['rating'],

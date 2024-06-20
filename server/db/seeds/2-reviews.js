@@ -6,17 +6,14 @@ export async function seed(knex) {
   await knex('reviews').insert([
     {
       book_id: 'abc',
-      title: 'Fourth Wing',
       review: 'This book is so amazing blah blah blah',
     },
     {
       book_id: 'abcd1234',
-      title: 'Tomorrow, and Tomorrow, and Tomorrow',
       review: 'This book can only be read by tomorrow ofc',
     },
     {
       book_id: '1234',
-      title: 'Legend',
       review: 'I am a legend nah nah nah',
     },
   ])

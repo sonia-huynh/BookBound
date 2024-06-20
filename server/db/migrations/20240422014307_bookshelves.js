@@ -3,6 +3,7 @@ export async function up(knex) {
     table.integer('id').primary()
     table.string('username')
     table.string('bookshelf')
+    table.timestamp('recent_activity').defaultTo(knex.fn.now())
   })
 }
 

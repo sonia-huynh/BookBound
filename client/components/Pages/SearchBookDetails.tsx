@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 import { BookDetails } from '../../../models/books'
 
 export default function SearchBookDetails() {
-  console.log(window.localStorage)
+  // console.log(window.localStorage)
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const addBookToShelf = useAddBookToShelf()
@@ -49,7 +49,7 @@ export default function SearchBookDetails() {
       ...prevAddedBooks,
       [bookKey]: true,
     }))
-    console.log(addBook)
+    // console.log(addBook)
   }
   function handleClick(details: BookDetails) {
     navigate(`/my-books/search?id=${details.bookId}&title=${details.title}`)
@@ -79,15 +79,14 @@ export default function SearchBookDetails() {
       return cleaned
     }
   }
-  console.log(addBook)
   return (
     <>
       <div className="box">
-        <div className="card">
+        <div className="searchBookCard card">
           <div>
-            {searchBookData.map((book) => (
-              <>
-                <div key={book.bookId} className="">
+            {searchBookData.map((book, i) => (
+              <div key={book.bookId + i}>
+                <div key={book.bookId + i}>
                   <div className="flex justify-center">
                     <img
                       src={book.image}
@@ -97,8 +96,8 @@ export default function SearchBookDetails() {
                   </div>
                   <div className="ml-4">
                     <h1 className="mb-2 mt-4 text-center">{book.title}</h1>
-                    <p className="mb-8 mt-2 text-center">by {book.author}</p>
-                    <p className="mb-4">
+                    <p className=" mt-2 text-center">by {book.author}</p>
+                    <p className="p-8">
                       {strippedHTML(book.description as string)}
                     </p>
                   </div>
@@ -108,7 +107,7 @@ export default function SearchBookDetails() {
                     <>
                       <div
                         key={book.title}
-                        className="mt-8 flex justify-center"
+                        className="mt-2 flex justify-center"
                       >
                         <strong>
                           Add this book to your shelf to write a review!
@@ -147,7 +146,7 @@ export default function SearchBookDetails() {
                     </div>
                   )}
                 </div>
-              </>
+              </div>
             ))}
           </div>
         </div>

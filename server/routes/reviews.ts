@@ -2,7 +2,7 @@ import express from 'express'
 // import request from 'superagent'
 // import 'dotenv/config'
 
-import * as db from '../db/reviews.ts'
+import * as db from '../db/dbFunctions/reviews'
 // const apiKey = process.env.YOUR_API_KEY_NAME
 const router = express.Router()
 
@@ -10,9 +10,8 @@ const router = express.Router()
 router.post('/:id', async (req, res) => {
   try {
     const bookId = String(req.params.id)
-    const title = String(req.query.title)
     const bookReview = req.body.review
-    const insertReview = await db.addReview(bookId, title, bookReview)
+    const insertReview = await db.addReview(bookId, bookReview)
 
     if (insertReview) {
       res
@@ -51,10 +50,11 @@ router.get('/:id', async (req, res) => {
       if (bookReview) {
         return res.json(bookReview.review)
       } else {
-        res.status(404).json({ message: 'Book review not found' })
+        res.json([])
       }
     } else if (reviewExist.review === 0) {
-      return res.json({ message: 'Book review does not exist' })
+      console.log('book review does not exist')
+      return res.json([])
     }
   } catch (error) {
     console.log(error)

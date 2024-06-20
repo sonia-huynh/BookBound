@@ -4,7 +4,7 @@ import express from 'express'
 // import request from 'superagent'
 // import 'dotenv/config'
 
-import * as db from '../db/books.ts'
+import * as db from '../db/dbFunctions/books'
 // const apiKey = process.env.YOUR_API_KEY_NAME
 const router = express.Router()
 
@@ -14,6 +14,7 @@ router.post('/', async (req, res) => {
     const details = req.body
     console.log(details)
     await db.addBook(details)
+    return res.status(200).json(details)
   } catch (error) {
     console.log(error)
     res.status(500).json({ message: 'Something went wrong' })

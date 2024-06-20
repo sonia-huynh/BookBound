@@ -1,4 +1,4 @@
-import db from './connection.ts'
+import db from '../connection.ts'
 //SEARCHED BOOKS:
 // add searched up book to book table
 export async function addBook(details: {
@@ -35,4 +35,7 @@ export async function getBookById(bookId: string) {
 export async function deleteBookById(bookId: string) {
   const bookReview = await db('books').where({ book_id: bookId }).delete()
   return bookReview
+}
+export function getRecentActivity() {
+  throw new Error('Function not implemented.')
 }

@@ -12,6 +12,7 @@ export async function seed(knex) {
       image:
         'http://books.google.com/books/content?id=E-OLEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
       review: true,
+      rating: true,
     },
     {
       username: 'Sonia',
@@ -21,14 +22,17 @@ export async function seed(knex) {
       image:
         'http://books.google.com/books/content?id=pLpHEAAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api',
       review: true,
+      rating: true,
     },
     {
       username: 'Sonia',
       book_id: '1234',
       title: 'Legend',
-      image: '',
+      image:
+        'http://books.google.com/books/content?id=Wzuy7A522B4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
       author: 'Marie Lu',
       review: true,
+      rating: true,
     },
     {
       username: 'Sonia',
@@ -37,6 +41,7 @@ export async function seed(knex) {
       image: '',
       author: 'newbook',
       review: false,
+      rating: false,
     },
     {
       username: 'Sonia',
@@ -45,6 +50,7 @@ export async function seed(knex) {
       image: '',
       author: 'test',
       review: false,
+      rating: false,
     },
   ])
 }

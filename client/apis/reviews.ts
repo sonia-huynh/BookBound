@@ -20,7 +20,13 @@ export async function getReviewById(bookId: string) {
     const result = await request
       .get(reviewsUrl + `${bookId}`)
       .query({ id: bookId })
-    return result.body
+
+    if (result.body.length <= 0) {
+      console.log('no review found')
+      return []
+    } else {
+      return result.body
+    }
   } catch (error) {
     console.error('Error fetching your book review')
     throw new Error('Failed to fetch your book review')
@@ -28,11 +34,10 @@ export async function getReviewById(bookId: string) {
 }
 
 //Add a review
-export async function addReview(bookId: string, title: string, review: string) {
+export async function addReview(bookId: string, review: string) {
   try {
     const response = await request
       .post(reviewsUrl + `${bookId}`)
-      .query({ title: title })
       .send({ review: review })
     return response.body.review
   } catch (error) {
