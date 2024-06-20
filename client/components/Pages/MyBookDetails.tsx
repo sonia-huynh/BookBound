@@ -1,11 +1,10 @@
 import { useSearchParams } from 'react-router-dom'
 import { useGetBookById } from '../../hooks/useMyBooks'
 import '../../styles/book.css'
-import { useUpdateReview } from '../../hooks/useGetReview'
+import { useGetReviewById, useUpdateReview } from '../../hooks/useGetReview'
 import { useEffect, useState } from 'react'
 import { useAddReview } from '../../hooks/useGetReview'
 import { useDeleteReview } from '../../hooks/useGetReview'
-import FetchReviews from './FetchReviews'
 import { StarRating } from './StarRating'
 
 interface CleanedTextResult {
@@ -37,6 +36,13 @@ export default function MyBookDetails() {
   useEffect(() => {
     refetch()
   }, [refetch, myBooksData, reviewExist, changeReview, input])
+
+  const { data: reviewData } = useGetReviewById(searchParams.get('id') || '')
+
+  useEffect(() => {
+    refetch()
+    setOldReview(reviewData)
+  }, [refetch, reviewData, setOldReview])
 
   if (isPending) {
     return <p>Retrieving book data...</p>
@@ -106,9 +112,10 @@ export default function MyBookDetails() {
         review: text,
       })
       setChangeReview(false)
-    } else {
+    } else if (text === oldReview) {
       // Do nothing if the text hasn't changed
       console.log('Review text has not changed.')
+      setChangeReview(false)
     }
   }
 
@@ -194,10 +201,11 @@ export default function MyBookDetails() {
                     Review exists and you want to change:
                   </h1>
                   <div className="bookReview">
-                    <FetchReviews
-                      reviewExist={reviewExist}
-                      setOldReview={setOldReview}
-                    />
+                    {reviewData.length > 0 ? (
+                      <p>{reviewData}</p>
+                    ) : (
+                      <p>Write a review!</p>
+                    )}
                   </div>
                   <h1>Update Your Review:</h1>
                   <div>
@@ -225,10 +233,11 @@ export default function MyBookDetails() {
                 <div>
                   <h1 className=" mt-4">Your Book Review:</h1>
                   <div className="bookReview mt-2">
-                    <FetchReviews
-                      reviewExist={reviewExist}
-                      setOldReview={setOldReview}
-                    />
+                    {reviewData.length > 0 ? (
+                      <p>{reviewData}</p>
+                    ) : (
+                      <p>Write a review!</p>
+                    )}
                   </div>
 
                   <div className="flex justify-end">

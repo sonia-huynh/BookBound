@@ -13,7 +13,7 @@ export function useGetAllBookReviews() {
     queryKey: ['review'],
     queryFn: async () => {
       const data = await getAllBookReviews()
-      console.log(data)
+      // console.log(data)
       if (!data) {
         throw new Error('Failed to fetch all the book reviews')
       }
@@ -31,6 +31,9 @@ export function useGetReviewById(bookId: string) {
       console.log(data)
       if (!data) {
         throw new Error('Failed to fetch book review')
+      } else if (data === undefined) {
+        console.log('no reviews here')
+        return []
       }
       return data
     },

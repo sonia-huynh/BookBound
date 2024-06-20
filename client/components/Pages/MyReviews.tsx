@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useGetAllBookReviews } from '../../hooks/useGetReview'
 import '../../styles/myReviews.css'
 import '../../styles/main.css'
@@ -38,8 +37,8 @@ export default function MyReviews() {
       <div className="ml-10 mr-10 mt-10 ">
         <h1 className="text-3xl font-bold underline">My Reviews</h1>
         <div className="reviewBox">
-          {reviews.map((bookReview) => (
-            <div key={bookReview.id} className="reviewBookCover card">
+          {reviews.map((bookReview, i) => (
+            <div key={bookReview.id || i} className="reviewBookCover card">
               <img
                 src={bookReview.image}
                 alt={bookReview.title}

@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 import { BookDetails } from '../../../models/books'
 
 export default function SearchBookDetails() {
-  console.log(window.localStorage)
+  // console.log(window.localStorage)
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const addBookToShelf = useAddBookToShelf()
@@ -49,7 +49,7 @@ export default function SearchBookDetails() {
       ...prevAddedBooks,
       [bookKey]: true,
     }))
-    console.log(addBook)
+    // console.log(addBook)
   }
   function handleClick(details: BookDetails) {
     navigate(`/my-books/search?id=${details.bookId}&title=${details.title}`)
@@ -79,15 +79,14 @@ export default function SearchBookDetails() {
       return cleaned
     }
   }
-  console.log(addBook)
   return (
     <>
       <div className="box">
         <div className="searchBookCard card">
           <div>
-            {searchBookData.map((book) => (
-              <>
-                <div key={book.bookId}>
+            {searchBookData.map((book, i) => (
+              <div key={book.bookId + i}>
+                <div key={book.bookId + i}>
                   <div className="flex justify-center">
                     <img
                       src={book.image}
@@ -147,7 +146,7 @@ export default function SearchBookDetails() {
                     </div>
                   )}
                 </div>
-              </>
+              </div>
             ))}
           </div>
         </div>

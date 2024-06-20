@@ -50,10 +50,11 @@ router.get('/:id', async (req, res) => {
       if (bookReview) {
         return res.json(bookReview.review)
       } else {
-        res.status(404).json({ message: 'Book review not found' })
+        res.json([])
       }
     } else if (reviewExist.review === 0) {
-      return res.json({ message: 'Book review does not exist' })
+      console.log('book review does not exist')
+      return res.json([])
     }
   } catch (error) {
     console.log(error)
