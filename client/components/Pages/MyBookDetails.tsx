@@ -223,7 +223,7 @@ export default function MyBookDetails() {
                       onClick={() => {
                         handleUpdate(input)
                       }}
-                      className="searchButt"
+                      className="searchButt hover:bg-lime-600 hover:text-white"
                     >
                       Save Updated Review
                     </button>
@@ -243,11 +243,14 @@ export default function MyBookDetails() {
                   <div className="flex justify-end">
                     <button
                       onClick={() => setChangeReview(true)}
-                      className="searchButt"
+                      className="searchButt hover:bg-yellow-600 hover:text-white"
                     >
                       Update Review
                     </button>
-                    <button onClick={handleDelete} className="searchButt mx-2">
+                    <button
+                      onClick={handleDelete}
+                      className="searchButt mx-2 hover:bg-red-600 hover:text-white "
+                    >
                       Delete Review
                     </button>
                   </div>
