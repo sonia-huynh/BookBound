@@ -40,9 +40,13 @@ export function useGetBooks() {
 // Get Book by Id
 export function useGetBookById(bookId: string) {
   return useQuery({
-    queryKey: ['bookId'],
+    queryKey: ['bookId', bookId],
     queryFn: async () => {
       const books = await getBookById(bookId)
+      console.log(`got book ${bookId}`)
+      if (!books) {
+        throw new Error('Failed to fetch book review')
+      }
       return books as Books
     },
   })

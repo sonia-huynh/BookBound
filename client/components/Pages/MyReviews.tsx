@@ -28,10 +28,6 @@ export default function MyReviews() {
     }
   }
 
-  function handleReadMore(id: string, title: string) {
-    navigate(`/my-books/search?id=${id}&title=${title}`)
-  }
-
   return (
     <>
       <div className="ml-10 mr-10 mt-10 ">
@@ -44,14 +40,19 @@ export default function MyReviews() {
                 alt={bookReview.title}
                 className="book-cover"
               />
+
               <div className="reviewCard">
                 <h1>{bookReview.title}</h1>
                 <p>{truncation(bookReview.review)}</p>
+                <p>{bookReview.book_id}</p>
+                <p>{bookReview.title}</p>
                 <button
                   className="viewButton"
-                  onClick={() =>
-                    handleReadMore(bookReview.book_id, bookReview.title)
-                  }
+                  onClick={() => {
+                    navigate(
+                      `/my-books/${bookReview.book_id}/${bookReview.title}`,
+                    )
+                  }}
                 >
                   View More
                 </button>

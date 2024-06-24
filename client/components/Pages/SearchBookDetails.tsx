@@ -50,7 +50,7 @@ export default function SearchBookDetails() {
     }))
   }
   function handleClick(details: BookDetails) {
-    navigate(`/my-books/search?id=${details.bookId}&title=${details.title}`)
+    navigate(`/my-books/${details.bookId}/${details.title}`)
   }
 
   if (isPending) {

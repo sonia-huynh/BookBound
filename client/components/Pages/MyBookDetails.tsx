@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useGetBookById } from '../../hooks/useMyBooks'
 import '../../styles/book.css'
 import { useGetReviewById, useUpdateReview } from '../../hooks/useGetReview'
@@ -13,10 +13,12 @@ interface CleanedTextResult {
 }
 
 export default function MyBookDetails() {
-  const [searchParams] = useSearchParams()
+  // const [searchParams] = useSearchParams()
+  const { id } = useParams()
+  const bookIdString = id as string
   const [input, setInput] = useState('')
   const [changeReview, setChangeReview] = useState(false)
-  const [reviewExist, setReviewExist] = useState(false)
+  // const [reviewExist, setReviewExist] = useState(false)
   const [oldReview, setOldReview] = useState('')
   const [readMore, setReadMore] = useState(false)
 
@@ -31,21 +33,28 @@ export default function MyBookDetails() {
     isError,
     error,
     refetch,
-  } = useGetBookById(searchParams.get('id') || '')
+  } = useGetBookById(bookIdString)
+  console.log(myBooksData)
+
+  const { data: reviewData } = useGetReviewById(bookIdString)
+
+  // useEffect(() => {
+  //   refetch()
+  // }, [refetch, myBooksData, changeReview, input])
 
   useEffect(() => {
     refetch()
-  }, [refetch, myBooksData, reviewExist, changeReview, input])
-
-  const { data: reviewData } = useGetReviewById(searchParams.get('id') || '')
-
-  useEffect(() => {
-    refetch()
-    setOldReview(reviewData)
+    if (reviewData) {
+      setOldReview(reviewData)
+    }
   }, [refetch, reviewData, setOldReview])
 
   if (isPending) {
     return <p>Retrieving book data...</p>
+  }
+
+  if (!reviewData || reviewData === undefined) {
+    return <p>Loading review data right now...</p>
   }
 
   if (isError) {
@@ -87,7 +96,7 @@ export default function MyBookDetails() {
   }
 
   function handleAdd(text: string) {
-    const bookId = String(searchParams.get('id'))
+    const bookId = bookIdString
     const bookReview = text
 
     if (bookId !== null) {
@@ -98,13 +107,12 @@ export default function MyBookDetails() {
     } else {
       console.log('title parameter is null and review')
     }
-    setReviewExist(true)
     setChangeReview(false)
     setInput('')
   }
 
   function handleUpdate(text: string) {
-    const bookId = String(searchParams.get('id'))
+    const bookId = bookIdString
 
     if (text !== oldReview) {
       updateReview.mutate({
@@ -120,10 +128,10 @@ export default function MyBookDetails() {
   }
 
   function handleDelete() {
-    const bookId = String(searchParams.get('id'))
+    const bookId = bookIdString
 
     setChangeReview(false)
-    setReviewExist(false)
+    // setReviewExist(false)
     setInput('')
     deleteReview.mutate(bookId)
   }
@@ -169,7 +177,7 @@ export default function MyBookDetails() {
               </div>
               <div>
                 <h1 className="mt-4">Your Rating:</h1>
-                <StarRating />
+                <StarRating bookId={''} />
               </div>
               {!myBooksData.review ? (
                 <div>

@@ -36,8 +36,9 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const bookId = req.params.id
-    const books = await db.getBookById(bookId)
-    return res.json(books)
+    const book = await db.getBookById(bookId)
+    console.log(book)
+    return res.json(book)
   } catch (error) {
     console.log(error)
     res.status(500).json({ message: 'Something went wrong' })
