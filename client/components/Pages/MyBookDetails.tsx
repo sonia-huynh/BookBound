@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { useAddReview } from '../../hooks/useGetReview'
 import { useDeleteReview } from '../../hooks/useGetReview'
 import { StarRating } from './StarRating'
+import { DatesRead } from './DatesRead'
 
 interface CleanedTextResult {
   cleaned: string
@@ -178,6 +179,10 @@ export default function MyBookDetails() {
               <div>
                 <h1 className="mt-4">Your Rating:</h1>
                 <StarRating bookId={''} />
+              </div>
+              <div>
+                <h1 className="mt-4">Dates Read:</h1>
+                <DatesRead bookId={myBooksData.book_id} />
               </div>
               {!myBooksData.review ? (
                 <div>

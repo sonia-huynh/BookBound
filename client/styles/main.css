@@ -6,6 +6,7 @@ body {
   background-color: #fff5e8;
 }
 
+/* My Books */
 .popup-overlay {
   position: absolute;
   top: 0;
@@ -70,6 +71,7 @@ body {
   color: white;
 }
 
+/* Search Nar */
 .input {
   width: 150%;
   font-size: 18px;
@@ -277,4 +279,11 @@ h1 {
 
 .star {
   cursor: pointer;
+}
+
+.dateInput {
+  border: rgb(153, 92, 22) 1px solid;
+  border-radius: 10px;
+  padding: 2px;
+  width: 130px;
 }

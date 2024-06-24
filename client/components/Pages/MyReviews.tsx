@@ -44,8 +44,6 @@ export default function MyReviews() {
               <div className="reviewCard">
                 <h1>{bookReview.title}</h1>
                 <p>{truncation(bookReview.review)}</p>
-                <p>{bookReview.book_id}</p>
-                <p>{bookReview.title}</p>
                 <button
                   className="viewButton"
                   onClick={() => {
