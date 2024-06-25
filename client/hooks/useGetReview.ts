@@ -28,7 +28,7 @@ export function useGetReviewById(bookId: string) {
     queryKey: ['reviewId', bookId],
     queryFn: async () => {
       const data = await getReviewById(bookId)
-      console.log(data)
+      // console.log(data)
       if (!data) {
         throw new Error('Failed to fetch book review')
       } else if (data === undefined) {

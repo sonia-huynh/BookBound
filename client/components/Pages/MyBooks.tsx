@@ -83,7 +83,7 @@ export default function MyBooks() {
                 ) : (
                   <>
                     <button
-                      className="deleteButton mt-4"
+                      className="deleteButton mt-2"
                       onClick={() => handleDeleteBook(book.title, book.book_id)}
                     >
                       Delete Book

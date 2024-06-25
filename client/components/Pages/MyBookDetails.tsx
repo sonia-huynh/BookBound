@@ -35,7 +35,6 @@ export default function MyBookDetails() {
     error,
     refetch,
   } = useGetBookById(bookIdString)
-  console.log(myBooksData)
 
   const { data: reviewData } = useGetReviewById(bookIdString)
 
