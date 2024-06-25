@@ -11,6 +11,8 @@ export async function seed(knex) {
       author: 'Rebecca Yarros',
       image:
         'http://books.google.com/books/content?id=E-OLEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
+      start_date: '12 May 2023',
+      end_date: '16 May 2023',
       review: true,
       rating: true,
     },

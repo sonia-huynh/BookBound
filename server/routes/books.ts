@@ -17,7 +17,9 @@ router.post('/', async (req, res) => {
     return res.status(200).json(details)
   } catch (error) {
     console.log(error)
-    res.status(500).json({ message: 'Something went wrong' })
+    res.status(500).json({
+      message: 'Something went wrong trying to add a book to the database',
+    })
   }
 })
 
@@ -28,7 +30,9 @@ router.get('/', async (req, res) => {
     return res.json(books)
   } catch (error) {
     console.log(error)
-    res.status(500).json({ message: 'Something went wrong' })
+    res.status(500).json({
+      message: 'Something went wrong trying to get all books from the database',
+    })
   }
 })
 
@@ -41,7 +45,26 @@ router.get('/:id', async (req, res) => {
     return res.json(book)
   } catch (error) {
     console.log(error)
-    res.status(500).json({ message: 'Something went wrong' })
+    res.status(500).json({
+      message: 'Something went wrong trying to get your book from the database',
+    })
+  }
+})
+
+// Update book read START dates
+router.patch('/:id', async (req, res) => {
+  try {
+    const startDate = req.body.start_date
+    const bookId = req.params.id
+    const updateStartDate = await db.updateReadStartDate(bookId, startDate)
+    console.log(updateStartDate)
+    return res.json(updateStartDate)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({
+      message:
+        'Something went wrong trying to update your book start date in the database',
+    })
   }
 })
 
@@ -54,9 +77,25 @@ router.delete('/:id', async (req, res) => {
     return res.status(204).json({ message: 'book has been deleted' })
   } catch (error) {
     console.log(error)
-    res.status(500).json({ message: 'Something went wrong' })
+    res.status(500).json({
+      message:
+        'Something went wrong trying to delete your book in the database',
+    })
   }
 })
+
+// Add start read date to book in library
+// router.post('/:id', async (req, res) => {
+//   try {
+//     const bookId = req.params.id
+//     await db.deleteBookById(bookId)
+//     console.log('deleting book')
+//     return res.status(204).json({ message: 'book has been deleted' })
+//   } catch (error) {
+//     console.log(error)
+//     res.status(500).json({ message: 'Something went wrong' })
+//   }
+// })
 
 // router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
 //   if (!req.auth?.sub) {

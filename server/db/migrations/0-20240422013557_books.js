@@ -7,6 +7,8 @@ export async function up(knex) {
     table.string('author')
     table.string('image')
     table.string('description')
+    table.string('start_date')
+    table.string('end_date')
     table.boolean('review').defaultTo(false)
     table.boolean('rating').defaultTo(false)
     table.timestamp('recent_activity').defaultTo(knex.fn.now())
