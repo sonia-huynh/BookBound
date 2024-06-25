@@ -58,14 +58,16 @@ router.patch('/:id', async (req, res) => {
     const endDate = req.body.endDate
     const bookId = req.params.id
 
-    if (startDate && endDate) {
+    console.log(startDate)
+
+    if ((startDate && endDate) || (startDate === null && endDate === null)) {
       const updateStartDate = await db.updateReadStartDate(bookId, startDate)
       const updateEndDate = await db.updateReadEndDate(bookId, endDate)
       return res.json(updateStartDate).json(updateEndDate)
-    } else if (endDate) {
+    } else if (endDate || endDate === null) {
       const updateEndDate = await db.updateReadEndDate(bookId, endDate)
       return res.json(updateEndDate)
-    } else if (startDate) {
+    } else if (startDate || startDate === null) {
       const updateStartDate = await db.updateReadStartDate(bookId, startDate)
       return res.json(updateStartDate)
     }
