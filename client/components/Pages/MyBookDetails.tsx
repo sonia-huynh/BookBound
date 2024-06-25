@@ -181,7 +181,10 @@ export default function MyBookDetails() {
               </div>
               <div>
                 <h1 className="mt-4">Dates Read:</h1>
-                <DatesRead bookId={myBooksData.book_id} />
+                <DatesRead
+                  startRead={myBooksData.start_date}
+                  endRead={myBooksData.end_date}
+                />
               </div>
               {!myBooksData.review ? (
                 <div>

@@ -6,8 +6,8 @@ export interface Books {
   image: string
   description?: string
   book_id: string
-  start_date?: string | null
-  end_date?: string | null
+  start_date: string | null
+  end_date: string | null
   review: boolean
   rating: boolean
   recent_activity: string

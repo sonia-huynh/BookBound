@@ -5,58 +5,56 @@ import {
   useUpdateBookStartDate,
 } from '../../hooks/useMyBooks'
 
-export function DatesRead() {
+interface Props {
+  startRead: string | null
+  endRead: string | null
+}
+
+export function DatesRead({ startRead, endRead }: Props) {
   const updateStartDate = useUpdateBookStartDate()
   const updateEndDate = useUpdateBookEndDate()
-  const [readStartDate, setReadStartDate] = useState('')
-  const [readEndDate, setReadEndDate] = useState('')
+  const [readStartDate, setReadStartDate] = useState(startRead || '')
+  const [readEndDate, setReadEndDate] = useState(endRead || '')
   const { id } = useParams()
   const bookIdString = id as string
-
-  //   if (isPending) {
-  //     return <p>Loading your book rating details... {String(error)}</p>
-  //   }
-
-  //   if (isError) {
-  //     return (
-  //       <p>
-  //         Sorry, the book rating details could not be retrieved! {String(error)}
-  //       </p>
-  //     )
-  //   }
 
   function handleStartDateChange(e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault()
     setReadStartDate(e.target.value)
   }
 
+  console.log(readStartDate)
   function handleEndDateChange(e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault()
     setReadEndDate(e.target.value)
   }
 
-  //   function howManyDaysInMonth(month: number, year: number) {
-  //     return new Date(year, month, 0).getDate()
-  //   }
-
-  //  function getMonths(){
-
-  //  }
-
-  function handleSave(bookStartDate: string, bookEndDate: string) {
-    if (readStartDate != '') {
+  function handleSave(
+    bookStartDate: string | null,
+    bookEndDate: string | null,
+  ) {
+    if (readStartDate) {
       updateStartDate.mutate({
         bookId: bookIdString,
         startDate: bookStartDate,
       })
-    } else if (readEndDate != '') {
+    }
+    console.log(readStartDate)
+
+    if (readStartDate === '') {
+      updateStartDate.mutate({
+        bookId: bookIdString,
+        startDate: null,
+      })
+    }
+
+    if (readEndDate) {
       updateEndDate.mutate({
         bookId: bookIdString,
         endDate: bookEndDate,
       })
     }
   }
-
   return (
     <div className="flex ">
       <div>
@@ -66,8 +64,9 @@ export function DatesRead() {
           name="dateStart"
           id="dateStart"
           className="dateInput"
+          value={readStartDate}
           onChange={handleStartDateChange}
-        ></input>
+        />
       </div>
       <div className="mx-5">
         <p>End date:</p>
@@ -76,6 +75,7 @@ export function DatesRead() {
           name="dateEnd"
           id="dateEnd"
           className="dateInput"
+          value={readEndDate}
           onChange={handleEndDateChange}
         ></input>
         <button
