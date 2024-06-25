@@ -71,7 +71,7 @@ export function useDeleteBookById() {
 export function useUpdateBookStartDate() {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: (bookDeets: { bookId: string; startDate: string }) =>
+    mutationFn: (bookDeets: { bookId: string; startDate: string | null }) =>
       updateBookStartdate(bookDeets.bookId, bookDeets.startDate),
     onSuccess: () => {
       console.log('invalidating queries for start date has occured!!!')
@@ -86,7 +86,7 @@ export function useUpdateBookStartDate() {
 export function useUpdateBookEndDate() {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: (bookDeets: { bookId: string; endDate: string }) =>
+    mutationFn: (bookDeets: { bookId: string; endDate: string | null }) =>
       updateBookEndDate(bookDeets.bookId, bookDeets.endDate),
     onSuccess: () => {
       console.log('invalidating queries for end date has occured!!!')

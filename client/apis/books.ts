@@ -74,19 +74,11 @@ export async function getBookById(bookId: string) {
   }
 }
 
-// Calls for delete Book by id
-export async function deleteBookById(bookId: string) {
-  try {
-    const res = await request.delete(booksUrl + `${bookId}`)
-    return res
-  } catch (error) {
-    console.error('Could not delete book from database')
-    throw new Error('Failed to delete book from database')
-  }
-}
-
 // Update book read START date by id
-export async function updateBookStartdate(bookId: string, startDate: string) {
+export async function updateBookStartdate(
+  bookId: string,
+  startDate: string | null,
+) {
   try {
     const res = await request
       .patch(booksUrl + `${bookId}`)
@@ -99,7 +91,10 @@ export async function updateBookStartdate(bookId: string, startDate: string) {
 }
 
 // Update book read End date by id
-export async function updateBookEndDate(bookId: string, endDate: string) {
+export async function updateBookEndDate(
+  bookId: string,
+  endDate: string | null,
+) {
   try {
     const res = await request
       .patch(booksUrl + `${bookId}`)
@@ -108,5 +103,16 @@ export async function updateBookEndDate(bookId: string, endDate: string) {
   } catch (error) {
     console.error('Could not update book end date')
     throw new Error('Failed to update book end date')
+  }
+}
+
+// Calls for delete Book by id
+export async function deleteBookById(bookId: string) {
+  try {
+    const res = await request.delete(booksUrl + `${bookId}`)
+    return res
+  } catch (error) {
+    console.error('Could not delete book from database')
+    throw new Error('Failed to delete book from database')
   }
 }
