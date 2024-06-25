@@ -84,3 +84,29 @@ export async function deleteBookById(bookId: string) {
     throw new Error('Failed to delete book from database')
   }
 }
+
+// Update book read START date by id
+export async function updateBookStartdate(bookId: string, startDate: string) {
+  try {
+    const res = await request
+      .patch(booksUrl + `${bookId}`)
+      .send({ startDate: startDate })
+    return res.body
+  } catch (error) {
+    console.error('Could not update book start date')
+    throw new Error('Failed to update book start date')
+  }
+}
+
+// Update book read End date by id
+export async function updateBookEndDate(bookId: string, endDate: string) {
+  try {
+    const res = await request
+      .patch(booksUrl + `${bookId}`)
+      .send({ endDate: endDate })
+    return res.body
+  } catch (error) {
+    console.error('Could not update book end date')
+    throw new Error('Failed to update book end date')
+  }
+}

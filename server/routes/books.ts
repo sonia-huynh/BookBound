@@ -54,11 +54,21 @@ router.get('/:id', async (req, res) => {
 // Update book read START dates
 router.patch('/:id', async (req, res) => {
   try {
-    const startDate = req.body.start_date
+    const startDate = req.body.startDate
+    const endDate = req.body.endDate
     const bookId = req.params.id
-    const updateStartDate = await db.updateReadStartDate(bookId, startDate)
-    console.log(updateStartDate)
-    return res.json(updateStartDate)
+
+    if (startDate && endDate) {
+      const updateStartDate = await db.updateReadStartDate(bookId, startDate)
+      const updateEndDate = await db.updateReadEndDate(bookId, endDate)
+      return res.json(updateStartDate).json(updateEndDate)
+    } else if (endDate) {
+      const updateEndDate = await db.updateReadEndDate(bookId, endDate)
+      return res.json(updateEndDate)
+    } else if (startDate) {
+      const updateStartDate = await db.updateReadStartDate(bookId, startDate)
+      return res.json(updateStartDate)
+    }
   } catch (error) {
     console.log(error)
     res.status(500).json({

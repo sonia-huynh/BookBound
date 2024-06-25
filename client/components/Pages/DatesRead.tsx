@@ -1,13 +1,15 @@
 import { useParams } from 'react-router-dom'
 import { useState } from 'react'
+import {
+  useUpdateBookEndDate,
+  useUpdateBookStartDate,
+} from '../../hooks/useMyBooks'
 
-interface Props {
-  bookId: string
-}
-
-export function DatesRead({ bookId }: Props) {
-  const [startDate, setStartDate] = useState('')
-  const [endDate, setEndDate] = useState('')
+export function DatesRead() {
+  const updateStartDate = useUpdateBookStartDate()
+  const updateEndDate = useUpdateBookEndDate()
+  const [readStartDate, setReadStartDate] = useState('')
+  const [readEndDate, setReadEndDate] = useState('')
   const { id } = useParams()
   const bookIdString = id as string
 
@@ -23,14 +25,36 @@ export function DatesRead({ bookId }: Props) {
   //     )
   //   }
 
-  function handleStartDateChange(e) {
+  function handleStartDateChange(e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault()
-    setStartDate(e.target.value)
+    setReadStartDate(e.target.value)
   }
 
-  function handleEndDateChange(e) {
+  function handleEndDateChange(e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault()
-    setEndDate(e.target.value)
+    setReadEndDate(e.target.value)
+  }
+
+  //   function howManyDaysInMonth(month: number, year: number) {
+  //     return new Date(year, month, 0).getDate()
+  //   }
+
+  //  function getMonths(){
+
+  //  }
+
+  function handleSave(bookStartDate: string, bookEndDate: string) {
+    if (readStartDate != '') {
+      updateStartDate.mutate({
+        bookId: bookIdString,
+        startDate: bookStartDate,
+      })
+    } else if (readEndDate != '') {
+      updateEndDate.mutate({
+        bookId: bookIdString,
+        endDate: bookEndDate,
+      })
+    }
   }
 
   return (
@@ -55,8 +79,8 @@ export function DatesRead({ bookId }: Props) {
           onChange={handleEndDateChange}
         ></input>
         <button
-          onClick={() => console.log({ startDate }, { endDate })}
-          className="mx-5"
+          onClick={() => handleSave(readStartDate, readEndDate)}
+          className="ml-6"
         >
           Save
         </button>
