@@ -140,6 +140,18 @@ h1 {
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+/* home */
+
+.homeCard {
+  margin-bottom: 20px;
+  border: 2px red solid;
+  padding: 25px;
+  width: 750px;
+  display: flex;
+  gap: 30px;
+}
+
 .searchButt {
   background-color: rgb(250, 230, 193);
   border-radius: 30px;
