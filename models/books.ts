@@ -10,17 +10,20 @@ export interface Books {
   end_date: string | null
   review: boolean
   rating: boolean
-  recent_activity: string
+  created_at: Date
+  updated_at: Date
 }
 
 export interface Reviews {
   review: string
-  recent_activity: string
+  created_at: Date
+  updated_at: Date
 }
 
 export interface Ratings {
   Rating: number
-  recent_activity: string
+  created_at: Date
+  updated_at: Date
 }
 
 export interface BookDetails {
