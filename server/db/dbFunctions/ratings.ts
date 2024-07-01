@@ -42,7 +42,7 @@ export async function addRating(bookId: string, rating: number) {
 export async function updateRating(bookId: string, rating: number) {
   const bookRating = await db('ratings')
     .where({ book_id: bookId })
-    .update({ rating: rating })
+    .update({ rating: rating, updated_at: db.fn.now() })
 
   return bookRating
 }

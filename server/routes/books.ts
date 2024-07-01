@@ -12,7 +12,7 @@ const router = express.Router()
 router.post('/', async (req, res) => {
   try {
     const details = req.body
-    console.log(details)
+    // console.log(details)
     await db.addBook(details)
     return res.status(200).json(details)
   } catch (error) {
@@ -41,7 +41,7 @@ router.get('/:id', async (req, res) => {
   try {
     const bookId = req.params.id
     const book = await db.getBookById(bookId)
-    console.log(book)
+    // console.log(book)
     return res.json(book)
   } catch (error) {
     console.log(error)

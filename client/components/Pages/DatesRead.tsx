@@ -30,7 +30,7 @@ export function DatesRead({ startRead, endRead }: Props) {
     setReadStartDate(e.target.value)
   }
 
-  console.log(readStartDate)
+  // console.log(readStartDate)
   function handleEndDateChange(e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault()
     setReadEndDate(e.target.value)

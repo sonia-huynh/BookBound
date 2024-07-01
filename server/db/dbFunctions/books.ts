@@ -42,7 +42,7 @@ export async function updateReadStartDate(bookId: string, startDate: string) {
   const bookStartDate = await db('books')
     .where({ book_id: bookId })
     .select('start_date')
-    .update({ start_date: startDate })
+    .update({ start_date: startDate, updated_at: db.fn.now() })
   return bookStartDate
 }
 
@@ -51,7 +51,7 @@ export async function updateReadEndDate(bookId: string, endDate: string) {
   const bookStartDate = await db('books')
     .where({ book_id: bookId })
     .select('start_date')
-    .update({ end_date: endDate })
+    .update({ end_date: endDate, updated_at: db.fn.now() })
   return bookStartDate
 }
 

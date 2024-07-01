@@ -25,7 +25,7 @@ export function useGetAllBookReviews() {
 // Get review by ID
 export function useGetReviewById(bookId: string) {
   return useQuery({
-    queryKey: ['reviewId', bookId],
+    queryKey: ['review', bookId],
     queryFn: async () => {
       const data = await getReviewById(bookId)
       // console.log(data)

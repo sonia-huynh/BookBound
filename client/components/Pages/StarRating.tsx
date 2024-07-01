@@ -111,15 +111,15 @@ export function StarRating({ bookId }: Props) {
             <label
               htmlFor={`star-rating-${i}`}
               onMouseEnter={() => {
-                starRating > 0 ? null : handleMouseEnter(i)
+                bookId ? null : starRating > 0 ? null : handleMouseEnter(i)
               }}
               onMouseLeave={() => handleMouseLeave()}
-              onDoubleClick={() => handleDoubleClick(i)}
+              onDoubleClick={() => (bookId ? null : handleDoubleClick(i))}
             >
               <button
                 value={i}
                 id={`star-rating-${i}`}
-                onClick={() => handleClick(i)}
+                onClick={() => (bookId ? null : handleClick(i))}
               >
                 {starIcon(i)}
               </button>

@@ -58,7 +58,7 @@ export async function getReviewById(bookId: string) {
 export async function updateReview(bookId: string, update: string) {
   const review = await db('reviews')
     .where({ book_id: bookId })
-    .update({ review: update })
+    .update({ review: update, updated_at: db.fn.now() })
   return review
 }
 

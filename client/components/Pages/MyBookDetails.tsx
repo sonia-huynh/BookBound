@@ -19,7 +19,6 @@ export default function MyBookDetails() {
   const bookIdString = id as string
   const [input, setInput] = useState('')
   const [changeReview, setChangeReview] = useState(false)
-  // const [reviewExist, setReviewExist] = useState(false)
   const [oldReview, setOldReview] = useState('')
   const [readMore, setReadMore] = useState(false)
 
@@ -38,9 +37,9 @@ export default function MyBookDetails() {
 
   const { data: reviewData } = useGetReviewById(bookIdString)
 
-  // useEffect(() => {
-  //   refetch()
-  // }, [refetch, myBooksData, changeReview, input])
+  useEffect(() => {
+    refetch()
+  }, [refetch, myBooksData, changeReview, input])
 
   useEffect(() => {
     refetch()
@@ -131,7 +130,6 @@ export default function MyBookDetails() {
     const bookId = bookIdString
 
     setChangeReview(false)
-    // setReviewExist(false)
     setInput('')
     deleteReview.mutate(bookId)
   }
