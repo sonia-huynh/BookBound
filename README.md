@@ -12,12 +12,17 @@ BookBound is a personal book review and rating app similar to Goodreads just wit
 * User can update a book rating or delete it
 * User My Reviews page shows all reviews the user has created
 * User can delete a book saved in their library 
-
-
-### 💪 Features I am working on to include:
 * User can add the dates they have started and finished reading the book
 * User home page shows recent activity
 
+
+### 💪 Features I am working on to include:
+* Currently have reached MVP
+
+### 🎯 Current Focus:
+* Tidy up CSS code
+* Refactor code
+* Ensure webpage is compliant with WAVE Web Accessibility 
 
 ### ⚙️ Languages, Tools & Technologies:
 * React
