@@ -7,6 +7,7 @@ export async function getRecentActivity() {
     await db('books')
       .select(
         'books.title',
+        'books.book_id',
         'books.author',
         'books.image',
         'books.description',
@@ -25,6 +26,7 @@ export async function getRecentActivity() {
       .join('books', 'reviews.book_id', 'books.book_id')
       .select(
         'books.title',
+        'books.book_id',
         'books.author',
         'books.image',
         'reviews.review',
@@ -42,6 +44,7 @@ export async function getRecentActivity() {
     await db('ratings')
       .join('books', 'ratings.book_id', 'books.book_id')
       .select(
+        'books.book_id',
         'books.title',
         'books.author',
         'books.image',

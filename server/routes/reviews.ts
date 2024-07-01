@@ -45,14 +45,14 @@ router.get('/:id', async (req, res) => {
     const bookId = String(req.params.id)
     const reviewExist = await db.checkReviewExists(bookId)
 
-    if (reviewExist.review === 1) {
+    if (reviewExist.review_exist === 1) {
       const bookReview = await db.getReviewById(bookId)
       if (bookReview) {
         return res.json(bookReview.review)
       } else {
         res.json([])
       }
-    } else if (reviewExist.review === 0) {
+    } else if (reviewExist.review_exist === 0) {
       console.log('book review does not exist')
       return res.json([])
     }

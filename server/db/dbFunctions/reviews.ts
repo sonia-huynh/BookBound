@@ -40,7 +40,7 @@ export async function getAllReview() {
       'reviews.book_id',
     )
     .join('books', 'reviews.book_id', 'books.book_id')
-    .where('books.review', true)
+    .where('books.review_exist', true)
 
   return allReviews
 }

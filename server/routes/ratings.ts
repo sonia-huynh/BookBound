@@ -8,14 +8,14 @@ router.get('/:id', async (req, res) => {
     const bookId = String(req.params.id)
     const ratingExist = await db.checkRatingExists(bookId)
 
-    if (ratingExist.rating === 1) {
+    if (ratingExist.rating_exist === 1) {
       const rating = await db.getRatingById(bookId)
       if (rating) {
         return res.status(201).json(rating)
       } else {
         res.status(404).json({ message: 'Book Rating not found' })
       }
-    } else if (ratingExist.rating === 0) {
+    } else if (ratingExist.rating_exist === 0) {
       return res.json({ message: 'Book rating does not exist' })
     }
   } catch (error) {

@@ -184,7 +184,7 @@ export default function MyBookDetails() {
                   endRead={myBooksData.end_date}
                 />
               </div>
-              {!myBooksData.review ? (
+              {!myBooksData.review_exist ? (
                 <div>
                   <h1 className=" mt-4">Your Book Review:</h1>
                   <div className="bookReview mt-4">
@@ -208,7 +208,7 @@ export default function MyBookDetails() {
                     </button>
                   </div>
                 </div>
-              ) : myBooksData.review && changeReview === true ? (
+              ) : myBooksData.review_exist && changeReview === true ? (
                 <div>
                   <h1 className="mt-8">
                     Review exists and you want to change:
