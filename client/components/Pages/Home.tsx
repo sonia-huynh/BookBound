@@ -10,6 +10,10 @@ export default function Home() {
     return activity.type === 'book'
   }
 
+  function isBookDates(activity: Activity): activity is Books {
+    return activity.type === 'bookDates'
+  }
+
   function isRating(activity: Activity): activity is Ratings {
     return activity.type === 'rating'
   }
@@ -60,6 +64,18 @@ export default function Home() {
                 <h1> {activity.title}</h1>
                 <p>{activity.author}</p>
                 <div>
+                  {isBookDates(activity) && (
+                    <div className="mt-4">
+                      <strong>
+                        You have udpated the dates read for {activity.title}.
+                      </strong>
+                      <p>
+                        Start Date: {activity.start_date} <br /> End Date:{' '}
+                        {activity.end_date}
+                      </p>
+                    </div>
+                  )}
+
                   {isBook(activity) && (
                     <div className="mt-4">
                       <strong>

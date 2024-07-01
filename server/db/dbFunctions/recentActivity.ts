@@ -12,14 +12,26 @@ export async function getRecentActivity() {
         'books.image',
         'books.description',
         'books.created_at',
-        'books.updated_at',
       )
-      .orderBy([
-        { column: 'books.updated_at', order: 'desc' },
-        { column: 'books.created_at', order: 'desc' },
-      ])
+      .orderBy([{ column: 'books.created_at', order: 'desc' }])
       .limit(10)
   ).map((book) => ({ ...book, type: 'book' }))
+
+  const recentActivityReadDates: Books[] = (
+    await db('books')
+      .select(
+        'books.title',
+        'books.book_id',
+        'books.author',
+        'books.image',
+        'books.description',
+        'books.start_date',
+        'books.end_date',
+        'books.updated_at',
+      )
+      .orderBy([{ column: 'books.updated_at', order: 'desc' }])
+      .limit(10)
+  ).map((book) => ({ ...book, type: 'bookDates' }))
 
   const recentActivityReviews: Reviews[] = (
     await db('reviews')
@@ -61,6 +73,7 @@ export async function getRecentActivity() {
 
   const allRecentActivities = [
     ...recentActivityBooks,
+    ...recentActivityReadDates,
     ...recentActivityReviews,
     ...recentActivityRatings,
   ]

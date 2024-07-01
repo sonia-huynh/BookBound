@@ -17,6 +17,12 @@ export interface Books extends BaseActivity {
   rating_exist: boolean
   type: 'book'
 }
+
+export interface BookDates extends BaseActivity {
+  start_date: string | null
+  end_date: string | null
+  type: 'bookDates'
+}
 export interface Reviews extends BaseActivity {
   review: string
   created_at: Date
@@ -31,7 +37,7 @@ export interface Ratings extends BaseActivity {
   type: 'rating'
 }
 
-export type Activity = Books | Ratings | Reviews
+export type Activity = Books | Ratings | Reviews | BookDates
 export interface BookDetails {
   title: string
   author: string[]
