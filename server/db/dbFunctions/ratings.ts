@@ -4,7 +4,7 @@ import db from '../connection.ts'
 export async function checkRatingExists(bookId: string) {
   const ratingExists = await db('books')
     .where({ book_id: bookId })
-    .select('books.rating')
+    .select('books.rating_exist')
     .first()
   return ratingExists
 }
@@ -28,7 +28,7 @@ export async function addRating(bookId: string, rating: number) {
       rating: rating,
     })
 
-    await trx('books').where({ book_id: bookId }).update({ rating: true })
+    await trx('books').where({ book_id: bookId }).update({ rating_exist: true })
 
     await trx.commit()
     return bookRating
@@ -54,7 +54,9 @@ export async function deleteRating(bookId: string) {
   try {
     const bookRating = await trx('ratings').where({ book_id: bookId }).delete()
 
-    await trx('books').where({ book_id: bookId }).update({ rating: false })
+    await trx('books')
+      .where({ book_id: bookId })
+      .update({ rating_exist: false })
 
     await trx.commit()
     return bookRating

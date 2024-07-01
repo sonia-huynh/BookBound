@@ -5,15 +5,15 @@ export async function seed(knex) {
   // Inserts seed entries
   await knex('reviews').insert([
     {
-      book_id: 'abc',
+      book_id: 'FourthWing',
       review: 'This book is so amazing blah blah blah',
     },
     {
-      book_id: 'abcd1234',
+      book_id: 'TomorrowTomorrowTomorrow',
       review: 'This book can only be read by tomorrow ofc',
     },
     {
-      book_id: '1234',
+      book_id: 'Legend',
       review: 'I am a legend nah nah nah',
     },
   ])

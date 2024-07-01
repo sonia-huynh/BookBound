@@ -10,7 +10,7 @@ export async function addReview(bookId: string, review: string) {
       review: review,
     })
 
-    await trx('books').where({ book_id: bookId }).update({ review: true })
+    await trx('books').where({ book_id: bookId }).update({ review_exist: true })
 
     await trx.commit()
     return bookReview
@@ -24,7 +24,7 @@ export async function addReview(bookId: string, review: string) {
 export async function checkReviewExists(bookId: string) {
   const reviewExists = await db('books')
     .where({ book_id: bookId })
-    .select('books.review')
+    .select('books.review_exist')
     .first()
   return reviewExists
 }
@@ -68,7 +68,9 @@ export async function deleteReview(bookId: string) {
 
   try {
     const review = await trx('reviews').where({ book_id: bookId }).delete()
-    await trx('books').where({ book_id: bookId }).update({ review: false })
+    await trx('books')
+      .where({ book_id: bookId })
+      .update({ review_exist: false })
 
     trx.commit()
     return review
