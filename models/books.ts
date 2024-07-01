@@ -1,31 +1,37 @@
-export interface Books {
+interface BaseActivity {
   id: number
   username: string
+  created_at: Date
+  updated_at: Date
+  book_id: string
   title: string
   author: string
   image: string
   description?: string
-  book_id: string
-  start_date: string | null
-  end_date: string | null
-  review: boolean
-  rating: boolean
-  created_at: Date
-  updated_at: Date
 }
 
-export interface Reviews {
+export interface Books extends BaseActivity {
+  start_date: string | null
+  end_date: string | null
+  review_exist: boolean
+  rating_exist: boolean
+  type: 'book'
+}
+export interface Reviews extends BaseActivity {
   review: string
   created_at: Date
   updated_at: Date
+  type: 'review'
 }
 
-export interface Ratings {
-  Rating: number
+export interface Ratings extends BaseActivity {
+  rating: number
   created_at: Date
   updated_at: Date
+  type: 'rating'
 }
 
+export type Activity = Books | Ratings | Reviews
 export interface BookDetails {
   title: string
   author: string[]
