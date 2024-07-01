@@ -1,7 +1,9 @@
+import { useNavigate } from 'react-router-dom'
 import { Activity, Books, Ratings, Reviews } from '../../../models/books'
 import { useGetRecentActivityHome } from '../../hooks/recentActivity'
 
 export default function Home() {
+  const navigate = useNavigate()
   const { data, isPending, isError, error } = useGetRecentActivityHome()
 
   function isBook(activity: Activity): activity is Books {
@@ -29,24 +31,40 @@ export default function Home() {
   }
   return (
     <>
+      <h1 className="mb-8 mt-4 text-center text-3xl font-bold underline">
+        Your recent activity:
+      </h1>
       <div className="box">
-        <div className="bookshelfContainer">
-          <div className="ml-10 mt-10 "></div>
-          <div>
-            {data.map((activity, i) => (
-              <div key={i} className="homeCard card ">
-                <img
-                  src={activity.image}
-                  alt={`${activity.title} book cover`}
-                  className="book-cover"
-                />
+        <div>
+          {data.map((activity, i) => (
+            <div
+              role="button"
+              tabIndex={0}
+              key={activity.book_id + i}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  navigate(`/my-books/${activity.book_id}/${activity.title}`)
+                }
+              }}
+              className="homeCard card"
+              onClick={() =>
+                navigate(`/my-books/${activity.book_id}/${activity.title}`)
+              }
+            >
+              <img
+                src={activity.image}
+                alt={`${activity.title} book cover`}
+                className="book-cover"
+              />
+              <div>
+                <h1> {activity.title}</h1>
+                <p>{activity.author}</p>
                 <div>
-                  <h1> {activity.title}</h1>
-                  <p>{activity.author}</p>
                   {isBook(activity) && (
                     <div className="mt-4">
                       <strong>
-                        You have added the book {activity.title} to your library
+                        You have added the book {activity.title} by{' '}
+                        {activity.author} to your library
                       </strong>
                     </div>
                   )}
@@ -64,13 +82,13 @@ export default function Home() {
                       <strong>
                         You have updated your review for {activity.title}:
                       </strong>
-                      <p className="mt-2">{activity.review}</p>
+                      <p className="homeText mt-2">{activity.review}</p>
                     </div>
                   )}
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
     </>

@@ -145,11 +145,15 @@ h1 {
 
 .homeCard {
   margin-bottom: 20px;
-  border: 2px red solid;
+  /* border: 2px red solid; */
   padding: 25px;
-  width: 750px;
+  width: 700px;
   display: flex;
   gap: 30px;
+}
+
+.homeCard:hover {
+  box-shadow: 2px 2px 6px 4px rgba(138, 51, 11, 0.26);
 }
 
 .searchButt {
@@ -197,6 +201,14 @@ h1 {
   -webkit-box-orient: vertical;
 }
 
+.homeText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+}
+
 .bookshelfContainer {
   display: flex;
   flex-direction: row;
@@ -222,10 +234,15 @@ h1 {
   flex-direction: column;
 }
 
+.homeButt {
+  display: flex;
+  flex-direction: column;
+  width: 120px;
+  border: 2px red solid;
+}
+
 .viewButton {
   border-radius: 20px;
-  border-style: solid;
-  border-color: red;
   background-color: rgb(194, 151, 72);
   color: white;
   padding: 5px;
