@@ -10,11 +10,18 @@ interface Props {
   endRead: string | null
 }
 
+interface Interaction {
+  text: string
+  width: number
+  height: number
+}
+
 export function DatesRead({ startRead, endRead }: Props) {
   const updateStartDate = useUpdateBookStartDate()
   const updateEndDate = useUpdateBookEndDate()
   const [readStartDate, setReadStartDate] = useState(startRead || '')
   const [readEndDate, setReadEndDate] = useState(endRead || '')
+  const [popup, setPopup] = useState(false)
   const { id } = useParams()
   const bookIdString = id as string
 
@@ -39,22 +46,18 @@ export function DatesRead({ startRead, endRead }: Props) {
         startDate: bookStartDate,
       })
     }
-    console.log(readStartDate)
 
-    if (readStartDate === '') {
-      updateStartDate.mutate({
-        bookId: bookIdString,
-        startDate: null,
-      })
-    }
-
-    if (readEndDate) {
+    if (readEndDate && readEndDate > readStartDate) {
       updateEndDate.mutate({
         bookId: bookIdString,
         endDate: bookEndDate,
       })
+    } else {
+      setPopup(true)
+      setTimeout(() => setPopup(false), 5000)
     }
   }
+
   return (
     <div className="flex ">
       <div>
@@ -84,6 +87,11 @@ export function DatesRead({ startRead, endRead }: Props) {
         >
           Save
         </button>
+        {popup && (
+          <p>
+            Your end date cannot be before your read date! Please check again.
+          </p>
+        )}
       </div>
     </div>
   )

@@ -8,7 +8,7 @@ export async function up(knex) {
       .onDelete('CASCADE')
     table.string('username')
     table.text('review')
-    table.timestamp('recent_activity').defaultTo(knex.fn.now())
+    table.timestamps(true, true)
   })
 }
 
