@@ -37,6 +37,25 @@ export async function deleteBookById(bookId: string) {
   return book
 }
 
-export function getRecentActivity() {
+// update read START date
+export async function updateReadStartDate(bookId: string, startDate: string) {
+  const bookStartDate = await db('books')
+    .where({ book_id: bookId })
+    .select('start_date')
+    .update({ start_date: startDate, updated_at: db.fn.now() })
+  return bookStartDate
+}
+
+// update read END date
+export async function updateReadEndDate(bookId: string, endDate: string) {
+  const bookStartDate = await db('books')
+    .where({ book_id: bookId })
+    .select('start_date')
+    .update({ end_date: endDate, updated_at: db.fn.now() })
+  return bookStartDate
+}
+
+//get recent activity
+export async function getRecentActivity() {
   throw new Error('Function not implemented.')
 }

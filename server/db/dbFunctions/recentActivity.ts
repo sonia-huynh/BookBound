@@ -3,53 +3,93 @@ import db from '../connection.ts'
 
 // get all recent activity
 export async function getRecentActivity() {
-  const recentActivityBooks: Books[] = await db('books')
-    .select(
-      'books.title',
-      'books.author',
-      'books.image',
-      'books.description',
-      'books.recent_activity',
-    )
-    .orderBy('books.recent_activity', 'desc')
-    .limit(10) // Fetch most recent activities from books, adjust limit as needed
+  const recentActivityBooks: Books[] = (
+    await db('books')
+      .select(
+        'books.title',
+        'books.book_id',
+        'books.author',
+        'books.image',
+        'books.description',
+        'books.created_at',
+      )
+      .orderBy([{ column: 'books.created_at', order: 'desc' }])
+      .limit(10)
+  ).map((book) => ({ ...book, type: 'book' }))
 
-  const recentActivityReviews: Reviews[] = await db('reviews')
-    .join('books', 'reviews.book_id', 'books.book_id')
-    .select(
-      'books.title',
-      'books.author',
-      'books.image',
-      'reviews.review',
-      'reviews.recent_activity',
-    )
-    .orderBy('reviews.recent_activity', 'desc')
-    .limit(10)
+  const recentActivityReadDates: Books[] = (
+    await db('books')
+      .select(
+        'books.title',
+        'books.book_id',
+        'books.author',
+        'books.image',
+        'books.description',
+        'books.start_date',
+        'books.end_date',
+        'books.updated_at',
+      )
+      .orderBy([{ column: 'books.updated_at', order: 'desc' }])
+      .limit(10)
+  ).map((book) => ({ ...book, type: 'bookDates' }))
 
-  const recentActivityRatings: Ratings[] = await db('ratings')
-    .join('books', 'ratings.book_id', 'books.book_id')
-    .select(
-      'books.title',
-      'books.author',
-      'books.image',
-      'ratings.rating',
-      'ratings.recent_activity',
-    )
-    .orderBy('ratings.recent_activity', 'desc')
-    .limit(10)
+  const recentActivityReviews: Reviews[] = (
+    await db('reviews')
+      .join('books', 'reviews.book_id', 'books.book_id')
+      .select(
+        'books.title',
+        'books.book_id',
+        'books.author',
+        'books.image',
+        'reviews.review',
+        'reviews.created_at',
+        'reviews.updated_at',
+      )
+      .orderBy([
+        { column: 'reviews.updated_at', order: 'desc' },
+        { column: 'reviews.created_at', order: 'desc' },
+      ])
+      .limit(10)
+  ).map((review) => ({ ...review, type: 'review' }))
+
+  const recentActivityRatings: Ratings[] = (
+    await db('ratings')
+      .join('books', 'ratings.book_id', 'books.book_id')
+      .select(
+        'books.book_id',
+        'books.title',
+        'books.author',
+        'books.image',
+        'ratings.rating',
+        'ratings.created_at',
+        'ratings.updated_at',
+      )
+      .orderBy([
+        { column: 'ratings.updated_at', order: 'desc' },
+        { column: 'ratings.created_at', order: 'desc' },
+      ])
+      .limit(10)
+  ).map((rating) => ({ ...rating, type: 'rating' }))
 
   const allRecentActivities = [
     ...recentActivityBooks,
+    ...recentActivityReadDates,
     ...recentActivityReviews,
     ...recentActivityRatings,
   ]
 
-  allRecentActivities
-    .sort(
-      (a, b) =>
-        new Date(b.recent_activity).getTime() -
-        new Date(a.recent_activity).getTime(),
-    )
-    .slice(0, 10)
+  allRecentActivities.sort((a, b) => {
+    const updatedAtA = new Date(a.updated_at).getTime()
+    const updatedAtB = new Date(b.updated_at).getTime()
+
+    if (updatedAtB !== updatedAtA) {
+      return updatedAtB - updatedAtA
+    }
+
+    const createdAtA = new Date(a.created_at).getTime()
+    const createdAtB = new Date(b.created_at).getTime()
+
+    return createdAtB - createdAtA
+  })
   return allRecentActivities
 }

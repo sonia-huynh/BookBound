@@ -23,7 +23,7 @@ export default function Layout() {
             <Route path="search" element={<SearchResults />} />
             <Route path="search/:title" element={<SearchBookDetails />} />
             <Route path="my-books" element={<MyBooks />} />
-            <Route path="my-books/:title" element={<MyBookDetails />} />
+            <Route path="my-books/:id/:title" element={<MyBookDetails />} />
             <Route path="my-reviews" element={<MyReviews />} />
           </Route>
         </Routes>

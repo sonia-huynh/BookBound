@@ -6,19 +6,24 @@ import {
   useDeleteBookRating,
   useGetBookRatingById,
 } from '../../hooks/useRatings'
-import { useSearchParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
-export function StarRating() {
-  const [searchParams] = useSearchParams()
+interface Props {
+  bookId: string
+}
+
+export function StarRating({ bookId }: Props) {
+  const { id } = useParams()
+  const bookIdString = id as string
   const [starRating, setStarRating] = useState(0)
   const [hover, setHover] = useState(0)
 
-  const bookID = String(searchParams.get('id') || '')
-  const title = String(searchParams.get('title'))
   const addRating = useAddBookRating()
   const deleteRating = useDeleteBookRating()
 
-  const { data, isPending, isError, error } = useGetBookRatingById(bookID)
+  const { data, isPending, isError, error } = useGetBookRatingById(
+    bookIdString || bookId,
+  )
 
   useEffect(() => {
     if (data) {
@@ -31,8 +36,7 @@ export function StarRating() {
   function handleClick(i: number) {
     const value = i + 0.5
     addRating.mutate({
-      bookId: bookID,
-      title: title,
+      bookId: bookIdString,
       rating: value,
     })
     setStarRating(value)
@@ -41,8 +45,7 @@ export function StarRating() {
   function handleDoubleClick(i: number) {
     const value = i + 1
     addRating.mutate({
-      bookId: bookID,
-      title: title,
+      bookId: bookIdString,
       rating: value,
     })
     setStarRating(value)
@@ -50,7 +53,7 @@ export function StarRating() {
 
   function handleDelete() {
     setStarRating(0)
-    deleteRating.mutate(bookID)
+    deleteRating.mutate(bookIdString)
   }
 
   function handleMouseEnter(i: number) {
@@ -67,11 +70,25 @@ export function StarRating() {
     const ratingHalfValue = i + 0.5
 
     if (hover >= ratingValue || starRating >= ratingValue) {
-      return <FaStar color="gold" size="30" className="star" />
+      return (
+        <FaStar color="gold" size={bookId ? '18' : '30'} className="star" />
+      )
     } else if (hover >= ratingHalfValue || starRating >= ratingHalfValue) {
-      return <FaStarHalfAlt color="gold" size="30" className="star" />
+      return (
+        <FaStarHalfAlt
+          color="gold"
+          size={bookId ? '18' : '30'}
+          className="star"
+        />
+      )
     } else {
-      return <FaRegStar color="lightgray" size="30" className="star" />
+      return (
+        <FaRegStar
+          color="lightgray"
+          size={bookId ? '15' : '30'}
+          className="star"
+        />
+      )
     }
   }
 
@@ -88,21 +105,21 @@ export function StarRating() {
   }
   return (
     <>
-      <div className="flex">
+      <div className={bookId ? 'flex justify-center' : 'flex '}>
         {[...Array(5)].map((_, i) => (
           <div key={i}>
             <label
               htmlFor={`star-rating-${i}`}
               onMouseEnter={() => {
-                handleMouseEnter(i)
+                bookId ? null : starRating > 0 ? null : handleMouseEnter(i)
               }}
               onMouseLeave={() => handleMouseLeave()}
-              onDoubleClick={() => handleDoubleClick(i)}
+              onDoubleClick={() => (bookId ? null : handleDoubleClick(i))}
             >
               <button
                 value={i}
                 id={`star-rating-${i}`}
-                onClick={() => handleClick(i)}
+                onClick={() => (bookId ? null : handleClick(i))}
               >
                 {starIcon(i)}
               </button>
@@ -110,9 +127,14 @@ export function StarRating() {
           </div>
         ))}
       </div>
-      {starRating != null && (
+      {bookIdString && starRating != null && (
         <div>
-          <button onClick={handleDelete}>Delete rating</button>
+          <button
+            onClick={handleDelete}
+            className="hover:font-bold hover:text-red-500 "
+          >
+            Delete rating
+          </button>
         </div>
       )}
     </>

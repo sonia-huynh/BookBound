@@ -3,6 +3,7 @@ import { useGetBooks } from '../../hooks/useMyBooks'
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import DeleteBookPopUp from './DeleteBookPopUp'
+import { StarRating } from './StarRating'
 
 export default function MyBooks() {
   const navigate = useNavigate()
@@ -67,13 +68,14 @@ export default function MyBooks() {
                   alt={`cover of book ${book.title}`}
                   className="book-cover"
                 />
+                <div className="mt-2">
+                  <StarRating bookId={book.book_id} />
+                </div>
                 {!edit ? (
                   <button
-                    className="viewButton mt-4"
+                    className="viewButton mt-2"
                     onClick={() => {
-                      navigate(
-                        `/my-books/search?id=${book.book_id}&title=${book.title}`,
-                      )
+                      navigate(`/my-books/${book.book_id}/${book.title}`)
                     }}
                   >
                     View more
@@ -81,7 +83,7 @@ export default function MyBooks() {
                 ) : (
                   <>
                     <button
-                      className="deleteButton mt-4"
+                      className="deleteButton mt-2"
                       onClick={() => handleDeleteBook(book.title, book.book_id)}
                     >
                       Delete Book

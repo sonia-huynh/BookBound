@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useGetBookById } from '../../hooks/useMyBooks'
 import '../../styles/book.css'
 import { useGetReviewById, useUpdateReview } from '../../hooks/useGetReview'
@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { useAddReview } from '../../hooks/useGetReview'
 import { useDeleteReview } from '../../hooks/useGetReview'
 import { StarRating } from './StarRating'
+import { DatesRead } from './DatesRead'
 
 interface CleanedTextResult {
   cleaned: string
@@ -13,10 +14,11 @@ interface CleanedTextResult {
 }
 
 export default function MyBookDetails() {
-  const [searchParams] = useSearchParams()
+  // const [searchParams] = useSearchParams()
+  const { id } = useParams()
+  const bookIdString = id as string
   const [input, setInput] = useState('')
   const [changeReview, setChangeReview] = useState(false)
-  const [reviewExist, setReviewExist] = useState(false)
   const [oldReview, setOldReview] = useState('')
   const [readMore, setReadMore] = useState(false)
 
@@ -31,21 +33,27 @@ export default function MyBookDetails() {
     isError,
     error,
     refetch,
-  } = useGetBookById(searchParams.get('id') || '')
+  } = useGetBookById(bookIdString)
+
+  const { data: reviewData } = useGetReviewById(bookIdString)
 
   useEffect(() => {
     refetch()
-  }, [refetch, myBooksData, reviewExist, changeReview, input])
-
-  const { data: reviewData } = useGetReviewById(searchParams.get('id') || '')
+  }, [refetch, myBooksData, changeReview, input])
 
   useEffect(() => {
     refetch()
-    setOldReview(reviewData)
+    if (reviewData) {
+      setOldReview(reviewData)
+    }
   }, [refetch, reviewData, setOldReview])
 
   if (isPending) {
     return <p>Retrieving book data...</p>
+  }
+
+  if (!reviewData || reviewData === undefined) {
+    return <p>Loading review data right now...</p>
   }
 
   if (isError) {
@@ -87,7 +95,7 @@ export default function MyBookDetails() {
   }
 
   function handleAdd(text: string) {
-    const bookId = String(searchParams.get('id'))
+    const bookId = bookIdString
     const bookReview = text
 
     if (bookId !== null) {
@@ -98,13 +106,12 @@ export default function MyBookDetails() {
     } else {
       console.log('title parameter is null and review')
     }
-    setReviewExist(true)
     setChangeReview(false)
     setInput('')
   }
 
   function handleUpdate(text: string) {
-    const bookId = String(searchParams.get('id'))
+    const bookId = bookIdString
 
     if (text !== oldReview) {
       updateReview.mutate({
@@ -120,10 +127,9 @@ export default function MyBookDetails() {
   }
 
   function handleDelete() {
-    const bookId = String(searchParams.get('id'))
+    const bookId = bookIdString
 
     setChangeReview(false)
-    setReviewExist(false)
     setInput('')
     deleteReview.mutate(bookId)
   }
@@ -169,9 +175,16 @@ export default function MyBookDetails() {
               </div>
               <div>
                 <h1 className="mt-4">Your Rating:</h1>
-                <StarRating />
+                <StarRating bookId={''} />
               </div>
-              {!myBooksData.review ? (
+              <div>
+                <h1 className="mt-4">Dates Read:</h1>
+                <DatesRead
+                  startRead={myBooksData.start_date}
+                  endRead={myBooksData.end_date}
+                />
+              </div>
+              {!myBooksData.review_exist ? (
                 <div>
                   <h1 className=" mt-4">Your Book Review:</h1>
                   <div className="bookReview mt-4">
@@ -195,7 +208,7 @@ export default function MyBookDetails() {
                     </button>
                   </div>
                 </div>
-              ) : myBooksData.review && changeReview === true ? (
+              ) : myBooksData.review_exist && changeReview === true ? (
                 <div>
                   <h1 className="mt-8">
                     Review exists and you want to change:
@@ -223,7 +236,7 @@ export default function MyBookDetails() {
                       onClick={() => {
                         handleUpdate(input)
                       }}
-                      className="searchButt"
+                      className="searchButt hover:bg-lime-600 hover:text-white"
                     >
                       Save Updated Review
                     </button>
@@ -243,11 +256,14 @@ export default function MyBookDetails() {
                   <div className="flex justify-end">
                     <button
                       onClick={() => setChangeReview(true)}
-                      className="searchButt"
+                      className="searchButt hover:bg-yellow-600 hover:text-white"
                     >
                       Update Review
                     </button>
-                    <button onClick={handleDelete} className="searchButt mx-2">
+                    <button
+                      onClick={handleDelete}
+                      className="searchButt mx-2 hover:bg-red-600 hover:text-white "
+                    >
                       Delete Review
                     </button>
                   </div>
