@@ -1,6 +1,5 @@
 import { useParams } from 'react-router-dom'
 import { useGetBookById } from '../../hooks/useMyBooks'
-import '../../styles/book.css'
 import { useGetReviewById, useUpdateReview } from '../../hooks/useGetReview'
 import { useEffect, useState } from 'react'
 import { useAddReview } from '../../hooks/useGetReview'
@@ -149,8 +148,10 @@ export default function MyBookDetails() {
                   />
                 </div>
                 <div className="ml-6">
-                  <h1 className="mb-2 ">{myBooksData.title}</h1>
-                  <p className=" mb-2">by {myBooksData.author}</p>
+                  <h1 className="mb-2 text-4xl">
+                    <strong>{myBooksData.title}</strong>
+                  </h1>
+                  <p className="mb-4 text-xl">by {myBooksData.author}</p>
                   <p className="mb-4">
                     {cleanText}
                     {shouldShowReadMore && (

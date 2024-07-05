@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import '../../styles/book.css'
 import { FaRegStar, FaStar, FaStarHalfAlt } from 'react-icons/fa'
 import {
   useAddBookRating,

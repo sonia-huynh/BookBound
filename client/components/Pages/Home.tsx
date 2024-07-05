@@ -98,7 +98,7 @@ export default function Home() {
                       <strong>
                         You have updated your review for {activity.title}:
                       </strong>
-                      <p className="homeText mt-2">{activity.review}</p>
+                      <p className="text-truncate mt-2">{activity.review}</p>
                     </div>
                   )}
                 </div>

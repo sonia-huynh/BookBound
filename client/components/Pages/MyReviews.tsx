@@ -1,6 +1,4 @@
 import { useGetAllBookReviews } from '../../hooks/useGetReview'
-import '../../styles/myReviews.css'
-import '../../styles/main.css'
 import { useNavigate } from 'react-router-dom'
 
 export default function MyReviews() {
@@ -18,9 +16,9 @@ export default function MyReviews() {
   }
 
   function truncation(text: string) {
-    const words = 30
+    const words = 45
     const lines = text.split(' ').filter((sentence) => sentence !== ' ')
-    if (lines.length <= 29) {
+    if (lines.length <= 44) {
       return text
     } else {
       const shortened = lines.slice(0, words).join(' ') + '...'
@@ -41,19 +39,34 @@ export default function MyReviews() {
                 className="book-cover"
               />
 
-              <div className="reviewCard">
-                <h1>{bookReview.title}</h1>
-                <p>{truncation(bookReview.review)}</p>
-                <button
-                  className="viewButton"
-                  onClick={() => {
+              <div
+                role="button"
+                tabIndex={0}
+                key={bookReview.book_id + i}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
                     navigate(
                       `/my-books/${bookReview.book_id}/${bookReview.title}`,
                     )
-                  }}
+                  }
+                }}
+                className="reviewCard"
+                onClick={() => {
+                  navigate(
+                    `/my-books/${bookReview.book_id}/${bookReview.title}`,
+                  )
+                }}
+              >
+                <h1
+                  className={
+                    bookReview.title.length > 25 ? 'text-xl' : 'text-2xl'
+                  }
                 >
-                  View More
-                </button>
+                  <strong>{bookReview.title}</strong>
+                </h1>
+                <p className="text-truncate mt-4">
+                  {truncation(bookReview.review)}
+                </p>
               </div>
             </div>
           ))}

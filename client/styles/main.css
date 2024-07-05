@@ -6,6 +6,14 @@ body {
   background-color: #fff5e8;
 }
 
+.book-title {
+  font-size: 40px;
+}
+
+.book-author {
+  font-size: 20px;
+}
+
 /* My Books */
 .popup-overlay {
   position: absolute;
@@ -190,22 +198,13 @@ h1 {
 .reviewCard {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
-.reviewCard p {
+.text-truncate {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 5;
-  -webkit-box-orient: vertical;
-}
-
-.homeText {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 5;
+  -webkit-line-clamp: 7;
   -webkit-box-orient: vertical;
 }
 
@@ -241,11 +240,20 @@ h1 {
   border: 2px red solid;
 }
 
+.reviewCard p {
+  flex-grow: 1;
+}
+
+.reviewBookCover:hover {
+  box-shadow: 2px 2px 6px 4px rgba(138, 51, 11, 0.26);
+}
 .viewButton {
   border-radius: 20px;
   background-color: rgb(194, 151, 72);
   color: white;
   padding: 5px;
+  /* flex-grow: 1; */
+  justify-content: flex-end;
 }
 
 .deleteButton {
