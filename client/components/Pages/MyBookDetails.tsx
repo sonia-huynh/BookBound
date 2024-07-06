@@ -48,7 +48,7 @@ export default function MyBookDetails() {
   }, [refetch, reviewData, setOldReview])
 
   if (isPending) {
-    return <p>Retrieving book data...</p>
+    return <p className="text-center">Retrieving book data...</p>
   }
 
   if (!reviewData || reviewData === undefined) {

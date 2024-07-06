@@ -18,7 +18,7 @@ export default function MyBooks() {
   }, [refetch])
 
   if (isPending) {
-    return <p>Getting book...</p>
+    return <p className="text-center">Getting book...</p>
   }
 
   if (isError) {

@@ -6,7 +6,7 @@ export default function MyReviews() {
   const { data: reviews, isPending, isError, error } = useGetAllBookReviews()
 
   if (isPending) {
-    return <p>Retrieving book reviews...</p>
+    return <p className="text-center">Retrieving book reviews...</p>
   }
 
   if (isError) {
@@ -76,6 +76,7 @@ export default function MyReviews() {
           ))}
         </div>
       </div>
+      <br />
     </>
   )
 }

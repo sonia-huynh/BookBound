@@ -44,7 +44,7 @@ export default function SearchResults() {
   }
 
   if (isPending) {
-    return <p>Searching...</p>
+    return <p className="text-center">Searching...</p>
   }
 
   if (isError) {

@@ -7,6 +7,11 @@ body {
 }
 
 /* Main */
+
+.logo {
+  height: 125px;
+}
+
 h1 {
   font-size: xx-large;
 }
@@ -60,6 +65,21 @@ h2 {
   border-color: #e7b67d;
 }
 
+/* Nav bar */
+.nav {
+  display: flex;
+  margin: 4px;
+  padding: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.nav .buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
 /* Home page */
 .homeCard {
   margin-bottom: 20px;
@@ -68,6 +88,7 @@ h2 {
   width: 700px;
   display: flex;
   gap: 30px;
+  max-width: 1000px;
 }
 
 .homeCard:hover {
@@ -117,10 +138,9 @@ h2 {
 }
 
 .my-books-popup-overlay {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
-  bottom: 0;
   width: 100%;
   height: 100%;
   display: flex;
@@ -217,23 +237,6 @@ h2 {
   padding: 40px;
 }
 
-/* .title {
-  position: absolute;
-  margin-top: -165px;
-  color: blue;
-}
-.author {
-  font-size: large;
-  position: absolute;
-  margin-top: -100px;
-} */
-
-/* .description {
-  position: relative;
-  border-style: dotted;
-  margin-top: 60px;
-} */
-
 /* My Reviews */
 .my-reviews-box {
   display: flex;
@@ -247,7 +250,7 @@ h2 {
 }
 
 .my-reviews-card {
-  width: 420px;
+  width: 415px;
   height: 265px;
   padding: 20px;
   display: flex;
@@ -298,4 +301,21 @@ h2 {
   padding: 2px;
   width: 130px;
   background-color: rgb(252, 243, 220);
+}
+
+@media (max-width: 838px) {
+  .nav .buttons button {
+    padding: 12px 24px;
+    font-size: 1.25rem;
+  }
+  .logo {
+    height: 80px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .nav .buttons button {
+    padding: 16px 32px;
+    font-size: 1.5rem;
+  }
 }

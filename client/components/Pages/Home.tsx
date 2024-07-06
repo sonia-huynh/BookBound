@@ -29,7 +29,7 @@ export default function Home() {
   }
 
   if (isPending) {
-    return <p>Retrieving your recent acitivity...</p>
+    return <p className="text-center">Retrieving your recent acitivity...</p>
   }
 
   if (isError) {
