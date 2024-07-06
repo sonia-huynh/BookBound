@@ -46,15 +46,14 @@ export function DatesRead({ startRead, endRead }: Props) {
         startDate: bookStartDate,
       })
     }
-
-    if (readEndDate && readEndDate > readStartDate) {
+    if (readEndDate && readEndDate >= readStartDate) {
       updateEndDate.mutate({
         bookId: bookIdString,
         endDate: bookEndDate,
       })
+      setPopup(false)
     } else {
       setPopup(true)
-      setTimeout(() => setPopup(false), 5000)
     }
   }
 
@@ -83,12 +82,12 @@ export function DatesRead({ startRead, endRead }: Props) {
         ></input>
         <button
           onClick={() => handleSave(readStartDate, readEndDate)}
-          className="ml-6"
+          className="ml-6	 hover:font-bold hover:text-lime-600"
         >
           Save
         </button>
         {popup && (
-          <p>
+          <p className="text-red-600">
             Your end date cannot be before your read date! Please check again.
           </p>
         )}
