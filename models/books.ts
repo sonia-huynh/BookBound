@@ -5,14 +5,14 @@ interface BaseActivity {
   updated_at: Date
   book_id: string
   title: string
-  author: string
+  author: string | string[]
   image: string
-  description?: string
+  description: string
 }
 
 export interface Books extends BaseActivity {
-  // start_date: string | null
-  // end_date: string | null
+  start_date: string | null
+  end_date: string | null
   review_exist: boolean
   rating_exist: boolean
   type: 'book'

@@ -23,7 +23,7 @@ export default function Search() {
   }
 
   return (
-    <div className="absolute">
+    <div>
       <form onSubmit={handleSubmit}>
         <input
           type="search"

@@ -33,9 +33,13 @@ export default function SearchBookDetails() {
   // console.log(window.location)
 
   function handleAddBook(details: BookDetails) {
+    const author = Array.isArray(details.author)
+      ? details.author[0]
+      : details.author
+
     const bookDetails = {
       title: details.title,
-      author: details.author[0],
+      author: author,
       image: details.image,
       bookId: details.bookId,
       description: String(details.description),
@@ -53,7 +57,7 @@ export default function SearchBookDetails() {
   }
 
   if (isPending) {
-    return <p>Retreiving book data...</p>
+    return <p className="text-center">Retreiving book data...</p>
   }
 
   if (isError) {
