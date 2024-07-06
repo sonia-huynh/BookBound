@@ -72,7 +72,7 @@ export default function MyBookDetails() {
       .trim()
 
     const sentences = cleaned.split('.').filter((sentence) => sentence !== ' ')
-    const numSentences = 6
+    const numSentences = 7
 
     if (sentences.length <= numSentences) {
       return { cleaned, shouldShowReadMore: false }
@@ -135,16 +135,16 @@ export default function MyBookDetails() {
 
   return (
     <>
-      <div className="box">
-        <div className="bookCard card">
+      <div className="center-box">
+        <div className="book-card card">
           {myBooksData && (
             <>
-              <div className="detail">
+              <div className="my-book-detail ">
                 <div className="flex justify-center">
                   <img
                     src={myBooksData.image}
                     alt={`cover of book for ${myBooksData.title}`}
-                    className="book-single"
+                    className="book-cover-big"
                   />
                 </div>
                 <div className="ml-6">
@@ -157,7 +157,7 @@ export default function MyBookDetails() {
                     {shouldShowReadMore && (
                       <button
                         onClick={() => setReadMore(true)}
-                        className="readMore"
+                        className="my-book-details-read-more"
                       >
                         {' '}
                         --- Read more
@@ -166,7 +166,7 @@ export default function MyBookDetails() {
                     {readMore && (
                       <button
                         onClick={() => setReadMore(false)}
-                        className="readMore"
+                        className="my-book-details-read-more"
                       >
                         {' --- See Less'}
                       </button>
@@ -179,7 +179,7 @@ export default function MyBookDetails() {
                 <StarRating bookId={''} />
               </div>
               <div>
-                <h1 className="mt-4">Dates Read:</h1>
+                <h1 className="mb-2 mt-4">Dates Read:</h1>
                 <DatesRead
                   startRead={myBooksData.start_date}
                   endRead={myBooksData.end_date}
@@ -187,15 +187,15 @@ export default function MyBookDetails() {
               </div>
               {!myBooksData.review_exist ? (
                 <div>
-                  <h1 className=" mt-4">Your Book Review:</h1>
-                  <div className="bookReview mt-4">
+                  <h1 className=" mt-8">Your Book Review:</h1>
+                  <div className="book-review mt-4">
                     <p>Write a review!</p>
                   </div>
                   <div>
                     <textarea
                       name="review"
                       id="review"
-                      className="review"
+                      className="review-edit-textarea"
                       placeholder="Write your review here"
                       onChange={handleChange}
                     />
@@ -203,7 +203,7 @@ export default function MyBookDetails() {
                   <div className="flex justify-end">
                     <button
                       onClick={() => handleAdd(input)}
-                      className="searchButt"
+                      className="brown-button"
                     >
                       Save Review
                     </button>
@@ -211,22 +211,20 @@ export default function MyBookDetails() {
                 </div>
               ) : myBooksData.review_exist && changeReview === true ? (
                 <div>
-                  <h1 className="mt-8">
-                    Review exists and you want to change:
-                  </h1>
-                  <div className="bookReview">
+                  <h1 className="mt-8">Current Review:</h1>
+                  <div className="book-review-display">
                     {reviewData.length > 0 ? (
                       <p>{reviewData}</p>
                     ) : (
                       <p>Write a review!</p>
                     )}
                   </div>
-                  <h1>Update Your Review:</h1>
+                  <h1>Update Your Current Review:</h1>
                   <div>
                     <textarea
                       name="review"
                       id="review"
-                      className="review"
+                      className="review-edit-textarea"
                       placeholder="Write your review here"
                       defaultValue={oldReview}
                       onChange={handleChange}
@@ -237,7 +235,7 @@ export default function MyBookDetails() {
                       onClick={() => {
                         handleUpdate(input)
                       }}
-                      className="searchButt hover:bg-lime-600 hover:text-white"
+                      className="brown-button  mr-2 hover:bg-lime-600 hover:text-white"
                     >
                       Save Updated Review
                     </button>
@@ -245,8 +243,8 @@ export default function MyBookDetails() {
                 </div>
               ) : (
                 <div>
-                  <h1 className=" mt-4">Your Book Review:</h1>
-                  <div className="bookReview mt-2">
+                  <h1 className="mt-8">Your Book Review:</h1>
+                  <div className="book-review-display mt-2">
                     {reviewData.length > 0 ? (
                       <p>{reviewData}</p>
                     ) : (
@@ -257,13 +255,13 @@ export default function MyBookDetails() {
                   <div className="flex justify-end">
                     <button
                       onClick={() => setChangeReview(true)}
-                      className="searchButt hover:bg-yellow-600 hover:text-white"
+                      className="brown-button  hover:bg-yellow-600 hover:text-white"
                     >
                       Update Review
                     </button>
                     <button
                       onClick={handleDelete}
-                      className="searchButt mx-2 hover:bg-red-600 hover:text-white "
+                      className="brown-button  mx-2 hover:bg-red-600 hover:text-white "
                     >
                       Delete Review
                     </button>

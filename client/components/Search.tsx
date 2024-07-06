@@ -29,7 +29,7 @@ export default function Search() {
           type="search"
           name="search-form"
           id="search-form"
-          className="input"
+          className="search-input"
           placeholder="🔎 Search"
           value={input}
           onChange={handleChange}

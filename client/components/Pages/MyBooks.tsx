@@ -59,9 +59,9 @@ export default function MyBooks() {
         </div>
         <br></br>
         {data && (
-          <div className="bookshelfContainer">
+          <div className="my-books-container">
             {data.map((book) => (
-              <div key={book.id} className="buttonbox">
+              <div key={book.id} className="my-books-buttonbox">
                 <img
                   src={book.image}
                   alt={`cover of book ${book.title}`}
@@ -72,7 +72,7 @@ export default function MyBooks() {
                 </div>
                 {!edit ? (
                   <button
-                    className="viewButton mt-2"
+                    className="my-books-view-more-button mt-2"
                     onClick={() => {
                       navigate(`/my-books/${book.book_id}/${book.title}`)
                     }}
@@ -82,7 +82,7 @@ export default function MyBooks() {
                 ) : (
                   <>
                     <button
-                      className="deleteButton mt-2"
+                      className="my-books-delete-button mt-2"
                       onClick={() => handleDeleteBook(book.title, book.book_id)}
                     >
                       Delete Book
@@ -92,8 +92,8 @@ export default function MyBooks() {
               </div>
             ))}
             {deleting && (
-              <div className="popup-overlay">
-                <div className="popup">
+              <div className="my-books-popup-overlay">
+                <div className="my-books-popup">
                   <DeleteBookPopUp
                     setDeleting={setDeleting}
                     bookName={bookTitle}

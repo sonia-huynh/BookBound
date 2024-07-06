@@ -40,17 +40,20 @@ export default function DeleteBookPopup({
       </p>
       <div className="mt-5 flex justify-around">
         <div>
-          <button className="yes-button" onClick={handleDelete}>
+          <button className="delete-book-yes-button " onClick={handleDelete}>
             Yes
           </button>
         </div>
         <div>
-          <button className="no-button" onClick={() => setDeleting(false)}>
+          <button
+            className="delete-book-no-button"
+            onClick={() => setDeleting(false)}
+          >
             No
           </button>
         </div>
       </div>
-      <button className="close" onClick={() => setDeleting(false)}>
+      <button className="delete-book-close" onClick={() => setDeleting(false)}>
         x
       </button>
     </div>

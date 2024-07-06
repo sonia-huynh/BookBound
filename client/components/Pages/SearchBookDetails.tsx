@@ -78,8 +78,8 @@ export default function SearchBookDetails() {
   }
   return (
     <>
-      <div className="box">
-        <div className="searchBookCard card">
+      <div className="center-box">
+        <div className="search-book-card card">
           <div>
             {searchBookData.map((book, i) => (
               <div key={book.bookId + i}>
@@ -88,12 +88,14 @@ export default function SearchBookDetails() {
                     <img
                       src={book.image}
                       alt={`cover of book for ${book.title}`}
-                      className="book-single"
+                      className="book-cover-big"
                     />
                   </div>
                   <div className="ml-4">
-                    <h1 className="mb-2 mt-4 text-center">{book.title}</h1>
-                    <p className=" mt-2 text-center">by {book.author}</p>
+                    <h1 className="mb-2 mt-4 text-center">
+                      <strong>{book.title}</strong>
+                    </h1>
+                    <h2 className=" mt-2 text-center">by {book.author}</h2>
                     <p className="p-8">
                       {strippedHTML(book.description as string)}
                     </p>
@@ -112,7 +114,7 @@ export default function SearchBookDetails() {
                       </div>
                       <div className="flex justify-center">
                         <button
-                          className="searchButt  mt-8"
+                          className="brown-button   mt-8"
                           onClick={() => {
                             handleAddBook(book)
                           }}
@@ -135,7 +137,7 @@ export default function SearchBookDetails() {
                       <div className="flex justify-center">
                         <button
                           onClick={() => handleClick(book)}
-                          className="searchButt mt-8"
+                          className="brown-button  mt-8"
                         >
                           Write a review
                         </button>

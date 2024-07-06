@@ -82,26 +82,25 @@ export default function SearchResults() {
       <br />
       <div className="flex justify-center">
         {searchData && (
-          <div className="container">
+          <div className="search-results-width">
             {searchData.map((details) => (
               <div
                 key={details.bookId}
-                className="book-details mb-4 flex rounded-lg border border-gray-200 bg-white p-6"
+                // className="mb-4 flex rounded-lg border border-gray-200 bg-white p-6"
+                className="search-results-card card"
               >
-                <div className="mr-4">
-                  <img
-                    src={details.image}
-                    alt={`cover of book ${details.title}`}
-                    className="book-cover"
-                  />
-                </div>
-                <div className="details">
+                <img
+                  src={details.image}
+                  alt={`cover of book ${details.title}`}
+                  className="book-cover"
+                />
+                <div>
                   <h1 className="mb-2">{details.title}</h1>
                   <p className=" mb-2">by {details.author}</p>
                   <p className="mb-4">{shorten(String(details.description))}</p>
                   <div className="space-x-2">
                     <button
-                      className="searchButt"
+                      className="brown-button"
                       onClick={() => {
                         viewMore(details)
                       }}
@@ -110,7 +109,7 @@ export default function SearchResults() {
                     </button>
                     {!addBook[`${details.title}, ${details.bookId}`] ? (
                       <button
-                        className="searchButt"
+                        className="brown-button"
                         onClick={() => {
                           handleAddBook(details)
                         }}
@@ -118,7 +117,7 @@ export default function SearchResults() {
                         Add to Shelf
                       </button>
                     ) : (
-                      <button className="searchButt">Added to Shelf</button>
+                      <button className="brown-button">Added to Shelf</button>
                     )}
                   </div>
                 </div>

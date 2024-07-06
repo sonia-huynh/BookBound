@@ -30,9 +30,9 @@ export default function MyReviews() {
     <>
       <div className="ml-10 mr-10 mt-10 ">
         <h1 className="text-3xl font-bold underline">My Reviews</h1>
-        <div className="reviewBox">
+        <div className="my-reviews-box">
           {reviews.map((bookReview, i) => (
-            <div key={bookReview.id || i} className="reviewBookCover card">
+            <div key={bookReview.id || i} className="my-reviews-card card">
               <img
                 src={bookReview.image}
                 alt={bookReview.title}
@@ -50,7 +50,6 @@ export default function MyReviews() {
                     )
                   }
                 }}
-                className="reviewCard"
                 onClick={() => {
                   navigate(
                     `/my-books/${bookReview.book_id}/${bookReview.title}`,
@@ -59,11 +58,16 @@ export default function MyReviews() {
               >
                 <h1
                   className={
-                    bookReview.title.length > 25 ? 'text-xl' : 'text-2xl'
+                    bookReview.title.length > 25
+                      ? 'text-xl'
+                      : bookReview.title.length > 13
+                        ? 'review-title-size'
+                        : 'text-2xl'
                   }
                 >
                   <strong>{bookReview.title}</strong>
                 </h1>
+                {/* <p>{bookReview.title.length}</p> */}
                 <p className="text-truncate mt-4">
                   {truncation(bookReview.review)}
                 </p>

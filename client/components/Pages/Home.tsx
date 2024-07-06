@@ -38,7 +38,7 @@ export default function Home() {
       <h1 className="mb-8 mt-4 text-center text-3xl font-bold underline">
         Your recent activity:
       </h1>
-      <div className="box">
+      <div className="center-box">
         <div>
           {data.map((activity, i) => (
             <div
