@@ -8,7 +8,7 @@ export default router
 //Get All Recent Activity
 router.get('/', async (req, res) => {
   try {
-    const recentActivity = await db.getRecentActivity()
+    const recentActivity = await db.getAllRecentActivity()
     console.log(recentActivity)
     return res.json(recentActivity)
   } catch (error) {

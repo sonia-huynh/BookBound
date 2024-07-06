@@ -1,5 +1,11 @@
 import { useNavigate } from 'react-router-dom'
-import { Activity, Books, Ratings, Reviews } from '../../../models/books'
+import {
+  Activity,
+  BookDates,
+  Books,
+  Ratings,
+  Reviews,
+} from '../../../models/books'
 import { useGetRecentActivityHome } from '../../hooks/recentActivity'
 
 export default function Home() {
@@ -10,7 +16,7 @@ export default function Home() {
     return activity.type === 'book'
   }
 
-  function isBookDates(activity: Activity): activity is Books {
+  function isBookDates(activity: Activity): activity is BookDates {
     return activity.type === 'bookDates'
   }
 

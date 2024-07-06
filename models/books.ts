@@ -11,8 +11,8 @@ interface BaseActivity {
 }
 
 export interface Books extends BaseActivity {
-  start_date: string | null
-  end_date: string | null
+  // start_date: string | null
+  // end_date: string | null
   review_exist: boolean
   rating_exist: boolean
   type: 'book'
