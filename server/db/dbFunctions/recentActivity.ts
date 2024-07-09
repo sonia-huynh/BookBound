@@ -1,4 +1,4 @@
-import { Books, Ratings, Reviews } from '../../../models/books.ts'
+import { BookDates, Books, Ratings, Reviews } from '../../../models/books.ts'
 import db from '../connection.ts'
 
 // Get all recent detail activity
@@ -41,9 +41,31 @@ export async function getRecentDetailActivity() {
       .limit(10)
   ).map((rating) => ({ ...rating, type: 'rating' }))
 
+  const recentActivityReadDates: BookDates[] = (
+    await db('dates')
+      .join('books', 'dates.book_id', 'books.book_id')
+      .select(
+        'books.title',
+        'books.book_id',
+        'books.author',
+        'books.image',
+        'books.description',
+        'dates.start_date',
+        'dates.end_date',
+        'dates.created_at',
+        'dates.updated_at',
+      )
+      .orderBy([
+        { column: 'dates.created_at', order: 'desc' },
+        { column: 'dates.updated_at', order: 'desc' },
+      ])
+      .limit(10)
+  ).map((book) => ({ ...book, type: 'bookDates' }))
+
   const allRecentDetailActivities = [
     ...recentActivityReviews,
     ...recentActivityRatings,
+    ...recentActivityReadDates,
   ]
 
   return allRecentDetailActivities
@@ -62,31 +84,14 @@ export async function getRecentBookActivity() {
         'books.created_at',
         'books.updated_at',
       )
-      .orderBy([{ column: 'books.created_at', order: 'desc' }])
+      .orderBy([
+        { column: 'books.created_at', order: 'desc' },
+        { column: 'books.updated_at', order: 'desc' },
+      ])
       .limit(10)
   ).map((book) => ({ ...book, type: 'book' }))
 
-  const recentActivityReadDates: Books[] = (
-    await db('books')
-      .select(
-        'books.title',
-        'books.book_id',
-        'books.author',
-        'books.image',
-        'books.description',
-        'books.start_date',
-        'books.end_date',
-        'books.created_at',
-        'books.updated_at',
-      )
-      .orderBy([{ column: 'books.updated_at', order: 'desc' }])
-      .limit(10)
-  ).map((book) => ({ ...book, type: 'bookDates' }))
-
-  const allRecentBookActivity = [
-    ...recentActivityBooks,
-    ...recentActivityReadDates,
-  ]
+  const allRecentBookActivity = [...recentActivityBooks]
 
   return allRecentBookActivity
 }
@@ -101,6 +106,8 @@ export async function getAllRecentActivity() {
     ...recentBookActivities,
   ]
 
+  console.log('Combined Activities Before Sorting:', allRecentActivities)
+
   allRecentActivities.sort((a, b) => {
     const mostRecentA = Math.max(
       new Date(a.updated_at).getTime(),
@@ -114,6 +121,8 @@ export async function getAllRecentActivity() {
 
     return mostRecentB - mostRecentA
   })
+
+  console.log('Combined Activities After Sorting:', allRecentActivities)
 
   return allRecentActivities
 }

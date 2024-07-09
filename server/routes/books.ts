@@ -51,35 +51,6 @@ router.get('/:id', async (req, res) => {
   }
 })
 
-// Update book read START dates
-router.patch('/:id', async (req, res) => {
-  try {
-    const startDate = req.body.startDate
-    const endDate = req.body.endDate
-    const bookId = req.params.id
-
-    console.log(startDate)
-
-    if ((startDate && endDate) || (startDate === null && endDate === null)) {
-      const updateStartDate = await db.updateReadStartDate(bookId, startDate)
-      const updateEndDate = await db.updateReadEndDate(bookId, endDate)
-      return res.json(updateStartDate).json(updateEndDate)
-    } else if (endDate || endDate === null) {
-      const updateEndDate = await db.updateReadEndDate(bookId, endDate)
-      return res.json(updateEndDate)
-    } else if (startDate || startDate === null) {
-      const updateStartDate = await db.updateReadStartDate(bookId, startDate)
-      return res.json(updateStartDate)
-    }
-  } catch (error) {
-    console.log(error)
-    res.status(500).json({
-      message:
-        'Something went wrong trying to update your book start date in the database',
-    })
-  }
-})
-
 // Delete book by id from library
 router.delete('/:id', async (req, res) => {
   try {
@@ -95,19 +66,6 @@ router.delete('/:id', async (req, res) => {
     })
   }
 })
-
-// Add start read date to book in library
-// router.post('/:id', async (req, res) => {
-//   try {
-//     const bookId = req.params.id
-//     await db.deleteBookById(bookId)
-//     console.log('deleting book')
-//     return res.status(204).json({ message: 'book has been deleted' })
-//   } catch (error) {
-//     console.log(error)
-//     res.status(500).json({ message: 'Something went wrong' })
-//   }
-// })
 
 // router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
 //   if (!req.auth?.sub) {

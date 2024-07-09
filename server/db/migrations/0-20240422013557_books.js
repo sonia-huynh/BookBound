@@ -7,8 +7,6 @@ export async function up(knex) {
     table.string('author')
     table.string('image')
     table.string('description')
-    table.string('start_date')
-    table.string('end_date')
     table.boolean('review_exist').defaultTo(false)
     table.boolean('rating_exist').defaultTo(false)
     table.timestamps(true, true)
