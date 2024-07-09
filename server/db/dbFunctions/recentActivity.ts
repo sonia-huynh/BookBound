@@ -101,6 +101,8 @@ export async function getAllRecentActivity() {
     ...recentBookActivities,
   ]
 
+  console.log('Combined Activities Before Sorting:', allRecentActivities)
+
   allRecentActivities.sort((a, b) => {
     const mostRecentA = Math.max(
       new Date(a.updated_at).getTime(),
@@ -114,6 +116,8 @@ export async function getAllRecentActivity() {
 
     return mostRecentB - mostRecentA
   })
+
+  console.log('Combined Activities After Sorting:', allRecentActivities)
 
   return allRecentActivities
 }

@@ -4,8 +4,6 @@ import {
   deleteBookById,
   getBookById,
   getBooks,
-  updateBookEndDate,
-  updateBookStartdate,
 } from '../apis/books.ts'
 import { Books } from '../../models/books.ts'
 
@@ -68,31 +66,16 @@ export function useDeleteBookById() {
 }
 
 // Update read Start date by ID
-export function useUpdateBookStartDate() {
-  const queryClient = useQueryClient()
-  return useMutation({
-    mutationFn: (bookDeets: { bookId: string; startDate: string | null }) =>
-      updateBookStartdate(bookDeets.bookId, bookDeets.startDate),
-    onSuccess: () => {
-      console.log('invalidating queries for start date has occured!!!')
-      queryClient.invalidateQueries({
-        queryKey: ['books'],
-      })
-    },
-  })
-}
-
-// Update read END date by ID
-export function useUpdateBookEndDate() {
-  const queryClient = useQueryClient()
-  return useMutation({
-    mutationFn: (bookDeets: { bookId: string; endDate: string | null }) =>
-      updateBookEndDate(bookDeets.bookId, bookDeets.endDate),
-    onSuccess: () => {
-      console.log('invalidating queries for end date has occured!!!')
-      queryClient.invalidateQueries({
-        queryKey: ['books'],
-      })
-    },
-  })
-}
+// export function useUpdateBookStartDate() {
+//   const queryClient = useQueryClient()
+//   return useMutation({
+//     mutationFn: (bookDeets: { bookId: string; startDate: string | null }) =>
+//       updateBookStartdate(bookDeets.bookId, bookDeets.startDate),
+//     onSuccess: () => {
+//       console.log('invalidating queries for start date has occured!!!')
+//       queryClient.invalidateQueries({
+//         queryKey: ['books'],
+//       })
+//     },
+//   })
+// }
