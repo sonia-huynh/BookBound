@@ -272,6 +272,7 @@ export default function MyBookDetails() {
           )}
         </div>
       </div>
+      <br />
     </>
   )
 }

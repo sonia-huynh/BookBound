@@ -34,6 +34,7 @@ export default function Search() {
           value={input}
           onChange={handleChange}
           style={{ width: '350px' }}
+          autoComplete="off"
         />
       </form>
     </div>
