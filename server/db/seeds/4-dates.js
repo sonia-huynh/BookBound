@@ -11,13 +11,8 @@ export async function seed(knex) {
     },
     {
       book_id: 'TomorrowTomorrowTomorrow',
-      start_date: '2024-07-01',
-      end_date: '2024-07-03',
-    },
-    {
-      book_id: 'Legend',
-      start_date: '2024-06-03',
-      end_date: '2024-07-03',
+      start_date: '',
+      end_date: '',
     },
   ])
 }
