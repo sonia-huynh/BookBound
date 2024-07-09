@@ -35,7 +35,7 @@ export default function MyReviews() {
             <div key={bookReview.id || i} className="my-reviews-card card">
               <img
                 src={bookReview.image}
-                alt={bookReview.title}
+                alt={`book cover for ${bookReview.title} `}
                 className="book-cover"
               />
 

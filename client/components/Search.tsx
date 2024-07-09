@@ -35,6 +35,7 @@ export default function Search() {
           onChange={handleChange}
           style={{ width: '350px' }}
           autoComplete="off"
+          aria-label="search bar"
         />
       </form>
     </div>
