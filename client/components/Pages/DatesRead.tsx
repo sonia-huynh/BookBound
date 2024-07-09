@@ -1,9 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { useState } from 'react'
-import {
-  useUpdateBookEndDate,
-  useUpdateBookStartDate,
-} from '../../hooks/useMyBooks'
+import { useAddBookReadDates, useUpdateBookDates } from '../../hooks/dates'
 
 interface Props {
   startRead: string | null
@@ -17,13 +14,13 @@ interface Interaction {
 }
 
 export function DatesRead({ startRead, endRead }: Props) {
-  const updateStartDate = useUpdateBookStartDate()
-  const updateEndDate = useUpdateBookEndDate()
+  const { id } = useParams()
+  const bookIdString = id as string
+  const addDates = useAddBookReadDates()
+  const updateDates = useUpdateBookDates()
   const [readStartDate, setReadStartDate] = useState(startRead || '')
   const [readEndDate, setReadEndDate] = useState(endRead || '')
   const [popup, setPopup] = useState(false)
-  const { id } = useParams()
-  const bookIdString = id as string
 
   function handleStartDateChange(e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault()
@@ -40,21 +37,22 @@ export function DatesRead({ startRead, endRead }: Props) {
     bookStartDate: string | null,
     bookEndDate: string | null,
   ) {
-    if (readStartDate) {
-      updateStartDate.mutate({
-        bookId: bookIdString,
-        startDate: bookStartDate,
-      })
-    }
-    if (readEndDate && readEndDate >= readStartDate) {
-      updateEndDate.mutate({
-        bookId: bookIdString,
-        endDate: bookEndDate,
-      })
-      setPopup(false)
-    } else {
-      setPopup(true)
-    }
+    addDates.mutate({
+      bookId: bookIdString,
+      startDate: bookStartDate,
+      endDate: bookEndDate,
+    })
+  }
+
+  function handleUpdate(
+    bookStartDate: string | null,
+    bookEndDate: string | null,
+  ) {
+    updateDates.mutate({
+      bookId: bookIdString,
+      startDate: bookStartDate,
+      endDate: bookEndDate,
+    })
   }
 
   return (
@@ -80,16 +78,23 @@ export function DatesRead({ startRead, endRead }: Props) {
           value={readEndDate}
           onChange={handleEndDateChange}
         ></input>
-        <button
-          onClick={() => handleSave(readStartDate, readEndDate)}
-          className="ml-6	 hover:font-bold hover:text-lime-600"
-        >
-          Save
-        </button>
-        {popup && (
-          <p className="text-red-600">
-            Your end date cannot be before your read date! Please check again.
-          </p>
+
+        {!startRead && !endRead && (
+          <button
+            onClick={() => handleSave(readStartDate, readEndDate)}
+            className="ml-6	 hover:font-bold hover:text-lime-600"
+          >
+            Save
+          </button>
+        )}
+
+        {startRead && (
+          <button
+            onClick={() => handleUpdate(readStartDate, readEndDate)}
+            className="ml-6	 hover:font-bold hover:text-lime-600"
+          >
+            update
+          </button>
         )}
       </div>
     </div>
