@@ -6,6 +6,7 @@ import { useAddReview } from '../../hooks/useGetReview'
 import { useDeleteReview } from '../../hooks/useGetReview'
 import { StarRating } from './StarRating'
 import { DatesRead } from './DatesRead'
+import { useGetBookReadDates } from '../../hooks/dates'
 
 interface CleanedTextResult {
   cleaned: string
@@ -25,6 +26,8 @@ export default function MyBookDetails() {
   const updateReview = useUpdateReview()
   const addReview = useAddReview()
   const deleteReview = useDeleteReview()
+
+  const { data: datesData } = useGetBookReadDates(bookIdString)
 
   const {
     data: myBooksData,
@@ -181,8 +184,8 @@ export default function MyBookDetails() {
               <div>
                 <h1 className="mb-2 mt-4">Dates Read:</h1>
                 <DatesRead
-                  startRead={myBooksData.start_date}
-                  endRead={myBooksData.end_date}
+                  startRead={datesData?.start_date}
+                  endRead={datesData?.end_date}
                 />
               </div>
               {!myBooksData.review_exist ? (
