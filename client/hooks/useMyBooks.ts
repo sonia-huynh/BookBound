@@ -64,18 +64,3 @@ export function useDeleteBookById() {
     },
   })
 }
-
-// Update read Start date by ID
-// export function useUpdateBookStartDate() {
-//   const queryClient = useQueryClient()
-//   return useMutation({
-//     mutationFn: (bookDeets: { bookId: string; startDate: string | null }) =>
-//       updateBookStartdate(bookDeets.bookId, bookDeets.startDate),
-//     onSuccess: () => {
-//       console.log('invalidating queries for start date has occured!!!')
-//       queryClient.invalidateQueries({
-//         queryKey: ['books'],
-//       })
-//     },
-//   })
-// }
