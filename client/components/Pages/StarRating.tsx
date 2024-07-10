@@ -107,22 +107,20 @@ export function StarRating({ bookId }: Props) {
       <div className={bookId ? 'flex justify-center' : 'flex '}>
         {[...Array(5)].map((_, i) => (
           <div key={i}>
-            <label
-              htmlFor={`star-rating-${i}`}
+            <button
               onMouseEnter={() => {
                 bookId ? null : starRating > 0 ? null : handleMouseEnter(i)
               }}
               onMouseLeave={() => handleMouseLeave()}
               onDoubleClick={() => (bookId ? null : handleDoubleClick(i))}
+              type="button"
+              aria-label="star rating stars"
+              value={i}
+              id={`star-rating-${i}`}
+              onClick={() => (bookId ? null : handleClick(i))}
             >
-              <button
-                value={i}
-                id={`star-rating-${i}`}
-                onClick={() => (bookId ? null : handleClick(i))}
-              >
-                {starIcon(i)}
-              </button>
-            </label>
+              {starIcon(i)}
+            </button>
           </div>
         ))}
       </div>
