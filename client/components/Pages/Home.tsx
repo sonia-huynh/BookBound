@@ -7,6 +7,7 @@ import {
   Reviews,
 } from '../../../models/books'
 import { useGetRecentActivityHome } from '../../hooks/recentActivity'
+import { StarRating } from './StarRating'
 
 export default function Home() {
   const navigate = useNavigate()
@@ -92,6 +93,9 @@ export default function Home() {
                   )}
                   {isRating(activity) && (
                     <div className="mt-4">
+                      <div className="flex">
+                        <StarRating bookId={activity.book_id} />
+                      </div>
                       <strong>
                         You have updated your rating for {activity.title} to{' '}
                         {activity.rating} stars

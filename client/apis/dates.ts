@@ -52,7 +52,9 @@ export async function updateBookDates(
 //Delete book dates
 export async function deleteBookReadDates(bookId: string) {
   try {
-    await request.delete(datesUrl + `${bookId}`)
+    const response = await request.delete(datesUrl + `${bookId}`)
+    console.log(response.body)
+    return response.body
   } catch (error) {
     console.error('Error deleting book dates')
     throw new Error('Failed to deleting book dates')
