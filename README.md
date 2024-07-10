@@ -1,4 +1,10 @@
 # 📚 BookBound
+
+
+
+https://github.com/sonia-huynh/BookBound/assets/155363911/fe86cffe-8ef5-4b94-b729-346deb542c6e
+
+
 BookBound is a personal book review and rating app similar to Goodreads just without the social aspect 🤭. I am currently building this app because I love to read and review books and as a perk I can also consolidate my learning on using external APIs and how to build a fullstack web app from scratch. 
 
 ### ✅ Features I currently have:
