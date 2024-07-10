@@ -53,7 +53,7 @@ export function useUpdateBookDates() {
 }
 
 // Delete Book dates
-export function useDeleteBookById() {
+export function useDeleteBookDates() {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: (bookId: string) => deleteBookReadDates(bookId),

@@ -1,6 +1,10 @@
 import { useParams } from 'react-router-dom'
 import { useState } from 'react'
-import { useAddBookReadDates, useUpdateBookDates } from '../../hooks/dates'
+import {
+  useAddBookReadDates,
+  useDeleteBookDates,
+  useUpdateBookDates,
+} from '../../hooks/dates'
 
 interface Props {
   startRead: string | null
@@ -17,10 +21,11 @@ export function DatesRead({ startRead, endRead }: Props) {
   const { id } = useParams()
   const bookIdString = id as string
   const addDates = useAddBookReadDates()
+  const deleteDates = useDeleteBookDates()
   const updateDates = useUpdateBookDates()
   const [readStartDate, setReadStartDate] = useState(startRead || '')
   const [readEndDate, setReadEndDate] = useState(endRead || '')
-  const [popup, setPopup] = useState(false)
+  const [updatePopup, setUpdatePopup] = useState(false)
 
   function handleStartDateChange(e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault()
@@ -53,6 +58,15 @@ export function DatesRead({ startRead, endRead }: Props) {
       startDate: bookStartDate,
       endDate: bookEndDate,
     })
+
+    setUpdatePopup(true)
+    setTimeout(() => setUpdatePopup(false), 3000)
+  }
+
+  function handleDelete() {
+    deleteDates.mutate(bookIdString)
+    setReadStartDate('')
+    setReadEndDate('')
   }
 
   return (
@@ -60,6 +74,7 @@ export function DatesRead({ startRead, endRead }: Props) {
       <div>
         <p>Start date:</p>
         <input
+          aria-label="reading start date picker"
           type="date"
           name="dateStart"
           id="dateStart"
@@ -71,6 +86,7 @@ export function DatesRead({ startRead, endRead }: Props) {
       <div className="mx-5">
         <p>End date:</p>
         <input
+          aria-label="reading end date picker"
           type="date"
           name="dateEnd"
           id="dateEnd"
@@ -89,12 +105,24 @@ export function DatesRead({ startRead, endRead }: Props) {
         )}
 
         {startRead && (
-          <button
-            onClick={() => handleUpdate(readStartDate, readEndDate)}
-            className="ml-6	 hover:font-bold hover:text-lime-600"
-          >
-            update
-          </button>
+          <>
+            <button
+              onClick={() => handleUpdate(readStartDate, readEndDate)}
+              className="ml-6	 hover:font-bold hover:text-lime-600"
+            >
+              update
+            </button>
+
+            <button
+              onClick={() => handleDelete()}
+              className="ml-6	 hover:font-bold hover:text-red-700"
+            >
+              delete
+            </button>
+          </>
+        )}
+        {updatePopup && (
+          <p className="text-green-700">Read dates have been updated</p>
         )}
       </div>
     </div>
