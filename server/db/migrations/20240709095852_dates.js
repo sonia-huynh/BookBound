@@ -6,8 +6,8 @@ export async function up(knex) {
       .references('book_id')
       .inTable('books')
       .onDelete('CASCADE')
-    table.string('start_date')
-    table.string('end_date')
+    table.string('start_date').nullable()
+    table.string('end_date').nullable()
     table.timestamps(true, true)
   })
 }

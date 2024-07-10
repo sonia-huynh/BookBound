@@ -18,8 +18,8 @@ export async function addReadDates(
 // UPDATE read dates
 export async function updateReadDates(
   bookId: string,
-  startDate: string | null,
-  endDate: string | null,
+  startDate: string | null | undefined,
+  endDate: string | null | undefined,
 ) {
   if (startDate && endDate) {
     const bookDates = await db('dates').where({ book_id: bookId }).update({
@@ -28,18 +28,18 @@ export async function updateReadDates(
       updated_at: db.fn.now(),
     })
     return bookDates
-  } else if (startDate) {
-    const bookStartDate = await db('dates')
-      .where({ book_id: bookId })
-      .select('start_date')
-      .update({ start_date: startDate, updated_at: db.fn.now() })
-    return bookStartDate
-  } else if (endDate) {
-    const bookEndDate = await db('dates')
-      .where({ book_id: bookId })
-      .select('start_date')
-      .update({ end_date: endDate, updated_at: db.fn.now() })
-    return bookEndDate
+  } else if (startDate === '') {
+    const emptyStart = await db('dates').where({ book_id: bookId }).update({
+      start_date: null,
+      updated_at: db.fn.now(),
+    })
+    return emptyStart
+  } else if (endDate === '') {
+    const emptyEnd = await db('dates').where({ book_id: bookId }).update({
+      end_date: null,
+      updated_at: db.fn.now(),
+    })
+    return emptyEnd
   }
 }
 
