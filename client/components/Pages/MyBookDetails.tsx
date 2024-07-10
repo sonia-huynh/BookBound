@@ -21,6 +21,7 @@ export default function MyBookDetails() {
   const [changeReview, setChangeReview] = useState(false)
   const [oldReview, setOldReview] = useState('')
   const [readMore, setReadMore] = useState(false)
+  const [checkDeletePopup, setCheckDeletePopup] = useState(false)
 
   // Custom hooks:
   const updateReview = useUpdateReview()
@@ -136,6 +137,11 @@ export default function MyBookDetails() {
     deleteReview.mutate(bookId)
   }
 
+  function checkDelete() {
+    setCheckDeletePopup(true)
+    setTimeout(() => setCheckDeletePopup(false), 5000)
+  }
+
   return (
     <>
       <div className="center-box">
@@ -196,6 +202,7 @@ export default function MyBookDetails() {
                   </div>
                   <div>
                     <textarea
+                      aria-label="book review text area"
                       name="review"
                       id="review"
                       className="review-edit-textarea"
@@ -263,11 +270,18 @@ export default function MyBookDetails() {
                       Update Review
                     </button>
                     <button
-                      onClick={handleDelete}
+                      onClick={checkDelete}
+                      onDoubleClick={handleDelete}
                       className="brown-button  mx-2 hover:bg-red-600 hover:text-white "
                     >
                       Delete Review
                     </button>
+                    {checkDeletePopup && (
+                      <p className="text-red-600">
+                        If you are sure you want to delete this book review,
+                        please click the delete button twice
+                      </p>
+                    )}
                   </div>
                 </div>
               )}
