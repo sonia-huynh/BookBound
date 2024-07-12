@@ -96,12 +96,14 @@ export function DatesRead({ startRead, endRead }: Props) {
         ></input>
       </div>
       {!startRead && !endRead && (
-        <button
-          onClick={() => handleSave(readStartDate, readEndDate)}
-          className="ml-6	 hover:font-bold hover:text-lime-600"
-        >
-          Save
-        </button>
+        <div className="date-read-buttons">
+          <button
+            onClick={() => handleSave(readStartDate, readEndDate)}
+            className="ml-6	 hover:font-bold hover:text-lime-600"
+          >
+            Save
+          </button>
+        </div>
       )}
 
       <div className="date-read-buttons">

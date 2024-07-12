@@ -74,7 +74,7 @@ export default function Home() {
                   {isBookDates(activity) && (
                     <div className="mt-4">
                       <strong>
-                        You have udpated the dates read for {activity.title}.
+                        You have updated the dates read for {activity.title}.
                       </strong>
                       <p>
                         Start Date: {activity.start_date} <br /> End Date:{' '}

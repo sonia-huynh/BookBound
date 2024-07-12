@@ -155,7 +155,8 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.712);
+  background-color: rgba(0, 0, 0, 0.589);
+  z-index: 980;
 }
 
 .my-books-popup {
@@ -167,6 +168,7 @@ h2 {
   border-radius: 8px;
   position: relative;
   box-shadow: 0px 0px 10px rgba(253, 0, 0, 0.842);
+  z-index: 980;
 }
 
 /* Delete My Books */

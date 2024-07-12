@@ -93,21 +93,21 @@ export default function MyBooks() {
                 )}
               </div>
             ))}
-            {deleting && (
-              <div className="my-books-popup-overlay">
-                <div className="my-books-popup">
-                  <DeleteBookPopUp
-                    setDeleting={setDeleting}
-                    bookName={bookTitle}
-                    bookId={bookId}
-                    bookTitle={bookTitle}
-                  />
-                </div>
-              </div>
-            )}
           </div>
         )}
       </div>
+      {deleting && (
+        <div className="my-books-popup-overlay">
+          <div className="my-books-popup">
+            <DeleteBookPopUp
+              setDeleting={setDeleting}
+              bookName={bookTitle}
+              bookId={bookId}
+              bookTitle={bookTitle}
+            />
+          </div>
+        </div>
+      )}
       <br />
     </>
   )
