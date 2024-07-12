@@ -4,6 +4,8 @@
 
 body {
   background-color: #fff5e8;
+  background-image: url('/Public/BookBoundBackground.png');
+  background-repeat: repeat;
 }
 
 /* Main */
@@ -96,6 +98,13 @@ h2 {
 }
 
 /* My Books */
+.my-books-box {
+  backdrop-filter: blur(5px);
+  padding: 1rem;
+  width: 85rem;
+  margin: auto;
+}
+
 .my-books-container {
   display: flex;
   flex-direction: row;
@@ -234,6 +243,14 @@ h2 {
 }
 
 /* My Reviews */
+.my-reviews {
+  backdrop-filter: blur(5px);
+  padding: 1rem;
+  width: 84rem;
+  margin: auto;
+  margin-top: 3rem;
+}
+
 .my-reviews-box {
   display: flex;
   gap: 25px;
@@ -315,6 +332,11 @@ h2 {
     display: flex;
     justify-content: center;
   }
+
+  .my-books-box,
+  .my-reviews {
+    width: 70rem;
+  }
 }
 
 @media (max-width: 1200px) {
@@ -329,6 +351,14 @@ h2 {
   }
   .logo {
     height: 80px;
+  }
+
+  .my-reviews {
+    width: 60rem;
+  }
+
+  .my-books-box {
+    width: 50rem;
   }
 
   .book-card {
@@ -370,9 +400,14 @@ h2 {
     font-size: 1rem;
   }
 
+  .my-books-box,
+  .my-reviews {
+    width: 30rem;
+  }
+
   .homeCard,
   .my-reviews-card {
-    width: 35rem;
+    width: auto;
   }
 
   .search-results-card {
@@ -425,6 +460,10 @@ h2 {
   .book-card {
     padding: 2.5rem;
   }
+  .my-books-box,
+  .my-reviews {
+    width: 24rem;
+  }
 
   .my-book-detail {
     display: block;
@@ -466,6 +505,14 @@ h2 {
   .card,
   .my-reviews-card {
     width: 20rem;
+  }
+
+  .my-reviews {
+    width: 20rem;
+  }
+
+  .my-books-box {
+    width: 10rem;
   }
 
   .book-card {

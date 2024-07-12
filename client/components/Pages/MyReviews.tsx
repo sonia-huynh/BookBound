@@ -28,8 +28,10 @@ export default function MyReviews() {
 
   return (
     <>
-      <div className="ml-10 mr-10 mt-10 ">
-        <h1 className="text-3xl font-bold underline">My Reviews</h1>
+      <div className="my-reviews">
+        <div>
+          <h1 className="text-3xl font-bold underline">My Reviews</h1>
+        </div>
         <div className="my-reviews-box">
           {reviews.map((bookReview, i) => (
             <div key={bookReview.id || i} className="my-reviews-card card">

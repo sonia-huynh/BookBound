@@ -34,9 +34,9 @@ export default function MyBooks() {
 
   return (
     <>
-      <div className="ml-8 mr-8">
+      <div className="my-books-box ml-8 mr-8">
         <div className="flex justify-between">
-          <div className="">
+          <div>
             <h1 className="my-book mt-10 text-3xl font-bold underline">
               My Books
             </h1>
