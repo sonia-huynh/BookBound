@@ -148,8 +148,8 @@ export default function MyBookDetails() {
         <div className="book-card card">
           {myBooksData && (
             <>
-              <div className="my-book-detail ">
-                <div className="flex justify-center">
+              <div className="my-book-detail">
+                <div className="my-book-cover flex justify-center">
                   <img
                     src={myBooksData.image}
                     alt={`cover of book for ${myBooksData.title}`}
@@ -157,10 +157,12 @@ export default function MyBookDetails() {
                   />
                 </div>
                 <div className="ml-6">
-                  <h1 className="mb-2 text-4xl">
+                  <h1 className="my-book-title mb-2 text-4xl">
                     <strong>{myBooksData.title}</strong>
                   </h1>
-                  <p className="mb-4 text-xl">by {myBooksData.author}</p>
+                  <p className="my-book-author mb-4 text-xl">
+                    by {myBooksData.author}
+                  </p>
                   <p className="mb-4">
                     {cleanText}
                     {shouldShowReadMore && (

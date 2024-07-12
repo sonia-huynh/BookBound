@@ -82,7 +82,7 @@ export default function SearchResults() {
       <br />
       <div className="flex justify-center">
         {searchData && (
-          <div className="search-results-width">
+          <div>
             {searchData.map((details) => (
               <div
                 key={details.bookId}
@@ -98,7 +98,7 @@ export default function SearchResults() {
                   <h1 className="mb-2">{details.title}</h1>
                   <p className=" mb-2">by {details.author}</p>
                   <p className="mb-4">{shorten(String(details.description))}</p>
-                  <div className="space-x-2">
+                  <div className="search-buttons space-x-2">
                     <button
                       className="brown-button"
                       onClick={() => {

@@ -70,7 +70,7 @@ export function DatesRead({ startRead, endRead }: Props) {
   }
 
   return (
-    <div className="flex ">
+    <div className="dates-read-container flex">
       <div>
         <p>Start date:</p>
         <input
@@ -83,7 +83,7 @@ export function DatesRead({ startRead, endRead }: Props) {
           onChange={handleStartDateChange}
         />
       </div>
-      <div className="mx-5">
+      <div className="end-date mx-5">
         <p>End date:</p>
         <input
           aria-label="reading end date picker"
@@ -94,16 +94,17 @@ export function DatesRead({ startRead, endRead }: Props) {
           value={readEndDate}
           onChange={handleEndDateChange}
         ></input>
+      </div>
+      {!startRead && !endRead && (
+        <button
+          onClick={() => handleSave(readStartDate, readEndDate)}
+          className="ml-6	 hover:font-bold hover:text-lime-600"
+        >
+          Save
+        </button>
+      )}
 
-        {!startRead && !endRead && (
-          <button
-            onClick={() => handleSave(readStartDate, readEndDate)}
-            className="ml-6	 hover:font-bold hover:text-lime-600"
-          >
-            Save
-          </button>
-        )}
-
+      <div className="date-read-buttons">
         {startRead && (
           <>
             <button
@@ -121,10 +122,10 @@ export function DatesRead({ startRead, endRead }: Props) {
             </button>
           </>
         )}
-        {updatePopup && (
-          <p className="text-green-700">Read dates have been updated</p>
-        )}
       </div>
+      {updatePopup && (
+        <p className="text-green-700">Read dates have been updated</p>
+      )}
     </div>
   )
 }

@@ -85,7 +85,7 @@ h2 {
   margin-bottom: 20px;
   /* border: 2px red solid; */
   padding: 25px;
-  width: 700px;
+  width: 45rem;
   display: flex;
   gap: 30px;
   max-width: 1000px;
@@ -218,10 +218,6 @@ h2 {
 }
 
 /* Search Results */
-.search-results-width {
-  width: 800px;
-}
-
 .search-results-card {
   display: flex;
   border-radius: 30px;
@@ -229,7 +225,7 @@ h2 {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 30px;
   margin-bottom: 20px;
-  width: 800px;
+  width: 50rem;
   gap: 30px;
 }
 
@@ -303,19 +299,210 @@ h2 {
   background-color: rgb(252, 243, 220);
 }
 
-@media (max-width: 838px) {
+.date-read-buttons {
+  display: flex;
+  justify-content: end;
+  margin-top: 1rem;
+  /* border: 2px pink solid; */
+}
+
+@media (max-width: 1400px) {
+  .nav .buttons button {
+    padding: 16px 32px;
+    font-size: 1.5rem;
+  }
+  .buttons {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 1200px) {
   .nav .buttons button {
     padding: 12px 24px;
     font-size: 1.25rem;
+    display: flex;
+  }
+  .buttons {
+    display: flex;
+    justify-content: center;
   }
   .logo {
     height: 80px;
   }
+
+  .book-card {
+    padding: 2.5rem;
+  }
+
+  .my-book-title {
+    font-size: 2rem;
+  }
+
+  .my-book-author {
+    font-size: 1rem;
+  }
+
+  .book-cover-big {
+    height: 300px;
+  }
 }
 
-@media (min-width: 1024px) {
+@media (max-width: 838px) {
   .nav .buttons button {
-    padding: 16px 32px;
+    padding: 12px 24px;
+    font-size: 1.25rem;
+    display: flex;
+  }
+  .buttons {
+    display: flex;
+    justify-content: center;
+  }
+  .logo {
+    height: 80px;
+  }
+
+  h1 {
     font-size: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1rem;
+  }
+
+  .homeCard,
+  .my-reviews-card {
+    width: 35rem;
+  }
+
+  .search-results-card {
+    width: 35rem;
+  }
+
+  .my-book-detail {
+    display: block;
+  }
+
+  .my-book-title {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .my-book-author {
+    display: flex;
+    justify-content: center;
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .book-cover-big {
+    width: auto;
+    display: flex;
+    justify-items: center;
+  }
+}
+
+@media (max-width: 560px) {
+  .nav .buttons button {
+    padding: 12px 24px;
+    font-size: 1.25rem;
+    display: flex;
+  }
+  .buttons {
+    display: flex;
+    justify-content: center;
+  }
+  .logo {
+    height: 80px;
+  }
+  .homeCard,
+  .my-reviews-card {
+    width: 25rem;
+  }
+  .book-card {
+    padding: 2.5rem;
+  }
+
+  .my-book-detail {
+    display: block;
+  }
+
+  .my-book-title h1 {
+    font-size: 1.5rem;
+  }
+
+  .my-book-author h2 {
+    font-size: 1rem;
+  }
+
+  .book-cover-big {
+    width: auto;
+  }
+
+  .home-book-cover {
+    height: 10rem;
+  }
+
+  .date-read-buttons {
+    display: inline-block;
+  }
+
+  .search-results-card {
+    width: 25rem;
+  }
+  .search-buttons {
+    display: flex;
+  }
+  .brown-button {
+    padding: 0.25rem;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .card,
+  .my-reviews-card {
+    width: 20rem;
+  }
+
+  .book-card {
+    padding: 2.5rem;
+  }
+
+  .end-date {
+    margin: 0;
+  }
+
+  .dates-read-container {
+    display: block;
+  }
+
+  h1 {
+    font-size: 1rem;
+  }
+
+  h2 {
+    font-size: 0.75rem;
+  }
+
+  p,
+  strong {
+    font-size: 0.75rem;
+  }
+
+  .search-buttons {
+    display: inline;
+  }
+  .brown-button {
+    padding: 2px;
+    font-size: 0.6rem;
+  }
+  .edit,
+  .finish-edit,
+  .my-book {
+    font-size: 1.25rem;
   }
 }

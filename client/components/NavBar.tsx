@@ -26,8 +26,8 @@ export default function NavBar() {
               My Reviews
             </button>
           </Link>
-          <div className="space-x-4">
-            <div>
+          <div className="buttons space-x-4">
+            <div className="buttons">
               <Search />
             </div>
           </div>

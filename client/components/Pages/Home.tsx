@@ -65,7 +65,7 @@ export default function Home() {
               <img
                 src={activity.image}
                 alt={`${activity.title} book cover`}
-                className="book-cover"
+                className="book-cover home-book-cover "
               />
               <div>
                 <h1> {activity.title}</h1>

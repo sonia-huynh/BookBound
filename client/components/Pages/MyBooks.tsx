@@ -37,19 +37,21 @@ export default function MyBooks() {
       <div className="ml-8 mr-8">
         <div className="flex justify-between">
           <div className="">
-            <h1 className="mt-10 text-3xl font-bold underline">My Books</h1>
+            <h1 className="my-book mt-10 text-3xl font-bold underline">
+              My Books
+            </h1>
           </div>
-          <div className="">
+          <div>
             {!edit ? (
               <button
-                className="mt-10 text-3xl font-bold underline hover:text-red-700"
+                className="edit mt-10 text-3xl font-bold underline hover:text-red-700"
                 onClick={() => setEdit(true)}
               >
                 Edit
               </button>
             ) : (
               <button
-                className="mt-10 text-3xl font-bold underline hover:text-green-700"
+                className="finish-edit mt-10 text-3xl font-bold underline hover:text-green-700"
                 onClick={() => setEdit(false)}
               >
                 Finished Edit

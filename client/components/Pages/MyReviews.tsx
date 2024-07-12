@@ -36,7 +36,7 @@ export default function MyReviews() {
               <img
                 src={bookReview.image}
                 alt={`book cover for ${bookReview.title} `}
-                className="book-cover"
+                className="book-cover home-book-cover"
               />
 
               <div
