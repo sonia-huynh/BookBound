@@ -47,9 +47,11 @@ As I am continuously learning while I am creating this app, I am happy to receiv
 
 ## 💻 Installation
 From the command line
-* git clone git@github.com:sonia-huynh/BookBound.git
-* npm install to install dependencies
-* npm run knex migrate:latest
-* npm run knex seed:run # to create database
-* npm run dev  to start the dev server
-* You can find the server running on http://localhost:3000 and the client running on http://localhost:5173.
+```
+git clone git@github.com:sonia-huynh/BookBound.git
+npm install
+npm run knex migrate:latest
+npm run knex seed:run 
+npm run dev 
+```
+You can find the server running on http://localhost:3000 and the client running on http://localhost:5173.
