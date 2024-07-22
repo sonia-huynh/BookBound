@@ -1,12 +1,13 @@
 import { useParams } from 'react-router-dom'
 import { useGetBookById } from '../../hooks/useMyBooks'
-import { useGetReviewById, useUpdateReview } from '../../hooks/useGetReview'
+import { useGetReviewById } from '../../hooks/useGetReview'
 import { useEffect, useState } from 'react'
-import { useAddReview } from '../../hooks/useGetReview'
 import { useDeleteReview } from '../../hooks/useGetReview'
 import { StarRating } from './StarRating'
 import { DatesRead } from './DatesRead'
 import { useGetBookReadDates } from '../../hooks/dates'
+import EditReview from './EditReview'
+import NewReview from './NewReview'
 
 interface CleanedTextResult {
   cleaned: string
@@ -24,8 +25,7 @@ export default function MyBookDetails() {
   const [checkDeletePopup, setCheckDeletePopup] = useState(false)
 
   // Custom hooks:
-  const updateReview = useUpdateReview()
-  const addReview = useAddReview()
+
   const deleteReview = useDeleteReview()
 
   const { data: datesData } = useGetBookReadDates(bookIdString)
@@ -93,42 +93,6 @@ export default function MyBookDetails() {
     readMore,
   )
 
-  function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
-    setInput(e.target.value)
-  }
-
-  function handleAdd(text: string) {
-    const bookId = bookIdString
-    const bookReview = text
-
-    if (bookId !== null) {
-      addReview.mutate({
-        bookId,
-        review: bookReview,
-      })
-    } else {
-      console.log('title parameter is null and review')
-    }
-    setChangeReview(false)
-    setInput('')
-  }
-
-  function handleUpdate(text: string) {
-    const bookId = bookIdString
-
-    if (text !== oldReview) {
-      updateReview.mutate({
-        bookId,
-        review: text,
-      })
-      setChangeReview(false)
-    } else if (text === oldReview) {
-      // Do nothing if the text hasn't changed
-      console.log('Review text has not changed.')
-      setChangeReview(false)
-    }
-  }
-
   function handleDelete() {
     const bookId = bookIdString
 
@@ -141,7 +105,7 @@ export default function MyBookDetails() {
     setCheckDeletePopup(true)
     setTimeout(() => setCheckDeletePopup(false), 5000)
   }
-
+  console.log(myBooksData.review_exist)
   return (
     <>
       <div className="center-box">
@@ -196,63 +160,15 @@ export default function MyBookDetails() {
                   endRead={datesData?.end_date}
                 />
               </div>
+
               {!myBooksData.review_exist ? (
-                <div>
-                  <h1 className=" mt-8">Your Book Review:</h1>
-                  <div className="book-review mt-4">
-                    <p>Write a review!</p>
-                  </div>
-                  <div>
-                    <textarea
-                      aria-label="book review text area"
-                      name="review"
-                      id="review"
-                      className="review-edit-textarea"
-                      placeholder="Write your review here"
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="flex justify-end">
-                    <button
-                      onClick={() => handleAdd(input)}
-                      className="brown-button"
-                    >
-                      Save Review
-                    </button>
-                  </div>
-                </div>
+                <NewReview />
               ) : myBooksData.review_exist && changeReview === true ? (
-                <div>
-                  <h1 className="mt-8">Current Review:</h1>
-                  <div className="book-review-display">
-                    {reviewData.length > 0 ? (
-                      <p>{reviewData}</p>
-                    ) : (
-                      <p>Write a review!</p>
-                    )}
-                  </div>
-                  <h1>Update Your Current Review:</h1>
-                  <div>
-                    <textarea
-                      name="review"
-                      id="review"
-                      className="review-edit-textarea"
-                      placeholder="Write your review here"
-                      defaultValue={oldReview}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="flex justify-end">
-                    <button
-                      onClick={() => {
-                        handleUpdate(input)
-                      }}
-                      className="brown-button  mr-2 hover:bg-lime-600 hover:text-white"
-                    >
-                      Save Updated Review
-                    </button>
-                  </div>
-                </div>
+                <EditReview
+                  prevReview={reviewData}
+                  setChangeReview={setChangeReview}
+                  oldReview={oldReview}
+                />
               ) : (
                 <div>
                   <h1 className="mt-8">Your Book Review:</h1>
