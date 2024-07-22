@@ -240,6 +240,11 @@ h2 {
   gap: 30px;
 }
 
+.search-details-container {
+  display: grid;
+  outline: 2px solid pink;
+}
+
 .search-book-card {
   padding: 40px;
 }

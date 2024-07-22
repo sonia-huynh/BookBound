@@ -94,7 +94,7 @@ export default function SearchResults() {
                   alt={`cover of book ${details.title}`}
                   className="book-cover"
                 />
-                <div>
+                <div className="search-details-container">
                   <h1 className="mb-2">{details.title}</h1>
                   <p className=" mb-2">by {details.author}</p>
                   <p className="mb-4">{shorten(String(details.description))}</p>

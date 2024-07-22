@@ -1,8 +1,4 @@
-import MyBooks from './Pages/MyBooks.tsx'
-import NavBar from './NavBar.tsx'
-import { Outlet, Route, Routes } from 'react-router-dom'
-import Home from './Pages/Home.tsx'
-import Search from './Search.tsx'
+import { Outlet } from 'react-router-dom'
 
 function App() {
   return (

@@ -8,10 +8,6 @@ import SearchResults from './Pages/SearchResults'
 import SearchBookDetails from './Pages/SearchBookDetails'
 import MyBookDetails from './Pages/MyBookDetails'
 
-// export function useSearchTerm() {
-// return useOutletContext() as [string, (term: string) => void]
-// }
-
 export default function Layout() {
   return (
     <div className="app">
@@ -28,8 +24,6 @@ export default function Layout() {
           </Route>
         </Routes>
       </header>
-      <main></main>
-      <footer></footer>
     </div>
   )
 }
