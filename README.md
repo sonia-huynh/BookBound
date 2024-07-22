@@ -1,8 +1,6 @@
 # 📚 BookBound
+https://github.com/user-attachments/assets/371c886e-a328-4944-8c9e-f3cb6ec9bec6
 
-
-
-https://github.com/sonia-huynh/BookBound/assets/155363911/fe86cffe-8ef5-4b94-b729-346deb542c6e
 
 
 BookBound is a personal book review and rating app similar to Goodreads just without the social aspect 🤭. I am currently building this app because I love to read and review books and as a perk I can also consolidate my learning on using external APIs and how to build a fullstack web app from scratch. 
@@ -45,3 +43,15 @@ I will be making sure this web application is accessible by running the WAVE ext
 
 ### 📝 Feedback
 As I am continuously learning while I am creating this app, I am happy to receive any feedback, tips, tricks and advice you may have on this app. 😊
+
+
+## 💻 Installation
+From the command line
+```
+git clone git@github.com:sonia-huynh/BookBound.git
+npm install
+npm run knex migrate:latest
+npm run knex seed:run 
+npm run dev 
+```
+You can find the server running on http://localhost:3000 and the client running on http://localhost:5173.
