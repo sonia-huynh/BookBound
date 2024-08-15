@@ -3,7 +3,7 @@ https://github.com/user-attachments/assets/371c886e-a328-4944-8c9e-f3cb6ec9bec6
 
 
 
-BookBound is a personal book review and rating app similar to Goodreads just without the social aspect 🤭. I am currently building this app because I love to read and review books and as a perk I can also consolidate my learning on using external APIs and how to build a fullstack web app from scratch. 
+BookBound is a personal book review and rating app similar to Goodreads just without the social aspect 🤭. I built this app because I love to read and review books and as a perk I can also consolidate my learning on using external APIs and how to build a fullstack web app from scratch. 
 
 ### ✅ Features I currently have:
 * User can search up any book they want in the search bar
